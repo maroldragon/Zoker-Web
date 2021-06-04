@@ -28,19 +28,23 @@
   </div>
 
   <div class="container mt-5 ps-3 pe-3">
-    <div class="loginform">
+    <div class="">
       <div class="row">
         <div class="col-md-6 bgcolorcyan p-5">
           <img src="img/login.svg" class="w-100" alt="">
         </div>
         <div class="col-md-6 p-5">
-          <h5>Welcome Back</h5>
-          <p>Username</p>
-          <input type="text" class="" placeholder="Penulis">
-          <p>Password</p>
-          <input type="password" class="" placeholder="Penulis">
-          <br>
-          <button>LOGIN</button>
+          <h3>Welcome Back</h3>
+          <div class="mb-3">
+            <label for="usernameInput" class="form-label">Username</label>
+            <input type="text" class="form-control" id="usernameInput" placeholder="Username">
+          </div>
+          <div class="mb-3">
+            <label for="passwordInput" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+          </div>
+          <button type="button" class="btn btn-primary form-control mb-3">MASUK</button>
+          <button type="button" class="btn btn-secondary form-control mb-3">MENDAFTAR</button>
         </div>
       </div>
     </div>

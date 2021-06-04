@@ -27,54 +27,54 @@
     </div>
   </div>
 
-  <div class="container mt-5 ps-3 pe-3">
-    <div class="row">
-      <div class="col-md-4">
-        <p>Judul Buku</p>
-        <input type="text" class="form-control" placeholder="Judul Buku">
-      </div>
-      <div class="col-md-4">
-        <p>Penulis</p>
-        <input type="text" class="form-control" placeholder="Penulis">
-      </div>
-      <div class="col-md-4">
-        <p>ISBN</p>
-        <input type="text" class="form-control" placeholder="ISBN">
-      </div>
+  <div class="container mt-5 ps-3 pe-3 col-6">
+    <h3 class="mb-5">FORM PENDAFTARAN</h3>
+    <div class="row mb-2">
+      <input type="text" class="form-control col me-2" id="namaDepanInput" placeholder="Nama Depan">
+      <input type="text" class="form-control col ms-2" id="namaBelakangInput" placeholder="Nama Belakang">
     </div>
-    <button class="mt-3">CARI</button>
-    <h3 class="mt-5">Hasil Pencarian</h3>
+    <div class="row mb-2">
+      <input type="text" class="form-control" id="usernameInput" placeholder="Username">
+    </div>
+    <div class="row mb-2">
+      <select class="form-control" name="Jenis Kelamin" id="jenisKelaminInput">
+        <option value="Laki-Laki">Laki-laki</option>
+        <option value="Perempuan">Perempuan</option>
+      </select>
+    </div>
+    <div class="row mb-2">
+      <input type="text" class="form-control col me-2" id="tempatLahirInput" placeholder="Tempat Lahir">
+      <input type="text" class="form-control col ms-2" id="tanggalLahirInput" placeholder="Tanggal Lahir">
+    </div>
+    <div class="row mb-2">
+      <select class="form-control col me-2" name="Agama" id="agamaInput">
+        <option value="Islam">Islam</option>
+        <option value="Kristen">Kristen</option>
+        <option value="Katolik">Katolik</option>
+        <option value="Buddha">Buddha</option>
+        <option value="Hindu">Hindu</option>
+        <option value="Kong Hu Cu">Kong Hu Cu</option>
+      </select>
+      <input type="text" class="form-control col ms-2" id="hobiInput" placeholder="Hobi">
+    </div>
+    <div class="row mb-2">
+      <input type="text" class="form-control col me-2" id="negaraInput" placeholder="Negara">
+      <input type="text" class="form-control col ms-2" id="provinsiInput" placeholder="Provinsi">
+    </div>
+    <div class="row mb-2">
+      <input type="text" class="form-control col me-2" id="kotaInput" placeholder="Kota">
+      <input type="text" class="form-control col ms-2" id="alamatInput" placeholder="Alamat">
+    </div>
+    <div class="row mb-2">
+      <input type="email" class="form-control col me-2" id="emailInput" placeholder="Email">
+      <input type="number" class="form-control col ms-2" id="nomotTeleponInput" placeholder="Nomor Telepon">
+    </div>
+    <div class="row mb-2">
+      <input type="password" class="form-control col me-2" id="passwordInput" placeholder="Password">
+      <input type="password" class="form-control col ms-2" id="konfirmasiPasswordInput" placeholder="Konfirmasi Password">
+    </div>
     <div class="row">
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top rounded-0" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
+      <button type="button" class="btn btn-primary form-control mb-3">DAFTAR</button>
     </div>
   </div>
 

@@ -28,52 +28,44 @@
   </div>
 
   <div class="container mt-5 ps-3 pe-3">
-    <div class="row">
-      <div class="col-md-4">
-        <p>Judul Buku</p>
-        <input type="text" class="form-control" placeholder="Judul Buku">
-      </div>
-      <div class="col-md-4">
-        <p>Penulis</p>
-        <input type="text" class="form-control" placeholder="Penulis">
-      </div>
-      <div class="col-md-4">
-        <p>ISBN</p>
-        <input type="text" class="form-control" placeholder="ISBN">
-      </div>
-    </div>
-    <button class="mt-3">CARI</button>
-    <h3 class="mt-5">Hasil Pencarian</h3>
+    <h3 class="mt-5">Kategori</h3>
+    <select class="form-control me-2" name="Kategori" id="kategoriInput">
+        <option value="Novel">Novel</option>
+        <option value="Komik">Komik</option>
+        <option value="Ensiklopedi">Ensiklopedi</option>
+        <option value="Dongeng">Dongeng</option>
+      </select>
+    <h3 class="mt-5">Hasil</h3>
     <div class="row">
       <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top rounded-0" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
+          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
+          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
+          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
       </div>
       <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
+          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
+          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
+          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
       </div>
       <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
+          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
+          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
+          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
       </div>
       <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
+          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
+          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
+          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
       </div>
       <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
+          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
+          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
+          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
       </div>
       <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-        <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-        <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-        <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
+          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
+          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
+          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
       </div>
     </div>
   </div>
