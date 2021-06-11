@@ -11,17 +11,17 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="navbar d-flex bgcolorcyan">
+<div class="navbar d-flex bgcolorcyan">
     <div class="container">
-      <a href="#" class="navbar-brand"><img src="img/logo.png" width="130" height="40" class="d-inline-block align-top" alt=""></a>
-      <input type="text" class="search" placeholder="Cari ...">
+      <a href="index.php" class="navbar-brand"><img src="img/logo.png" width="130" height="40" class="d-inline-block align-top" alt=""></a>
+      <input type="text" class="search" placeholder="Cari Buku ...">
       <div class="ms-auto">
         <ul class="navbar nav">
-          <li class="nav-item"><a class="nav-link ftcolordark" href="#">KATEGORI</a></li>
+          <li class="nav-item"><a class="nav-link ftcolordark" href="kategori.php">KATEGORI</a></li>
           <li class="nav-item"><a class="nav-link ftcolordark" href="#">KONTAK</a></li>
           <li class="nav-item"><a class="nav-link ftcolordark" href="#">TENTANG</a></li>
-          <li class="nav-item active"><a class="nav-link ftcolordark" href="#"><i class="fas fa-bell"></i></a></li>
-          <li class="nav-item active"><a class="nav-link ftcolordark" href="#"><i class="fas fa-user-circle fa-2x"></i></a></li>
+          <li class="nav-item active"><a class="nav-link ftcolordark notifikasi" href="#"><i class="#"></i></a></li>
+          <li class="nav-item active"><a class="nav-link ftcolordark user" href="#"><i class="#"></i></a></li>
         </ul>
       </div>
     </div>

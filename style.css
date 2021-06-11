@@ -39,7 +39,30 @@ body{
   background-color: #ffffff;
   outline: none;
 }
-
+.notifikasi{
+    height: 36px;
+  border: 0;
+  border-radius: 100px;
+  padding-left: 44px;
+  background-color: transparent;
+  background-image: url('img/notification.png');
+  background-position: left center;
+  background-position-x: 10px;
+  background-repeat: no-repeat;
+  background-size: 24px;
+}
+.user{
+    height: 36px;
+  border: 0;
+  border-radius: 100px;
+  padding-left: 44px;
+  background-color: transparent;
+  background-image: url('img/user.png');
+  background-position: left center;
+  background-position-x: 10px;
+  background-repeat: no-repeat;
+  background-size: 36px;
+}
 .card{
   background-color: #EBECF0;
 }
