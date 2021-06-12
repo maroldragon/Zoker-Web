@@ -8,10 +8,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
-  <title>Kategori</title>
+  <title>Profil</title>
 </head>
 <body>
-<div class="navbar d-flex bgcolorcyan">
+  <div class="navbar d-flex bgcolorcyan">
     <div class="container">
       <a href="index.php" class="navbar-brand"><img src="img/logo.png" width="130" height="40" class="d-inline-block align-top" alt=""></a>
       <input type="text" class="search" placeholder="Cari Buku ...">
@@ -27,48 +27,41 @@
     </div>
   </div>
 
-  <div class="container mt-5 ps-3 pe-3">
-    <h3 class="mt-5">Kategori</h3>
-    <select class="form-control me-2" name="Kategori" id="kategoriInput">
-        <option value="Novel">Novel</option>
-        <option value="Komik">Komik</option>
-        <option value="Ensiklopedi">Ensiklopedi</option>
-        <option value="Dongeng">Dongeng</option>
-      </select>
-    <h3 class="mt-5">Hasil</h3>
-    <div class="row">
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
-      <div class="col-md-2 col-sm-4 col-6 card p-2 border-0">
-          <div class="position-absolute text-warning bg-dark p-1"><i class="fas fa-star"><p class="d-inline text-light ps-2">4,5</p></i></div>
-          <img src="img/coverbook.jpg" class="card-img-top" alt="...">
-          <div class="card-body"><h6 class="card-title">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h5><p class="card-text"><i>David Cordingly</i></p></div>
-      </div>
+  <div class="container">
+  <div class="row">
+    <div class="col-9"><h2>Profil</h2></div>
+    <div class="col-4">
+            <div class="card" style="width: 18rem;">
+            <img src="img/user.png" class="card-img-top" alt="...">
+             <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Edit Profil</a>
+            </div>
+            </div>
     </div>
-  </div>
+    <div class="col-6">
+        <div class="container">
+            <div class="row">
+                <div class="col">Nama Lengkap</div>
+                <div class="col">: Zoker</div>
+            </div>
+            <div class="row">
+            <div class="col">Username</div>
+            <div class="col">: Zoker</div>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="inputGroupFile02">
+            <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+            <figure class="figure">
+            <img src="..." class="figure-img img-fluid rounded" alt="...">
+            <figcaption class="figure-caption">A caption for the above image.</figcaption>
+            </figure>
+    </div>
+    </div>
+    </div>
 
   <footer class="bgcolorcyan footer mt-5">
     <div class="container">
