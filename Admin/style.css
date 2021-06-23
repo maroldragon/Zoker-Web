@@ -1,0 +1,81 @@
+.body{
+  background-color: #EBECF0;
+  color: #383838;
+}
+.bgcolorcyan{
+  background-color: #20C3B0;
+}
+.warna{
+  color: #053f38;
+}
+.ftcolordark:link{
+  color: #EBECF0;
+}
+.ftcolordark:visited{
+  color: #EBECF0;
+}
+.ftcolordark:hover{
+  color: #8AE1D6;
+}
+.footer{
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+.search{
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  padding-left: 44px;
+  color: #757575;
+  background-color: #EBECF0;
+  background-image: url('img/search.png');
+  background-position: left center;
+  background-position-x: 10px;
+  background-repeat: no-repeat;
+  background-size: 24px;
+}
+.search:focus{
+  border: 0;
+  background-color: #ffffff;
+  outline: none;
+}
+.notifikasi{
+    height: 36px;
+  border: 0;
+  border-radius: 100px;
+  padding-left: 44px;
+  background-color: transparent;
+  background-image: url('img/notification.png');
+  background-position: left center;
+  background-position-x: 10px;
+  background-repeat: no-repeat;
+  background-size: 24px;
+}
+.user{
+    height: 36px;
+  border: 0;
+  border-radius: 100px;
+  padding-left: 44px;
+  background-color: transparent;
+  background-image: url('img/user.png');
+  background-position: left center;
+  background-position-x: 10px;
+  background-repeat: no-repeat;
+  background-size: 36px;
+}
+.card{
+  background-color: #fff;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.card-body{
+  background-color: #ffffff;
+}
+
+.loginform{
+  background-color: #EBECF0;
+  border: #053f38 !important;
+}
+.kontak{
+    margin-top: 10px; 
+}

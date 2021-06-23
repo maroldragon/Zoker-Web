@@ -1,65 +1,134 @@
-# [Start Bootstrap - SB Admin 2](https://startbootstrap.com/theme/sb-admin-2/)
+# AdminKit - Bootstrap 5 Admin Template ![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fadminkit.io%2F&text=AdminKit%20-%20Open%20Source%20Bootstrap%205%20Admin%20Template)
 
-[SB Admin 2](https://startbootstrap.com/theme/sb-admin-2/) is an open source admin dashboard theme for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
+A professional Admin & Dashboard template based on Bootstrap 5 that comes with hundreds of UI components, forms, tables, charts, pages and icons. AdminKit **does not require jQuery** and neither does one of the 3rd party libraries AdminKit is using.
 
-For the legacy Bootstrap 3 version of this theme, you can view the [last stable release](https://github.com/StartBootstrap/startbootstrap-sb-admin-2/releases/tag/v3.3.7%2B1) of SB Admin 2 for Bootstrap 3.
+<strong><a href="https://demo.adminkit.io/">View Demo</a> | <a href="https://github.com/adminkit/adminkit/archive/master.zip">Download ZIP</a> | <a href="https://adminkit.io/">Visit Website</a></strong>
 
-## Preview
-
-[![SB Admin 2 Preview](https://assets.startbootstrap.com/img/screenshots/themes/sb-admin-2.png)](https://startbootstrap.github.io/startbootstrap-sb-admin-2/)
-
-**[Launch Live Preview](https://startbootstrap.github.io/startbootstrap-sb-admin-2/)**
+[![AdminKit Demo](https://assets.adminkit.io/banners/adminkit-bootstrap-5-admin-template.png)](https://demo.adminkit.io/)
 
 ## Status
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-sb-admin-2/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-sb-admin-2.svg)](https://www.npmjs.com/package/startbootstrap-sb-admin-2)
-[![Build Status](https://travis-ci.org/StartBootstrap/startbootstrap-sb-admin-2.svg?branch=master)](https://travis-ci.org/StartBootstrap/startbootstrap-sb-admin-2)
-[![dependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-sb-admin-2/status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-sb-admin-2)
-[![devDependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-sb-admin-2/dev-status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-sb-admin-2?type=dev)
+[![Version](https://img.shields.io/npm/v/@adminkit/core)](https://www.npmjs.com/package/@adminkit/core) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/adminkit/adminkit/blob/master/LICENSE) [![GitHub issues open](https://img.shields.io/github/issues/adminkit/adminkit.svg)](https://github.com/adminkit/adminkit/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/adminkit/adminkit.svg)](https://github.com/adminkit/adminkit/issues?q=is%3Aissue+is%3Aclosed) [![GitHub Stars](https://img.shields.io/github/stars/adminkit/adminkit.svg?color=green)](https://github.com/adminkit/adminkit/stargazers) [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://demo.adminkit.io/)
 
-## Download and Installation
+## Upgrade to PRO
+Get more power with AdminKit PRO, a premium variant of AdminKit, featuring hundreds of UI components, forms, tables, charts, pages, and icons.
 
-To begin using this template, choose one of the following options to get started:
+| Free Version        | [AdminKit PRO](https://adminkit.io/pricing/) |
+|---------------------|----------------------------------------------|
+| 15 Demo Pages       | ✔ 45+ Demo Pages                             |
+| 1 Plugin            | ✔ 10+ Plugins                                |
+| 1 Color Scheme      | ✔ 3 Color Schemes                            |
+|                     | ✔ All Bootstrap 5 Components                 |
+|                     | ✔ Dark Mode 🌙                               |
+|                     | ✔ Compact Sidebar                            |
+|                     | ✔ Calendar                                   |
+|                     | ✔ Advanced Forms                             |
+|                     | ✔ Drag and Drop                              |
+|                     | ✔ Toast Notifications                        |
+|                     | ✔ WYSIWYG Editors                            |
+|                     | ✔ Premium Support                            |
 
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/theme/sb-admin-2/)
-* Install via npm: `npm i startbootstrap-sb-admin-2`
-* Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-sb-admin-2.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-sb-admin-2)
+## Features
 
-## Usage
+* **Customizable:** You don't need to be an expert to customize AdminKit. Our code is very readable and well documented.
+* **Fully Responsive:** With mobile, tablet & desktop support it doesn't matter what device you're using. AdminKit is responsive in all browsers.
+* **Cross-Browser:** Our themes are working perfectly with Chrome, Firefox, Safari, Opera, and Edge. We're working hard to support them.
+* **Clean Code:** We strictly follow Bootstrap's guidelines to make your integration as easy as possible. All code is handwritten.
+* **No jQuery:** AdminKit, and all third-party libraries used in the admin template, do not require jQuery as a dependency.
+* **Regular Updates:** From time to time you'll receive an update containing new components, improvements, and bugfixes.
 
-After installation, run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `gulpfile.js` to see which tasks are included with the dev environment.
+## Quick start
 
-### Gulp Tasks
+### Download
 
-* `gulp` the default task that builds everything
-* `gulp watch` browserSync opens the project in your default browser and live reloads when changes are made
-* `gulp css` compiles SCSS files into CSS and minifies the compiled CSS
-* `gulp js` minifies the themes JS file
-* `gulp vendor` copies dependencies from node_modules to the vendor directory
+* Clone this repo `git clone https://github.com/adminkit/adminkit.git`
+* [Download from GitHub](https://github.com/adminkit/adminkit/archive/master.zip)
+* [Download from Website](https://adminkit.io/#download)
 
-You must have npm installed globally in order to use this build environment. This theme was built using node v11.6.0 and the Gulp CLI v2.0.1. If Gulp is not running properly after running `npm install`, you may need to update node and/or the Gulp CLI locally.
+### Build tools
 
-## Bugs and Issues
+The theme includes a custom Webpack file, which can be used to quickly recompile and minify theme assets while developing or for deployment. You'll need to install Node.js before using Webpack.
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/StartBootstrap/startbootstrap-sb-admin-2/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](https://startbootstrap.com/theme/sb-admin-2/).
+Once Node.js is installed, run npm install to install the rest of AdminKit's dependencies. All dependencies will be downloaded to the node_modules directory.
 
-## About
+```sh
+npm install
+```
 
-Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
+Now you're ready to modify the source files and generate new dist/ files. AdminKit uses webpack-dev-server to automatically detect file changes and start a local webserver at http://localhost:8080.
 
-* <https://startbootstrap.com>
-* <https://twitter.com/SBootstrap>
+```sh
+npm start
+```
 
-Start Bootstrap was created by and is maintained by **[David Miller](https://davidmiller.io/)**.
+Compile, optimize, minify and uglify all source files to dist/ folder:
 
-* <https://davidmiller.io>
-* <https://twitter.com/davidmillerhere>
-* <https://github.com/davidtmiller>
+```sh
+npm run build
+```
 
-Start Bootstrap is based on the [Bootstrap](https://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+## CDN support
 
-## Copyright and License
+All files included in the `@adminkit/core` npm package are available over a CDN.
 
-Copyright 2013-2021 Start Bootstrap LLC. Code released under the [MIT](https://github.com/StartBootstrap/startbootstrap-resume/blob/master/LICENSE) license.
+**CSS:**
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/@adminkit/core@latest/dist/css/app.css">
+```
+
+**Javascript:**
+
+```html
+<script src="https://unpkg.com/@adminkit/core@latest/dist/js/app.js"></script>
+```
+
+## File structure
+The package contains the following directories and files:
+
+```
+adminkit/
+├── .babelrc
+├── .eslintrc
+├── .nvmrc
+├── README.md
+├── package.json
+├── postcss.config.js
+├── webpack.config.js
+├── src/
+│   ├── fonts/
+│   ├── img/
+│   ├── js/
+│   │   ├── modules/
+│   │   └── app.js
+│   └── scss/
+│       ├── 1-variables/
+│       ├── 2-mixins/
+│       ├── 3-components/
+│       ├── 4-utilities/
+│       ├── 5-vendor/
+│       └── app.scss
+└── dist/
+    ├── css/
+    │   └── app.css
+    └── js/
+        └── app.js
+```
+
+## Browser Support
+
+| <img src="https://assets.adminkit.io/browsers/edge.png" alt="Edge" width="24px" height="24px" /><br/>Edge | <img src="https://assets.adminkit.io/browsers/firefox.png" alt="Firefox" width="24px" height="24px" /><br/>Firefox | <img src="https://assets.adminkit.io/browsers/chrome.png" alt="Chrome" width="24px" height="24px" /><br/>Chrome | <img src="https://assets.adminkit.io/browsers/safari.png" alt="Safari" width="24px" height="24px" /><br/>Safari | <img src="https://assets.adminkit.io/browsers/safari-ios.png" alt="iOS Safari" width="24px" height="24px" /><br/>iOS Safari |
+| --------- | --------- | --------- | --------- | --------- |
+| last version| last 2 versions| last 2 versions| last 2 versions| last 2 versions
+
+## Resources
+
+* [Demo](https://demo.adminkit.io/)
+* [Website](https://adminkit.io/)
+* [Documentation](https://adminkit.io/docs)
+* [Support](https://adminkit.io/support/)
+* [Affiliate Program](https://adminkit.io/affiliate-program)
+
+## Bugs and feature requests
+
+Found a bug or have a feature request? [Please open a new issue](https://github.com/adminkit/adminkit/issues/new).
