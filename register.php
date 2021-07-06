@@ -27,51 +27,99 @@
     </div>
   </div>
 
-  <div class="container mt-5 ps-3 pe-3 col-6">
+  <div class="container mt-5 ps-3 pe-3 col col-6">
     <h3 class="mb-5">FORM PENDAFTARAN</h3>
     <div class="row mb-2">
-      <input type="text" class="form-control col me-2" id="namaDepanInput" placeholder="Nama Depan">
-      <input type="text" class="form-control col ms-2" id="namaBelakangInput" placeholder="Nama Belakang">
+      <div class="col">
+        <label for="namaDepanInput">Nama Depan</label>
+        <input type="text" class="form-control" id="namaDepanInput">
+      </div>
+      <div class="col">
+        <label for="namaBelakangInput">Nama Belakang</label>
+        <input type="text" class="form-control" id="namaBelakangInput">
+      </div>
+    </div>
+    <div class="row mb-2 col">
+      <div class="col">
+        <label for="usernameInput">Username</label>
+        <input type="text" class="form-control" id="usernameInput">
+      </div>
     </div>
     <div class="row mb-2">
-      <input type="text" class="form-control" id="usernameInput" placeholder="Username">
+      <div class="col">
+        <label for="jenisKelaminInput">Jenis Kelamin</label>
+        <select class="form-control" name="Jenis Kelamin" id="jenisKelaminInput">
+          <option value="Laki-Laki">Laki-laki</option>
+          <option value="Perempuan">Perempuan</option>
+        </select>
+      </div>
     </div>
     <div class="row mb-2">
-      <select class="form-control" name="Jenis Kelamin" id="jenisKelaminInput">
-        <option value="Laki-Laki">Laki-laki</option>
-        <option value="Perempuan">Perempuan</option>
-      </select>
+      <div class="col">
+        <label for="tempatLahirInput">Tempat Lahir</label>
+        <input type="text" class="form-control" id="tempatLahirInput">
+      </div>
+      <div class="col">
+        <label for="tanggalLahirInput">Tanggal Lahir</label>
+        <input type="text" class="form-control" id="tanggalLahirInput">
+      </div>
     </div>
     <div class="row mb-2">
-      <input type="text" class="form-control col me-2" id="tempatLahirInput" placeholder="Tempat Lahir">
-      <input type="text" class="form-control col ms-2" id="tanggalLahirInput" placeholder="Tanggal Lahir">
+      <div class="col">
+        <label for="agamaInput">Agama</label>
+        <select class="form-control" name="Agama" id="agamaInput">
+          <option value="Islam">Islam</option>
+          <option value="Kristen">Kristen</option>
+          <option value="Katolik">Katolik</option>
+          <option value="Buddha">Buddha</option>
+          <option value="Hindu">Hindu</option>
+          <option value="Kong Hu Cu">Kong Hu Cu</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="hobiInput">Hobi</label>        
+        <input type="text" class="form-control" id="hobiInput">
+      </div>
     </div>
     <div class="row mb-2">
-      <select class="form-control col me-2" name="Agama" id="agamaInput">
-        <option value="Islam">Islam</option>
-        <option value="Kristen">Kristen</option>
-        <option value="Katolik">Katolik</option>
-        <option value="Buddha">Buddha</option>
-        <option value="Hindu">Hindu</option>
-        <option value="Kong Hu Cu">Kong Hu Cu</option>
-      </select>
-      <input type="text" class="form-control col ms-2" id="hobiInput" placeholder="Hobi">
+      <div class="col">
+        <label for="negaraInput">Negara</label>
+        <input type="text" class="form-control" id="negaraInput">
+      </div>
+      <div class="col">
+        <label for="provinsiInput">Provinsi</label>
+        <input type="text" class="form-control" id="provinsiInput">
+      </div>
     </div>
     <div class="row mb-2">
-      <input type="text" class="form-control col me-2" id="negaraInput" placeholder="Negara">
-      <input type="text" class="form-control col ms-2" id="provinsiInput" placeholder="Provinsi">
+      <div class="col">
+        <label for="kotaInput">Kota</label>
+        <input type="text" class="form-control" id="kotaInput">
+      </div>
+      <div class="col">
+        <label for="alamatInput">Alamat</label>
+        <input type="text" class="form-control" id="alamatInput">
+      </div>
     </div>
     <div class="row mb-2">
-      <input type="text" class="form-control col me-2" id="kotaInput" placeholder="Kota">
-      <input type="text" class="form-control col ms-2" id="alamatInput" placeholder="Alamat">
+      <div class="col">
+        <label for="emailInput">Email</label>
+        <input type="email" class="form-control" id="emailInput">
+      </div>
+      <div class="col">
+        <label for="nomotTeleponInput">Nomor Telepon</label>
+        <input type="number" class="form-control" id="nomotTeleponInput">
+      </div>
     </div>
     <div class="row mb-2">
-      <input type="email" class="form-control col me-2" id="emailInput" placeholder="Email">
-      <input type="number" class="form-control col ms-2" id="nomotTeleponInput" placeholder="Nomor Telepon">
-    </div>
-    <div class="row mb-2">
-      <input type="password" class="form-control col me-2" id="passwordInput" placeholder="Password">
-      <input type="password" class="form-control col ms-2" id="konfirmasiPasswordInput" placeholder="Konfirmasi Password">
+      <div class="col">
+        <label for="passwordInput">Password</label>
+        <input type="password" class="form-control" id="passwordInput">
+      </div>
+      <div class="col">
+        <label for="konfirmasiPasswordInput">Konfirmasi Password</label>
+        <input type="password" class="form-control" id="konfirmasiPasswordInput">
+      </div>
     </div>
     <div class="row">
       <button type="button" class="btn btn-primary form-control mb-3">DAFTAR</button>
