@@ -1,38 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="style.css">
+  <?php
+    @include_once('head.php')
+  ?>
   <title>Register</title>
 </head>
 <body>
-<div class="navbar d-flex bgcolorcyan">
-    <div class="container">
-      <a href="index.php" class="navbar-brand"><img src="img/logo.png" width="130" height="40" class="d-inline-block align-top" alt=""></a>
-      <input type="text" class="search" placeholder="Cari Buku ...">
-      <div class="ms-auto">
-        <ul class="navbar nav">
-          <li class="nav-item"><a class="nav-link ftcolordark" href="kategori.php">KATEGORI</a></li>
-          <li class="nav-item"><a class="nav-link ftcolordark" href="#">KONTAK</a></li>
-          <li class="nav-item"><a class="nav-link ftcolordark" href="#">TENTANG</a></li>
-          <li class="nav-item active"><a class="nav-link ftcolordark notifikasi" href="#"><i class="#"></i></a></li>
-          <li class="nav-item active"><a class="nav-link ftcolordark user" href="#"><i class="#"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <?php
+    @include_once('header.php')
+  ?>
 
   <div class="container mt-5 ps-3 pe-3 col col-6">
     <h3 class="mb-5">FORM PENDAFTARAN</h3>
     <div class="row mb-2">
       <div class="col">
         <label for="namaDepanInput">Nama Depan</label>
-        <input type="text" class="form-control" id="namaDepanInput">
+        <input type="text" class="form-control inp-text" id="namaDepanInput">
       </div>
       <div class="col">
         <label for="namaBelakangInput">Nama Belakang</label>
