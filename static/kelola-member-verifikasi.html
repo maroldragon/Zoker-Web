@@ -50,7 +50,7 @@
                 </a>
             </li>
 		<!--Kelola Item Digital-->
-			<li class="sidebar-item active">
+			<li class="sidebar-item ">
 				<a class="sidebar-link" href="Kelola-item-digital.html">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book-half" viewBox="0 0 16 16">
 						<path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
@@ -59,7 +59,7 @@
 			</a>
 			</li>
         <!--Kelola member-->
-            <li class="sidebar-item">
+            <li class="sidebar-item active">
                 <a class="sidebar-link" href="Kelola-member.html">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                         <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -117,8 +117,7 @@
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle">
-          <i class="hamburger align-self-center"></i></a>
-
+          		<i class="hamburger align-self-center"></i></a>
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 						<li class="nav-item dropdown">
@@ -283,7 +282,7 @@
 								<div class="mb-0">
 									<nav class="navbar ">
 										
-										<form method="get" action="Kelola-item-digital.html">
+										<form method="get" action="Kelola-member.html">
 											<button class="btn btn-danger" type="submit">
 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
 													<path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
@@ -296,102 +295,74 @@
 								</div>											
 							</div>
 							<!--Data Buku-->
-							<div class="col-md-12">
-								<div class="card">									
-									<div class="card-body">
-										<form>
-											<div class="form-group">
-												<label for="inputAddress">Judul Buku</label>
-												<input type="text" class="form-control" id="judulbuku" placeholder="Input judul Buku">
-											</div>
-											<div class="form-group">
-												<label for="inputAddress">Pengarang</label>
-												<input type="text" class="form-control" id="pengarang" placeholder="Input Pengarang Buku">
-											</div>
-											<div class="form-group">
-												<label for="inputAddress">Penerbit</label>
-												<input type="text" class="form-control" id="penerbit" placeholder="Input Penerbit Buku">
-											</div>
-
-											<!--Menu Dropdown-->
-											<div class="navbar">												
-												<from class="form-group col-md-5">
-													<label for="inputState">Klasifikasi Buku</label>
-													<select id="inputState" class="form-control">
-														<option selected>Pilih Klasifikasi</option>
-														<option>Klasifikasi 1</option>
-														<option>Klasifikasi 2</option>
-														<option>Klasifikasi 3</option>
-													</select>
-												</from>
-												<from class="form-group col-md-5">
-													<label for="inputState">Klasifikasi Buku</label>
-													<select id="inputState" class="form-control">
-														<option selected>Pilih Klasifikasi</option>
-														<option>Klasifikasi 1</option>
-														<option>Klasifikasi 2</option>
-														<option>Klasifikasi 3</option>
-													</select>
-												</from>												
-											</div>
-											<div class="navbar">												
-												<from class="form-group col-md-5">
-													<label for="inputState">Klasifikasi Buku</label>
-													<select id="inputState" class="form-control">
-														<option selected>Pilih Klasifikasi</option>
-														<option>Klasifikasi 1</option>
-														<option>Klasifikasi 2</option>
-														<option>Klasifikasi 3</option>
-													</select>
-												</from>
-												<from class="form-group col-md-5">
-													<label for="inputState">Klasifikasi Buku</label>
-													<select id="inputState" class="form-control">
-														<option selected>Pilih Klasifikasi</option>
-														<option>Klasifikasi 1</option>
-														<option>Klasifikasi 2</option>
-														<option>Klasifikasi 3</option>
-													</select>
-												</from>												
-											</div>
-											<div class="navbar">												
-												<from class="col-md-5">
-													<label for="inputEmail4">Email</label>
-													<input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-												</from>
-												<from class="col-md-5">
-													<label for="inputEmail4">Email</label>
-													<input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-												</from>												
-											</div>
-											
-
-											<div class="navbar">
-												<div class="form-group">
-													<label class="form-label w-100">Cover Buku</label>
-													<input type="file">
-													<small class="form-text text-muted">Format gambar .jpg / .png</small>
-												</div>
-												<div class="form-group">
-													<label class="form-label w-100">File Buku</label>
-													<input type="file">
-													<small class="form-text text-muted">Format File Buku .pdf</small>
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="form-label w-100">Deskripsi Buku</label>
-												<textarea class="form-control" placeholder="Input Deskripsi Buku" rows="3"></textarea>
-											</div>
-											
-											<div class="navbar">
-												<button type="submit" class="btn btn-primary">Submit</button>
-											</div>
-											
-										</form>
-									</div>
-								</div>
-							</div>
 							
+							<div class="col-12">
+								<div class="card flex-fill">
+									<div class="card-header">				
+								<h5 class="card-title mb-0">Data Member Baru Mendaftar</h5>
+							</div>
+									<div class="card-header">
+										<table class="table table-hover my-0">
+											<thead>
+												<tr >
+													<th>No</th>													
+													<th>Username</th>
+													<th>Nama</th>
+													<th>Email</th>
+													<th>No Telfon</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row">1</th>
+													<td>marold</td>
+													<td>Martua Sinaga</td>
+													<td>marolddragon@gmail.com</td>
+													<td>085161449945</td>
+													<td class="table-action">
+														<a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
+														<a href="#"><i class="align-middle" data-feather="trash"></i></a>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">2</th>
+													<td>owen</td>
+													<td>Evan Owen Pasaribu</td>
+													<td>evanowenpasaribu@gmail.com</td>
+													<td>082161848845</td>
+													<td class="table-action">
+														<a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
+														<a href="#"><i class="align-middle" data-feather="trash"></i></a>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">3</th>
+													<td>fajar</td>
+													<td>Iman Fajar Lombu</td>
+													<td>fajarlombu@gmail.com</td>
+													<td>081261436645</td>
+													<td class="table-action">
+														<a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
+														<a href="#"><i class="align-middle" data-feather="trash"></i></a>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">4</th>
+													<td>Jancok</td>
+													<td>Jancokkkkk Sihombing</td>
+													<td>Jancokkkkk@gmail.com</td>
+													<td>085287615621</td>
+													<td class="table-action">
+														<a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
+														<a href="#"><i class="align-middle" data-feather="trash"></i></a>
+													</td>
+												</tr>											
+											</tbody>
+										</table>
+									</div>	
+								</div>
+							</div>							
 						</div>	
 			</main>
 
