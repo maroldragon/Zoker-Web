@@ -1,40 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="style.css">
+  <?php
+    @include_once('head.php')
+  ?>
   <title>Index</title>
 </head>
 <body>
-  <div class="navbar d-flex bgcolorcyan">
-    <div class="container">
-      <a href="index.php" class="navbar-brand"><img src="img/logo.png" width="130" height="40" class="d-inline-block align-top" alt=""></a>
-      <input type="text" class="search" placeholder="Cari Buku ...">
-      <div class="ms-auto">
-        <ul class="navbar nav">
-          <li class="nav-item"><a class="nav-link ftcolordark" href="kategori.php">KATEGORI</a></li>
-          <li class="nav-item"><a class="nav-link ftcolordark" href="#">KONTAK</a></li>
-          <li class="nav-item"><a class="nav-link ftcolordark" href="#">TENTANG</a></li>
-          <li class="nav-item active"><a class="nav-link ftcolordark notifikasi" href="#"><i class="#"></i></a></li>
-          <li class="nav-item active"><a class="nav-link ftcolordark user" href="#"><i class="#"></i></a></li>
-          <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Log out</a>
-          </div>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <?php
+    @include_once('header.php')
+  ?>
 
   <div class="container mt-5 ps-3 pe-3">
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -177,6 +152,8 @@
     </div>
   </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </body>
 </html>

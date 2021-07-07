@@ -1,47 +1,87 @@
-.body{
-  background-color: #EBECF0;
+*:focus{
+  outline: none;
+}
+::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+body{
+  padding: none;
+  background-color: #f5f7fb;
   color: #383838;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 16px;
 }
-.bgcolorcyan{
-  background-color: #20C3B0;
+
+.navbar{
+  background: #20C3B0;
+  margin: 0 auto;
+  padding: 10px;
 }
-.warna{
-  color: #053f38;
+
+.nav-link{  
+  text-align: center;
+  color: #f5f7fb;
+  font-size: 16px;
 }
-.ftcolordark:link{
-  color: #EBECF0;
+.nav-link:visited{
+  color: #f5f7fb;
 }
-.ftcolordark:visited{
-  color: #EBECF0;
-}
-.ftcolordark:hover{
+
+.nav-link:hover{
   color: #8AE1D6;
 }
+
+.navbar-toggler:focus{
+  box-shadow: none;
+}
+
+.dropdown-menu{
+  background-color: #f5f7fb;
+  box-shadow: 2px 3px 3px #888888;
+  border-radius: 20px;    
+}
+
+.dropdown-menu a{
+  text-align: center;
+  color: #20C3B0;
+}
+
+.dropdown-menu a:hover{    
+  background-color: transparent;
+  color: #086459;
+}
+
+.dropdown-divider{
+  border-color: #cccccc;
+}
+
+
+.form-content{
+  border-radius: 10px;
+  box-shadow: 2px 3px 3px #888888;
+  padding: 30px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #fafafd;
+  position: relative;
+}
+
+h1{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
 .footer{
+  background: #20C3B0;
   padding-top: 30px;
   padding-bottom: 10px;
 }
-.search{
-  height: 36px;
-  border: 0;
-  border-radius: 10px;
-  padding-left: 44px;
-  color: #757575;
-  background-color: #EBECF0;
-  background-image: url('img/search.png');
-  background-position: left center;
-  background-position-x: 10px;
-  background-repeat: no-repeat;
-  background-size: 24px;
-}
-.search:focus{
-  border: 0;
-  background-color: #ffffff;
-  outline: none;
-}
+
 .notifikasi{
-    height: 36px;
-  border: 0;
+  height: 36px;
+  border: none;
   border-radius: 100px;
   padding-left: 44px;
   background-color: transparent;
@@ -52,8 +92,8 @@
   background-size: 24px;
 }
 .user{
-    height: 36px;
-  border: 0;
+  height: 36px;
+  border: none;
   border-radius: 100px;
   padding-left: 44px;
   background-color: transparent;
@@ -72,13 +112,124 @@
   background-color: #ffffff;
 }
 
-.loginform{
-  background-color: #EBECF0;
-  border: #053f38 !important;
-}
 .kontak{
     margin-top: 10px; 
 }
 
+.inp-search{  
+  border: none;
+  border-radius: 10px 0px 0px 10px;
+  color: #000000;
+  background-color: #c5ebe7;
+}
+
+.inp-search:focus{  
+  border: none;
+  background-color: #ebf5f4;
+  outline: none;
+  box-shadow: none;
+}
+
+.inp-text{
+  background: #fafafd;
+  border-color: #cccccc;
+  font-size: 16px;
+  color: #000000;
+}
+
+.inp-text:focus{
+  background: #ffffff;
+  border-color: #20C3B0;
+  box-shadow: none;
+}
+.inp-text-label{
+  color: #000000;
+  font-size: 14px;
+}
+
+.btn-primary, .btn-primary:active{
+  background-color: #107dac;
+  border: none;
+  color: #f5f7fb;
+}
+.btn-primary:hover, .btn-primary:visited, .btn-primary:focus{
+  background-color: #005073;
+  border: none;
+  color: #f5f7fb;
+}
+
+.btn-secondary, .btn-secondary:active{  
+  background-color: #b3cde0;
+  border: none;
+  color: #031f4b;
+}
+
+.btn-secondary:hover, .btn-secondary:visited, .btn-secondary:focus{
+  background-color: #6497b1;
+  border: none;
+  color: #031f4b;
+}
+
+.btn-search, .btn-search:active{
+  background-color: #086459;
+  border: none;
+  border-radius: 0px 10px 10px 0px;
+  color: #f5f7fb;
+}
+
+.btn-search:hover, .btn-search:visited, .btn-search:focus{
+  background-color: #024f46;
+  border: none;
+  color: #f5f7fb;
+}
+
+.image-middle{
+  width: 100%;
+  height: auto;
+}
+
+.image-brand{
+  margin: none;
+  padding: none;
+  width: 130px;
+  height: 40px;
+
+}
 
 
+@media only screen and (min-width: 992px) {
+  .nav-link{
+    margin-left: 20px;
+  }
+  
+  .navbar-nav{
+    position: absolute;
+    right: 0!important;
+    margin: 0px 10% 0px 10%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .collapse{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #10b09d;
+  }
+
+  .dropdown-menu{
+    background-color: #20C3B0;
+    box-shadow: none;
+    border: none;
+    border-radius: 20px;    
+  }
+
+  .dropdown-menu a{
+    text-align: center;
+    color: #f5f7fb;
+  }
+  
+  .dropdown-menu a:hover{    
+    background-color: #20C3B0;
+    color: #8AE1D6;
+  }
+}
