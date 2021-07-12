@@ -1,25 +1,25 @@
 <footer>
   <div class="container-lg position-relative">
     <div class="row mb-2">
-      <div class="col pos-left">
+      <div class="col-4 pos-left">
         <h1>Navigasi</h1>
       </div>
-      <div class="col pos-right">
+      <div class="col-8 pos-right">
         <h1>Perpustakaan Digital</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col pos-left">
+      <div class="col-4 pos-left">
         <ul class="list-unstyled">
-          <li><a class="d-flex footer-link" href="#">Beranda</a></li>
-          <li><a class="d-flex footer-link" href="#">Koleksi</a></li>
-          <li><a class="d-flex footer-link" href="#">Kontak</a></li>
-          <li><a class="d-flex footer-link" href="#">Tentang Kami</a></li>
+          <li><a class="d-flex footer-link" href="index.php">Beranda</a></li>
+          <li><a class="d-flex footer-link" href="kategori.php">Koleksi</a></li>
+          <li><a class="d-flex footer-link" href="kontak.php">Kontak</a></li>
+          <li><a class="d-flex footer-link" href="tentang.php">Tentang Kami</a></li>
         </ul>
       </div>
-      <div class="col pos-right">
+      <div class="col-8 pos-right">
         <p>Aplikasi Rekomendasi Perpustakaan Digital Menggunakan Deep Collaborative Filtering Berbasis Mobile Dan Web</p>
-        <div class="flex">
+        <div class="flex mt-3">
           <a class="footer-link" href="https://www.facebook.com"><i class="fab fa-facebook fa-2x"></i></a>
           <a class="footer-link" href="https://www.instagram.com"><i class="fab fa-instagram fa-2x"></i></a>
           <a class="footer-link" href="https://www.twitter.com"><i class="fab fa-twitter fa-2x"></i></a>

@@ -80,7 +80,18 @@ h1{
 p{
   font-size: 14px;
   margin: 0px;
-  padding: 5px 0px;
+  padding: 3px 0px;
+}
+
+.font-label{
+  font-size: 18px;
+  margin: 10px 0px 0px 0px;
+  padding: 0px;
+  font-weight: bold;
+}
+.font-caption{
+  font-size: 16px;
+  padding: 0px;
 }
 
 
@@ -244,7 +255,7 @@ p{
 }
 
 .btn-secondary{  
-  background-color: #b3cde0;
+  background-color: #a7dfd8;
   border: none;
   color: #031f4b;
   padding-left: 30px;
@@ -252,7 +263,7 @@ p{
 }
 
 .btn-secondary:hover, .btn-secondary:visited, .btn-secondary:focus{
-  background-color: #6497b1;
+  background-color: #5caea4;
   border: none;
   color: #031f4b;
   box-shadow: none;
@@ -332,6 +343,62 @@ p{
   width: 130px;
   height: 40px;
 }
+
+.img-profil{
+  width: 80%;
+  border: 5px solid;
+  border-color: #cccccc;
+}
+
+.img-logo{
+  width: 100%;
+  height: auto; 
+  padding: 0px;
+}
+
+.form-contact{
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 2px 3px 3px #888888;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.side-left{
+  background-color: #086459;
+  padding: 50px 30px;
+  border-radius: 5px 0px 0px 5px;
+  height: 480px;
+}
+
+.side-right{
+  background-color: #fafafd;
+  padding: 30px;
+  border-radius: 0px 5px 5px 0px;
+  height: 480px;
+}
+
+.contact-icon{  
+  color: #fafafd;
+  font-size: 76px;
+  margin-bottom: 20px;
+  padding: 0px;
+  line-height: 0px;
+}
+
+.contact-title{ 
+  color: #fafafd;
+  font-size: 36px;
+  margin-bottom: 20px;
+  line-height: 36px;
+}
+
+.contact-caption{
+  color: #fafafd;
+  font-size: 24px;
+  line-height: 28px;
+}
+
 .pos-left{
   text-align: left;
 }
@@ -364,7 +431,7 @@ footer{
   color: #024f46;
 }
 
-.fa-star{
+.fa-star, .fa-star-half-alt{
   color: #FFD700;
   padding-right: 5px;
 }
@@ -428,5 +495,21 @@ footer{
 
   .carousel-item{
     padding: 30px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .side-left{
+    background-color: #086459;
+    padding: 50px 30px;
+    border-radius: 5px 5px 0px 0px;
+    height: auto;
+  }
+
+  .side-right{
+    background-color: #fafafd;
+    padding: 30px;
+    border-radius: 0px 0px 5px 5px;
+    height: auto;
   }
 }

@@ -12,16 +12,16 @@
     @include_once('header.php')
   ?>
   
-  <div class="container-lg form-content">
+  <div class="container-md form-content col-lg-8 col-md-10 col">
     <div class="row">
-      <div class="col-md-4 pos-center">
-        <img src="img/login-cover.jpg" class="img-login" alt="">
-        <button type="button" class="btn btn-primary">Ubah Foto</button>
+      <div class="col-md-4 pos-center pb-3">
+        <img src="img/profil.jpg" class="rounded-circle img-profil" alt="">
+        <button type="button" class="btn btn-primary mt-4">Ubah Foto</button>
       </div>
       <div class="col-md-8">
         <h1>Profil</h1>
-        <div class="row">
-          <div class="col-3">
+        <div class="row mt-4">
+          <div class="col-4">
             <p>Nama Lengkap</p>
             <p>Username</p>
             <p>Jenis Kelamin</p>
@@ -35,7 +35,7 @@
             <p>Negara</p>
             <p>Email</p>
           </div>
-          <div class="col-9">
+          <div class="col-8">
             <p>: String</p>
             <p>: String</p>
             <p>: String</p>
@@ -50,7 +50,7 @@
             <p>: String</p>
           </div>
         </div>
-        <button type="button" class="btn btn-primary mt-3">Edit Profil</button>
+        <button type="button" class="btn btn-primary mt-4">Edit Profil</button>
       </div>
     </div>
   </div>
