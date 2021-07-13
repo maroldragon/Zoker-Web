@@ -93,7 +93,7 @@
 				// Signed in
 				var user = userCredential.user;
 				console.log(user)
-				window.location.href = "./index.php";
+				window.location.href = "./index.php?home";
 				// ...
 			})
 			.catch((error) => {

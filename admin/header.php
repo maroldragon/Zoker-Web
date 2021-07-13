@@ -7,7 +7,7 @@
             <li class="nav-item dropdown">
                 
                 <a class="nav-link" href="pages-profile.html">
-                <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall"/> 
+                <img id="photoHeader" src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall"/> 
                 <span class="text-dark" id="usernameHeader"></span>
                 </a>
                 

@@ -73,3 +73,37 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+/*###########################################
+                Profile Edit
+###########################################*/
+.edit-wrapper {
+    position: relative;
+}
+#myProgress {
+    width: 70%;
+}
+#myBar {
+    position: absolute;
+    bottom: 50%;
+    width: 0%;
+    height: 30px;
+    background-color: #04AA6D;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: 30px; /* To center it vertically */
+    color: white;
+    z-index: 101;
+    overflow: hidden;
+  }
+
+  #overlay-dark {
+      display: none;
+      position: fixed;
+      top:0;
+      bottom:0;
+      right: 0;
+      left:0;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+  }
