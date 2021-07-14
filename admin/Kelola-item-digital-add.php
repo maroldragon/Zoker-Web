@@ -74,9 +74,11 @@
 										<from class="form-group mb-1">
 											<label for="kategori">Kategori Buku</label>
 											<select id="kategori" class="form-control">
-												<option selected value="kategori1">Kategori 1</option>
-												<option value="kategori2">Kategori 2</option>
-												<option value="kategori3">Kategori 3</option>
+												<option selected value="fiction">Fiction</option>
+												<option value="social science">Social Science</option>
+												<option value="actresses">Actresses</option>
+												<option value="medical">Medical</option>
+												<option value="nature">Nature</option>
 											</select>
 										</from>
 										<from class="form-group mb-1">
