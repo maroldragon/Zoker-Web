@@ -4,7 +4,7 @@
   <?php
     @include_once('head.php')
   ?>
-  <title>Profil</title>
+  <title>Kontak · Perpustakaan Digital</title>
 </head>
 <body>
   
@@ -20,16 +20,16 @@
 				<div class="contact-caption">Silahkan tinggalkan pesan anda, pada kolom yang tersedia</div>
 			</div>
 			<div class="col-md-8 side-right">				
-        <label class="inp-text-label" for="namaPengirim">Nama Anda</label>
-        <input type="text" class="form-control inp-text mb-3" id="namaPengirim">
+        <label class="inp-text-label" for="inputNama">Nama Anda</label>
+        <input type="text" class="form-control inp-text mb-3" id="inputNama">
 				
-        <label class="inp-text-label" for="alamatEmail">Email Anda</label>
-        <input type="text" class="form-control inp-text mb-3" id="alamatEmail">
+        <label class="inp-text-label" for="inputEmail">Email Anda</label>
+        <input type="text" class="form-control inp-text mb-3" id="inputEmail">
 				
-        <label class="inp-text-label" for="pesanText">Pesan Anda</label>
-				<textarea class="form-control inp-text mb-3" id="pesanText" cols="30" rows="5"></textarea>
+        <label class="inp-text-label" for="inputPesan">Pesan Anda</label>
+				<textarea class="form-control inp-text mb-3" id="inputPesan" cols="30" rows="5"></textarea>
 				
-        <button type="button" class="btn btn-primary">Kirim Pesan</button>
+        <button type="button" class="btn btn-primary" id="buttonKirim">Kirim Pesan</button>
 			</div>
 		</div>
   </div>

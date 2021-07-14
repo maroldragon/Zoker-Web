@@ -4,7 +4,7 @@
   <?php
     @include_once('head.php')
   ?>
-  <title>Register</title>
+  <title>Register · Perpustakaan Digital</title>
 </head>
 <body>
   <?php
@@ -15,24 +15,24 @@
     <h1>Daftar Sekarang</h1>
     <div class="row mt-3 mb-2">
       <div class="col">
-        <label class="inp-text-label" for="namaDepanInput">Nama Depan</label>
-        <input type="text" class="form-control inp-text" id="namaDepanInput">
+        <label class="inp-text-label" for="inputNamaDepan">Nama Depan</label>
+        <input type="text" class="form-control inp-text" id="inputNamaDepan">
       </div>
       <div class="col">
-        <label class="inp-text-label"  for="namaBelakangInput">Nama Belakang</label>
-        <input type="text" class="form-control inp-text" id="namaBelakangInput">
+        <label class="inp-text-label"  for="inputNamaBelakang">Nama Belakang</label>
+        <input type="text" class="form-control inp-text" id="inputNamaBelakang">
       </div>
     </div>
     <div class="row mb-2 col">
       <div class="col">
-        <label class="inp-text-label"  for="usernameInput">Username</label>
-        <input type="text" class="form-control inp-text" id="usernameInput">
+        <label class="inp-text-label"  for="inputUsername">Username</label>
+        <input type="text" class="form-control inp-text" id="inputUsername">
       </div>
     </div>
     <div class="row mb-2">
       <div class="col">
-        <label class="inp-text-label"  for="jenisKelaminInput">Jenis Kelamin</label>
-        <select class="form-control inp-text" name="Jenis Kelamin" id="jenisKelaminInput">
+        <label class="inp-text-label"  for="inputJenisKelamin">Jenis Kelamin</label>
+        <select class="form-control inp-text" name="Jenis Kelamin" id="inputJenisKelamin">
           <option value="Laki-Laki">Laki-laki</option>
           <option value="Perempuan">Perempuan</option>
         </select>
@@ -40,18 +40,18 @@
     </div>
     <div class="row mb-2">
       <div class="col">
-        <label class="inp-text-label" for="tempatLahirInput">Tempat Lahir</label>
-        <input type="text" class="form-control inp-text" id="tempatLahirInput">
+        <label class="inp-text-label" for="inputTanggalLahir">Tempat Lahir</label>
+        <input type="text" class="form-control inp-text" id="inputTanggalLahir">
       </div>
       <div class="col">
-        <label class="inp-text-label" for="tanggalLahirInput">Tanggal Lahir</label>
-        <input type="date" class="form-control inp-text" id="tanggalLahirInput">
+        <label class="inp-text-label" for="inputTanggalLahir">Tanggal Lahir</label>
+        <input type="date" class="form-control inp-text" id="inputTanggalLahir">
       </div>
     </div>
     <div class="row mb-2">
       <div class="col">
-        <label class="inp-text-label" for="agamaInput">Agama</label>
-        <select class="form-control inp-text" name="Agama" id="agamaInput">
+        <label class="inp-text-label" for="inputAgama">Agama</label>
+        <select class="form-control inp-text" name="Agama" id="inputAgama">
           <option value="Islam">Islam</option>
           <option value="Kristen">Kristen</option>
           <option value="Katolik">Katolik</option>
@@ -61,53 +61,49 @@
         </select>
       </div>
       <div class="col">
-        <label class="inp-text-label"  for="hobiInput">Hobi</label>        
-        <input type="text" class="form-control inp-text" id="hobiInput">
+        <label class="inp-text-label"  for="inputHobi">Hobi</label>        
+        <input type="text" class="form-control inp-text" id="inputHobi">
       </div>
     </div>
     <div class="row mb-2">
       <div class="col">
-        <label class="inp-text-label"  for="negaraInput">Negara</label>
-        <input type="text" class="form-control inp-text" id="negaraInput">
+        <label class="inp-text-label"  for="inputNegara">Negara</label>
+        <input type="text" class="form-control inp-text" id="inputNegara">
       </div>
       <div class="col">
-        <label class="inp-text-label"  for="provinsiInput">Provinsi</label>
-        <input type="text" class="form-control inp-text" id="provinsiInput">
-      </div>
-    </div>
-    <div class="row mb-2">
-      <div class="col">
-        <label class="inp-text-label"  for="kotaInput">Kota</label>
-        <input type="text" class="form-control inp-text" id="kotaInput">
-      </div>
-      <div class="col">
-        <label class="inp-text-label"  for="alamatInput">Alamat</label>
-        <input type="text" class="form-control inp-text" id="alamatInput">
+        <label class="inp-text-label"  for="inputProvinsi">Provinsi</label>
+        <input type="text" class="form-control inp-text" id="inputProvinsi">
       </div>
     </div>
     <div class="row mb-2">
       <div class="col">
-        <label class="inp-text-label"  for="emailInput">Email</label>
-        <input type="email" class="form-control inp-text" id="emailInput">
+        <label class="inp-text-label"  for="inputKota">Kota</label>
+        <input type="text" class="form-control inp-text" id="inputKota">
       </div>
       <div class="col">
-        <label class="inp-text-label"  for="nomotTeleponInput">Nomor Telepon</label>
-        <input type="number" class="form-control inp-text" id="nomotTeleponInput">
+        <label class="inp-text-label"  for="inputAlamat">Alamat</label>
+        <input type="text" class="form-control inp-text" id="inputAlamat">
       </div>
     </div>
     <div class="row mb-2">
       <div class="col">
-        <label class="inp-text-label"  for="passwordInput">Password</label>
-        <input type="password" class="form-control inp-text" id="passwordInput">
+        <label class="inp-text-label"  for="inputEmail">Email</label>
+        <input type="email" class="form-control inp-text" id="inputEmail">
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col">
+        <label class="inp-text-label"  for="inputPassword">Password</label>
+        <input type="password" class="form-control inp-text" id="inputPassword">
       </div>
       <div class="col">
-        <label class="inp-text-label"  for="konfirmasiPasswordInput">Konfirmasi Password</label>
-        <input type="password" class="form-control inp-text" id="konfirmasiPasswordInput">
+        <label class="inp-text-label"  for="inputKonfirmasiPassword">Konfirmasi Password</label>
+        <input type="password" class="form-control inp-text" id="inputKonfirmasiPassword">
       </div>
     </div>
     <div class="row">
       <div class="col">        
-        <button type="button" class="btn btn-primary form-control mt-3">Daftar</button>
+        <button type="submit" class="btn btn-primary form-control mt-3" id="buttonDaftar">Daftar</button>
       </div>
     </div>
   </div>

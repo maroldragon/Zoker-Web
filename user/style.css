@@ -23,16 +23,12 @@ body{
   padding: 10px;
 }
 
-.nav-link{  
+.nav-link, .nav-link:visited{  
   text-align: center;
   color: #f5f7fb;
   font-size: 16px;
 }
-.nav-link:visited{
-  color: #f5f7fb;
-}
-
-.nav-link:hover{
+.nav-link:hover, .nav-link:focus{
   color: #024f46;
 }
 
@@ -425,6 +421,10 @@ footer{
   color: #f5f7fb;
   font-size: 16px;
   padding: 0px 0px 10px 10px;
+}
+
+.display-none{
+  display: none;;
 }
 
 .footer-link:hover{

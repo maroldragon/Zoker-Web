@@ -4,7 +4,7 @@
   <?php
     @include_once('head.php')
   ?>
-  <title>Profil</title>
+  <title>Tentang · Perpustakaan Digital</title>
 </head>
 <body>
   

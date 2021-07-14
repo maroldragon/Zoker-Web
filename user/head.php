@@ -13,3 +13,5 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.8.335/build/pdf.min.js"></script>
+
+<link rel = "icon" href = "img/logo.png" type = "image/x-icon">

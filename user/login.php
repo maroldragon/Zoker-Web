@@ -4,7 +4,7 @@
   <?php
     @include_once('head.php')
   ?>
-  <title>Login</title>
+  <title>Login · Perpustakaan Digital</title>
 </head>
 <body>
   
@@ -20,20 +20,20 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <h1>Masuk</h1>
         <div class="mt-3 mb-2">
-          <label class="inp-text-label" for="usernameInput">Username</label>
-          <input type="text" class="form-control inp-text" id="usernameInput" placeholder="Username">
+          <label class="inp-text-label" for="inputUsername">Username</label>
+          <input type="text" class="form-control inp-text" id="inputUsername" placeholder="Username">
         </div>
         <div class="mb-2">
-          <label class="inp-text-label" for="passwordInput">Password</label>
-          <input type="password" class="form-control inp-text" id="passwordInput" placeholder="Password">
+          <label class="inp-text-label" for="inputPassword">Password</label>
+          <input type="password" class="form-control inp-text" id="inputPassword" placeholder="Password">
         </div>
-        <button type="button" class="btn btn-primary form-control mt-3">Masuk</button>
-        <button type="button" class="btn btn-secondary form-control mt-3">Daftar</button>
+        <button type="button" class="btn btn-primary form-control mt-3" id="buttonLogin">Masuk</button>
+        <button type="button" class="btn btn-secondary form-control mt-3" id="buttonRegister">Daftar</button>
       </div>
     </div>
     <div class="row">
       <div class="col align-self-center">
-        <button type="button" class="btn btn-link form-control mt-5">Login Sebagai Admin</button>
+        <button type="button" class="btn btn-link form-control mt-5" id="buttonLoginAdmin">Login Sebagai Admin</button>
       </div>
     </div>
   </div>
