@@ -50,7 +50,7 @@
             <p id="textEmail">: String</p>
           </div>
         </div>
-        <button type="button" class="btn btn-primary mt-4" id="buttonEditProfil">Edit Profil</button>
+        <a href="edit_profil.php" class="btn btn-primary mt-4" id="buttonEditProfil">Edit Profil</a>
       </div>
     </div>
   </div>

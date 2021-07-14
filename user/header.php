@@ -26,12 +26,18 @@
             <i class="far fa-user-circle"></i>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-            <li><a class="dropdown-item" href="#" id="linkProfil">Guest</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="login.php" id="linkLogin"></i>Masuk</a></li>
-            <li><a class="dropdown-item" href="register.php" id="linkRegister">Daftar</a></li>
-            <li><a class="dropdown-item display-none" href="login.php" id="linkBukuTerpinjam">Buku Terpinjam</a></li>
-            <li><a class="dropdown-item display-none" href="register.php" id="linkLogout">Keluar</a></li>
+            <div class="d-none" id="menuGuest">              
+              <li><a class="dropdown-item" href="login.php" id="linkProfil">Guest</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="login.php" id="linkLogin">Masuk</a></li>
+              <li><a class="dropdown-item" href="register.php" id="linkRegister">Daftar</a></li>
+            </div>
+            <div class="" id="menuUser">              
+              <li><a class="dropdown-item" href="profil.php" id="linkProfil">Iman Fajar Lombu</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="buku_terpinjam.php" id="linkBukuTerpinjam">Buku Terpinjam</a></li>
+              <li><a class="dropdown-item" href="login.php" id="linkLogout">Keluar</a></li>
+            </div>
           </ul>
         </li>
       </ul>

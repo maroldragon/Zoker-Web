@@ -12,7 +12,12 @@
     @include_once('header.php')
   ?>
 
-  <div class="container form-content col-lg-6 col-md-10 col">    
+  <div class="container form-content col-lg-6 col-md-10 col">   
+    <div class="row mb-3 d-none" id="textLogout">
+      <div class="col pos-center p-danger">
+        Anda Telah Keluar
+      </div>
+    </div> 
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 pos-middle">
         <img src="img/login-cover.jpg" class="img-login" alt="">

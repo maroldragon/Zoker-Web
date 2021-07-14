@@ -79,6 +79,10 @@ p{
   padding: 3px 0px;
 }
 
+.p-danger{
+  color: #ff0000;
+}
+
 .font-label{
   font-size: 18px;
   margin: 10px 0px 0px 0px;
@@ -236,21 +240,21 @@ p{
   box-shadow: none;
 }
 
-.btn-primary{
+.btn-primary, .btn-primary:visited{
   background-color: #086459;
   border: none;
   color: #f5f7fb;
   padding-left: 30px;
   padding-right: 30px;
 }
-.btn-primary:hover, .btn-primary:visited, .btn-primary:focus{
+.btn-primary:hover{
   background-color: #024f46;
   border: none;
   color: #f5f7fb;
   box-shadow: none;
 }
 
-.btn-secondary{  
+.btn-secondary, .btn-secondary:visited{  
   background-color: #a7dfd8;
   border: none;
   color: #031f4b;
@@ -258,28 +262,28 @@ p{
   padding-right: 30px;
 }
 
-.btn-secondary:hover, .btn-secondary:visited, .btn-secondary:focus{
+.btn-secondary:hover{
   background-color: #5caea4;
   border: none;
   color: #031f4b;
   box-shadow: none;
 }
 
-.btn-search{
+.btn-search, .btn-search:visited{
   background-color: #086459;
   border: none;
   border-radius: 0px 10px 10px 0px;
   color: #f5f7fb;
 }
 
-.btn-search:hover, .btn-search:visited, .btn-search:focus{
+.btn-search:hover{
   background-color: #024f46;
   border: none;
   color: #f5f7fb;
   box-shadow: none;
 }
 
-.btn-select{
+.btn-select, .btn-select:visited{
   background-color: #086459;
   padding-left: 50px;
   padding-right: 50px;
@@ -288,14 +292,14 @@ p{
   color: #f5f7fb;
 }
 
-.btn-select:hover, .btn-select:visited, .btn-select:focus{
+.btn-select:hover{
   background-color: #024f46;
   border: none;
   color: #f5f7fb;
   box-shadow: none;
 }
 
-.btn-link{
+.btn-link, .btn-link:visited{
   display: flex;
   width: max-content;
   background-color: transparent;
@@ -304,14 +308,14 @@ p{
   color: #086459;
 }
 
-.btn-link:hover, .btn-link:visited, .btn-link:focus{
+.btn-link:hover{
   color: #086459;
   font-weight: bold;
   border: none;
   box-shadow: none;
 }
 
-.btn-carousel{
+.btn-carousel, .btn-carousel:visited{
   display: flex;
   width: max-content;
   background-color: #FF8C00;
@@ -321,7 +325,7 @@ p{
   box-shadow: none;
 }
 
-.btn-carousel:hover, .btn-carousel:visited, .btn-carousel:focus{
+.btn-carousel:hover{
   background-color: #ea8000;
   border: none;
   color: #f5f7fb;
@@ -454,6 +458,14 @@ footer{
 
 .fa-youtube:hover{
   color: #FF0000;
+}
+
+.viewBook{
+  width: auto;
+  height: 512px;
+  margin-top: 30px;
+  border: 1px solid;
+  border-color: #024f46;
 }
 
 
