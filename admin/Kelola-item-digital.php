@@ -73,6 +73,7 @@
 										<th>Kategori</th>
 										<th>Penulis</th>
 										<th>Penerbit</th>
+										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody id="data-table-book">

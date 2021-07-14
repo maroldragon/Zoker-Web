@@ -12,7 +12,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
-	<title>Tambah Buku</title>
+	<title>Edit Buku</title>
 
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -32,7 +32,7 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
-					<h1 class="h3 mb-3"><strong>Tambah</strong> Buku</h1>
+					<h1 class="h3 mb-3"><strong>Edit</strong> Buku</h1>
 					<class="col-12">
 						<div class="card-header">
 							<div class="mb-0">
