@@ -47,6 +47,31 @@
   <?php
     @include_once('footer.php')
   ?>
+
+<script>
+		$("#buttonLogin").click(function(event){
+			event.preventDefault()
+			let username = $("#inputUsername").val()
+			let password = $("#inputPassword").val();
+      console.log(username)
+			firebase.auth().signInWithEmailAndPassword(username, password)
+			.then((userCredential) => {
+				// Signed in
+				var user = userCredential.user;
+				console.log(user)
+				window.location.href = "./index.php?home";
+        $("#menuGuest").addClass("d-none");
+        $("#menuUser").removeClass("d-none");
+
+				// ...
+			})
+			.catch((error) => {
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log(errorMessage);
+			});
+		})
+	</script>
   
 </body>
 </html>

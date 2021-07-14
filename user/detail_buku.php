@@ -37,8 +37,31 @@
     <div class="row">
       <div class="col mt-5">
         <h1>Feedback</h1>
-        <div class="font-label">Rating (4,5) : <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-        <div class="font-label">Ulasan</div>        
+        <div class="font-label">Rating (<span id="ratingFeedback">0</span>/10) : 
+          <div class="star-widget">
+            <input type="radio" name="rate" id="rate-10">
+            <label for="rate-10" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-9">
+            <label for="rate-9" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-8">
+            <label for="rate-8" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-7">
+            <label for="rate-7" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-6">
+            <label for="rate-6" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-5">
+            <label for="rate-5" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-4">
+            <label for="rate-4" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-3">
+            <label for="rate-3" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-2">
+            <label for="rate-2" class="fas fa-star"></label>
+            <input type="radio" name="rate" id="rate-1">
+            <label for="rate-1" class="fas fa-star"></label>
+          </div>
+        </div>
+        <div class="font-label mt-4">Ulasan</div>   
 				<textarea class="form-control inp-text mt-3" id="pesanText" cols="30" rows="5" id="inputUlasan"></textarea>
         <button type="button" class="btn btn-primary mt-3" id="buttonKirimUlasan">Kirim Ulasan</button>
       </div>
@@ -48,5 +71,6 @@
   <?php
     @include_once('footer.php')
   ?>
+
 </body>
 </html>

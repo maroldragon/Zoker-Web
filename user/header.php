@@ -26,13 +26,13 @@
             <i class="far fa-user-circle"></i>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-            <div class="d-none" id="menuGuest">              
+            <div class="" id="menuGuest">              
               <li><a class="dropdown-item" href="login.php" id="linkProfil">Guest</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="login.php" id="linkLogin">Masuk</a></li>
               <li><a class="dropdown-item" href="register.php" id="linkRegister">Daftar</a></li>
             </div>
-            <div class="" id="menuUser">              
+            <div class="d-none" id="menuUser">              
               <li><a class="dropdown-item" href="profil.php" id="linkProfil">Iman Fajar Lombu</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="buku_terpinjam.php" id="linkBukuTerpinjam">Buku Terpinjam</a></li>
