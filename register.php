@@ -53,8 +53,8 @@
         <label class="inp-text-label" for="inputAgama">Agama</label>
         <select class="form-control inp-text" name="Agama" id="inputAgama">
           <option value="Islam">Islam</option>
-          <option value="Kristen">Kristen</option>
-          <option value="Katolik">Katolik</option>
+          <option value="Kristen Protestan">Kristen</option>
+          <option value="Khatolik">Katolik</option>
           <option value="Buddha">Buddha</option>
           <option value="Hindu">Hindu</option>
           <option value="Kong Hu Cu">Kong Hu Cu</option>
@@ -113,31 +113,14 @@
     @include_once('footer.php')
   ?>
 
-<<<<<<< HEAD
-  
+  <script src="js/custom.js"></script>
 
-
-=======
   <script> 
-    
-    $("#buttonDaftar").click(function(){
-      var namaDepan = $("#inputNamaDepan").val();
-      var namaBelakang = $("#inputNamaBelakang").val();
-      var userName = $("#inputUsername").val();
-      var jenisKelamin = $("#inputJenisKelamin").val();
-      var tempatLahir = $("#inputTempatLahir").val();
-      var tanggalLahir = $("#inputTanggalLahir").val();
-      var agama = $("#inputAgama").val();
-      var hobi = $("#inputHobi").val();
-      var negara = $("#inputNegara").val();
-      var provinsi = $("#inputProvinsi").val();
-      var kota = $("#inputKota").val();
-      var alamat = $("#inputAlamat").val();
-      var email = $("#inputEmail").val();
-      var password = $("#inputPassword").val();
-      //console.log(namaDepan+" "+namaBelakang+" "+userName+" "+jenisKelamin +" "+tempatLahir+" "+tanggalLahir+" "+agama+" "+hobi +" "+negara +" "+provinsi +" "+kota +" "+alamat +" "+email +" "+password);
-    });
+  $("#buttonDaftar").click(function(){
+    console.log("Daftar");
+    registerUser()
+  });
   </script>
->>>>>>> 4338f8a5ad0d16b4a31b49168b1fcbc4f8b7026f
+
 </body>
 </html>

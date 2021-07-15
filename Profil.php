@@ -58,21 +58,8 @@
   <?php
     @include_once('footer.php')
   ?>
-
-  <script>
-    $("#textNamaLengkap").text();
-    $("#textUsername").text();
-    $("#textJenisKelamin").text();
-    $("#textTempatLahir").text();
-    $("#textTanggalLahir").text();
-    $("#textAgama").text();
-    $("#textHobi").text();
-    $("#textAlamat").text();
-    $("#textKota").text();
-    $("#textProvinsi").text();
-    $("#textNegara").text();
-    $("#textEmail").text();
-  </script>
+  <script src="js/custom.js"></script>
+  
 
 </body>
 </html>

@@ -1,56 +1,21 @@
 const dbRef = firebase.database().ref();
+var user_id_all = ""
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         console.log("You Login Now");
         var user = firebase.auth().currentUser;
         var userId = user.uid;
+        user_id_all = userId;
 
         $("#menuGuest").addClass("d-none")
         $("#menuUser").removeClass("d-none")
         var usernameHeader = $("#linkProfilUser")
-        var photoHeader = $("#photoHeader")
-        var photoProfile = $("#img-profile-admin")
-        var namaLengkap = $("#namaLengkap")
-        var username = $("#username")
-        var jenisKelamin = $("#jenisKelamin")
-        var ttl = $("#ttl")
-        var alamat = $("#alamat")
-        var emailProfil = $("#emailProfil")
-
-        var photoEdit = $("#imagePreview");
-        var namaDepanText = $("#namaDepanText")
-        var namaBelakangText = $("#namaBelakangText")
-        var usernameText = $("#usernameText")
-        var jenisKelaminText = $("#jenisKelaminText")
-        var tempatLahirText = $("#tempatLahirText")
-        var tanggalLahirText = $("#tanggalLahirText")
-        var alamatText = $("#alamatText")
-        var emailText = $("#emailText")
 
         dbRef.child("user").child(userId).get().then((snapshot) => {
         if (snapshot.exists()) {
+            generateProfile(snapshot.val())
             usernameHeader.text(snapshot.val().userName)
-            photoHeader.attr("src",snapshot.val().photo);
-            photoProfile.attr("src",snapshot.val().photo);
-
-            namaLengkap.text(snapshot.val().namaDepan + " " + snapshot.val().namaBelakang)
-            username.text(snapshot.val().userName)
-            jenisKelamin.text(snapshot.val().jenisKelamin)
-            ttl.text(snapshot.val().tempatLahir + " " + snapshot.val().tanggalLahir)
-            alamat.text(snapshot.val().alamat)
-            emailProfil.text(snapshot.val().email)
-
-            photoEdit.css("background-image", "url("+snapshot.val().photo+")")
-            namaDepanText.val(snapshot.val().namaDepan)
-            namaBelakangText.val(snapshot.val().namaBelakang)
-            usernameText.val(snapshot.val().userName)
-            var jkLower = (snapshot.val().jenisKelamin).toLowerCase();
-            jenisKelaminText.val(jkLower)
-            tempatLahirText.val(snapshot.val().tempatLahir)
-            tanggalLahirText.val("5/12/2000")
-            alamatText.val(snapshot.val().alamat)
-            emailText.val(snapshot.val().email)
         } else {
             console.log("No data available");
         }
@@ -63,6 +28,67 @@ firebase.auth().onAuthStateChanged(function(user) {
         //console.log("You Not Login")
     }
 });
+
+function registerUser(){
+    var email = $("#inputEmail").val();
+    var password = $("#inputPassword").val();
+    var passwordConfirm = $("#inputKonfirmasiPassword").val();
+    if(password != passwordConfirm){
+        swal("Error", "Password Tidak Sama", "error")
+    }else {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            console.log(user)
+            writeUserData(user.uid);
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ..
+        });
+    }
+}
+
+function writeUserData(userId) {
+    var namaDepan = $("#inputNamaDepan").val();
+    var namaBelakang = $("#inputNamaBelakang").val();
+    var userName = $("#inputUsername").val();
+    var jenisKelamin = $("#inputJenisKelamin option:selected").val();
+    var tempatLahir = $("#inputTempatLahir").val();
+    var tanggalLahir = $("#inputTanggalLahir").val();
+    var agama = $("#inputAgama option:selected").val();
+    var hobi = $("#inputHobi").val();
+    var negara = $("#inputNegara").val();
+    var provinsi = $("#inputProvinsi").val();
+    var kota = $("#inputKota").val();
+    var alamat = $("#inputAlamat").val();
+    var email = $("#inputEmail").val();
+    var password = $("#inputPassword").val();
+    let database = firebase.database();
+
+    database.ref('user/' + userId).set({
+        namaDepan: namaDepan,
+        namaBelakang: namaBelakang,
+        userName : userName,
+        jenisKelamin : jenisKelamin,
+        tempatLahir: tempatLahir,
+        tanggalLahir: tanggalLahir,
+        agama : agama,
+        hobi : hobi,
+        negara : negara,
+        provinsi : provinsi,
+        kota : kota,
+        alamat : alamat,
+        email : email,
+        password: password
+    }).then( () => {
+        swal("Success", "Registrasi Berhasil", "success").then(()=>{
+            location.href = "./index.php"
+        })
+    });
+}
 
 function addCarousel(){
     var carousel = document.getElementById("carousel-book");
@@ -212,7 +238,7 @@ function generateBookDetail(){
             tahunTerbit.text(child.val().tahunTerbit)
             penerbit.text(child.val().penerbit)
             textIsbn.text(child.val().isbn)
-            ringkasan.text(child.val().ringkasan)
+            ringkasan.text(child.val().deskripsi)
             imageBuku.attr("src", child.val().cover)
             rating.text((child.val().rating))
         });
@@ -257,6 +283,70 @@ function savePinjamBuku(){
             location.href = "./login.php"
         }
     });
+}
+
+function generateBukuTerpinjam() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var isbnGet = (location.search.replace('?', '').split('='))[1];
+            var user = firebase.auth().currentUser;
+            var userId = user.uid;
+            var bookId = isbnGet;
+            var peminjamanId = userId+"-"+bookId;
+            var date = new Date();
+            var tanggal = date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear;
+            var status = "unfinished"
+                
+            $("#emptyPinjam").css("display", "block")
+            var listBookTerpinjam = document.getElementById("listBookTerpinjam");
+            listBookTerpinjam.innerHTML = ""
+
+            dbRef.child("peminjaman").orderByChild("idUser").equalTo(userId).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    generateDataTersimpan(child.val().idBuku, listBookTerpinjam)
+                })
+            });
+
+        } else {
+            console.log("You Not Login")
+        }
+    });
+}
+
+function generateDataTersimpan(bookId, listBookTerpinjam) {
+    $("#emptyPinjam").css("display", "none")
+    dbRef.child("books").orderByChild("isbn").equalTo(bookId).on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            listBookTerpinjam.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
+            "<div class='card-rating'>"+
+                "<i class='fas fa-star'></i><span id='newCardRating'>"+ child.val().rating +"</span>"+
+            "</div>"+
+            "<img src='"+ child.val().cover +"' class='card-img-top' alt='...' id='newCardImage'>"+
+            "<div class='card-body'>"+
+                "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='newCardJudul'>"+ child.val().judul +"</a>"+
+                "<div class='card-text' id='newCardPenulis'>"+ child.val().penulis +"</div>"+
+                "<a href='baca_buku.php' class='btn btn-primary form-control' id='buttonBacaBuku'>Baca Buku</a>"+
+            "</div> </div> </div>"
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
+
+
+function generateProfile(snap) {
+    $("#textNamaLengkap").text(snap.namaDepan + " " + snap.namaBelakang);
+    $("#textUsername").text(snap.userName);
+    $("#textJenisKelamin").text(snap.jenisKelamin);
+    $("#textTempatLahir").text(snap.tempatLahir);
+    $("#textTanggalLahir").text(snap.tanggalLahir);
+    $("#textAgama").text(snap.agama);
+    $("#textHobi").text(snap.hobi);
+    $("#textAlamat").text(snap.alamat);
+    $("#textKota").text(snap.kota);
+    $("#textProvinsi").text(snap.provinsi);
+    $("#textNegara").text(snap.negara);
+    $("#textEmail").text(snap.email);
 }
 
 $("#btn-logout").click(function(){
