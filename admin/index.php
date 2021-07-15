@@ -22,7 +22,7 @@
 	<div class="wrapper">
 		<?php
 			@include_once("navigasi.php");
-		?>
+		?>	
 
 		<div class="main">
 			<?php
@@ -104,7 +104,7 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">64</h1>
+												<h1 id="jumlahBuku" class="mt-1 mb-3">0</h1>
 												<div class="mb-0">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
 													<span class="text-muted">Sejak minggu lalu</span>
@@ -242,6 +242,7 @@
 			});
 		});
 	</script>
+	
 	<script>
 		$(function() {
 			// Pie chart
@@ -404,7 +405,20 @@
 		@include_once("sourceJS.html");
 	?>
 	<script src="js/custom.js"></script>
-
+	<script> 
+		const dbRef = firebase.database().ref("books");
+		getBookTotal()
+		function getBookTotal(){
+			var total = 0;
+			dbRef.once('value', function(allRecord){
+				allRecord.forEach( function() {
+					total += 1;
+				})
+			}).then(() => {
+				$("#jumlahBuku").html(total);
+			});
+		}
+	</script>
 </body>
 
 </html>
