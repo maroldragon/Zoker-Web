@@ -36,18 +36,18 @@
             <p>Email</p>
           </div>
           <div class="col-8">
-            <p id="textNamaLengkap">: String</p>
-            <p id="textUsername">: String</p>
-            <p id="textJenisKelamin">: String</p>
-            <p id="textTempatLahir">: String</p>
-            <p id="textTanggalLahir">: String</p>
-            <p id="textAgama">: String</p>
-            <p id="textHobi">: String</p>
-            <p id="textAlamat">: String</p>
-            <p id="textKota">: String</p>
-            <p id="textProvinsi">: String</p>
-            <p id="textNegara">: String</p>
-            <p id="textEmail">: String</p>
+            <p>: <span id="textNamaLengkap"></span></p>
+            <p>: <span id="textUsername"></span></p>
+            <p>: <span id="textJenisKelamin"></span></p>
+            <p>: <span id="textTempatLahir"></span></p>
+            <p>: <span id="textTanggalLahir"></span></p>
+            <p>: <span id="textAgama"></span></p>
+            <p>: <span id="textHobi"></span></p>
+            <p>: <span id="textAlamat"></span></p>
+            <p>: <span id="textKota"></span></p>
+            <p>: <span id="textProvinsi"></span></p>
+            <p>: <span id="textNegara"></span></p>
+            <p>: <span id="textEmail"></span></p>
           </div>
         </div>
         <a href="edit_profil.php" class="btn btn-primary mt-4" id="buttonEditProfil">Edit Profil</a>
@@ -58,5 +58,21 @@
   <?php
     @include_once('footer.php')
   ?>
+
+  <script>
+    $("#textNamaLengkap").text();
+    $("#textUsername").text();
+    $("#textJenisKelamin").text();
+    $("#textTempatLahir").text();
+    $("#textTanggalLahir").text();
+    $("#textAgama").text();
+    $("#textHobi").text();
+    $("#textAlamat").text();
+    $("#textKota").text();
+    $("#textProvinsi").text();
+    $("#textNegara").text();
+    $("#textEmail").text();
+  </script>
+
 </body>
 </html>

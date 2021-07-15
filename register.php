@@ -40,8 +40,8 @@
     </div>
     <div class="row mb-2">
       <div class="col">
-        <label class="inp-text-label" for="inputTanggalLahir">Tempat Lahir</label>
-        <input type="text" class="form-control inp-text" id="inputTanggalLahir">
+        <label class="inp-text-label" for="inputTempatLahir">Tempat Lahir</label>
+        <input type="text" class="form-control inp-text" id="inputTempatLahir">
       </div>
       <div class="col">
         <label class="inp-text-label" for="inputTanggalLahir">Tanggal Lahir</label>
@@ -113,8 +113,31 @@
     @include_once('footer.php')
   ?>
 
+<<<<<<< HEAD
   
 
 
+=======
+  <script> 
+    
+    $("#buttonDaftar").click(function(){
+      var namaDepan = $("#inputNamaDepan").val();
+      var namaBelakang = $("#inputNamaBelakang").val();
+      var userName = $("#inputUsername").val();
+      var jenisKelamin = $("#inputJenisKelamin").val();
+      var tempatLahir = $("#inputTempatLahir").val();
+      var tanggalLahir = $("#inputTanggalLahir").val();
+      var agama = $("#inputAgama").val();
+      var hobi = $("#inputHobi").val();
+      var negara = $("#inputNegara").val();
+      var provinsi = $("#inputProvinsi").val();
+      var kota = $("#inputKota").val();
+      var alamat = $("#inputAlamat").val();
+      var email = $("#inputEmail").val();
+      var password = $("#inputPassword").val();
+      //console.log(namaDepan+" "+namaBelakang+" "+userName+" "+jenisKelamin +" "+tempatLahir+" "+tanggalLahir+" "+agama+" "+hobi +" "+negara +" "+provinsi +" "+kota +" "+alamat +" "+email +" "+password);
+    });
+  </script>
+>>>>>>> 4338f8a5ad0d16b4a31b49168b1fcbc4f8b7026f
 </body>
 </html>
