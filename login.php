@@ -33,7 +33,7 @@
           <input type="password" class="form-control inp-text" id="inputPassword" placeholder="Password">
         </div>
         <button type="button" class="btn btn-primary form-control mt-3" id="buttonLogin">Masuk</button>
-        <button type="button" class="btn btn-secondary form-control mt-3" id="buttonRegister">Daftar</button>
+        <a href="./register.php" class="btn btn-secondary form-control mt-3" id="buttonRegister">Daftar</a>
       </div>
     </div>
     <div class="row">

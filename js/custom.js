@@ -192,6 +192,72 @@ function addDataSearch(list, child){
     "</div> </div> </div>"
 }
 
+function generateBookDetail(){
+    var isbnGet = (location.search.replace('?', '').split('='))[1];
+    var judul = $("#textJudul")
+    var kategori = $("#textKategori")
+    var penulis = $("#textPenulis")
+    var penerbit = $("#textPenerbit")
+    var tahunTerbit = $("#textTahunTerbit")
+    var textIsbn = $("#textIsbn")
+    var ringkasan = $("#textRingkasan")
+    var imageBuku = $("#imageBuku");
+    var rating = $("#ratingBukuDetail")
+
+    dbRef.child("books").orderByChild('isbn').equalTo(isbnGet).on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            judul.text(child.val().judul)
+            kategori.text(child.val().kategori)
+            penulis.text(child.val().penulis)
+            tahunTerbit.text(child.val().tahunTerbit)
+            penerbit.text(child.val().penerbit)
+            textIsbn.text(child.val().isbn)
+            ringkasan.text(child.val().ringkasan)
+            imageBuku.attr("src", child.val().cover)
+            rating.text((child.val().rating))
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
+
+function savePinjamBuku(){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var isbnGet = (location.search.replace('?', '').split('='))[1];
+            var user = firebase.auth().currentUser;
+            var userId = user.uid;
+            var bookId = isbnGet;
+            var peminjamanId = userId+"-"+bookId;
+            var date = new Date();
+            var tanggal = date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear;
+            var status = "unfinished"
+                
+            dbRef.child("user").child(userId).get().then((snapshot) => {
+            if (snapshot.exists()) {
+                let database = firebase.database();
+                database.ref('peminjaman/' + peminjamanId).set({
+                    idPeminjaman : peminjamanId,
+                    idBuku : bookId,
+                    idUser : userId,
+                    status : status,
+                    tanggal : tanggal
+                }).then(() => {
+                    swal("Selamat", "Buku Berhasil Di Dipinjam", "success").then(function(){ 
+                        location.href = "./buku_terpinjam.php"
+                    });
+                })
+            } else {
+                console.log("No data available");
+            }
+            }).catch((error) => {
+                console.error(error);
+            });
+        } else {
+            location.href = "./login.php"
+        }
+    });
+}
 
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {
