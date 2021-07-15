@@ -68,4 +68,5 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+  
 </script>
