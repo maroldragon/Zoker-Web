@@ -89,6 +89,74 @@ function addCarousel(){
     });
 }
 
+function addNewBook(){
+    var listBookNew = document.getElementById("listBookNew");
+    listBookNew.innerHTML = ""
+    dbRef.child("books").limitToFirst(6).on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            listBookNew.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
+              "<div class='card-rating'>"+
+                "<i class='fas fa-star'></i><span id='newCardRating'>"+ child.val().rating +"</span>"+
+              "</div>"+
+              "<img src='"+ child.val().cover +"' class='card-img-top' alt='...' id='newCardImage'>"+
+              "<div class='card-body'>"+
+                "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='newCardJudul'>"+ child.val().judul +"</a>"+
+                "<div class='card-text' id='newCardPenulis'>"+ child.val().penulis +"</div>"+
+              "</div> </div> </div>"
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
+
+function addRecommendBook(){
+    var listBookRec = document.getElementById("listBookRecommend");
+    listBookRec.innerHTML = ""
+    dbRef.child("books").orderByChild('rating').limitToLast(15).on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            listBookRec.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
+              "<div class='card-rating'>"+
+                "<i class='fas fa-star'></i><span id='recCardRating'>"+ child.val().rating +"</span>"+
+              "</div>"+
+              "<img src='"+ child.val().cover +"' class='card-img-top' alt='...' id='recCardImage'>"+
+              "<div class='card-body'>"+
+                "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='recCardJudul'>"+ child.val().judul +"</a>"+
+                "<div class='card-text' id='recCardPenulis'>"+ child.val().penulis +"</div>"+
+              "</div> </div> </div>"
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
+
+function addKategoriBook(kategori){
+    var listBookKat = document.getElementById("listBookKategori");
+    listBookKat.innerHTML = ""
+    var query = ""
+    if(kategori != ""){
+        query = dbRef.child("books").orderByChild('kategori').equalTo(kategori);
+    }else {
+        query = dbRef.child("books").orderByChild('kategori')
+    }
+
+    query.on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            listBookKat.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
+              "<div class='card-rating'>"+
+                "<i class='fas fa-star'></i><span id='katCardRating'>"+ child.val().rating +"</span>"+
+              "</div>"+
+              "<img src='"+ child.val().cover +"' class='card-img-top' alt='...' id='katCardImage'>"+
+              "<div class='card-body'>"+
+                "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='katCardJudul'>"+ child.val().judul +"</a>"+
+                "<div class='card-text' id='katCardPenulis'>"+ child.val().penulis +"</div>"+
+              "</div> </div> </div>"
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
+
+
 
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {

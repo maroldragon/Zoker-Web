@@ -64,42 +64,46 @@
       </div>
     </div>
 
-
     <div class="row mt-5">
       <div class="col-12">
         <h1>Baru Ditambahkan</h1>
       </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 col-6">
-        <div class="card">
-          <div class="card-rating">
-            <i class="fas fa-star"></i><span id="newCardRating">4,5</span>
-          </div>
-          <img src="img/coverbook.jpg" class="card-img-top" alt="..." id="newCardImage">
-          <div class="card-body">
-            <a class="card-title" href="detail_buku.php" id="newCardJudul">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</a>
-            <div class="card-text" id="newCardPenulis">David Cordingly</div>
+      <div class="row mt-1" id="listBookNew">
+        <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+          <div class="card">
+            <div class="card-rating">
+              <i class="fas fa-star"></i><span id="newCardRating">4,5</span>
+            </div>
+            <img src="img/coverbook.jpg" class="card-img-top" alt="..." id="newCardImage">
+            <div class="card-body">
+              <a class="card-title" href="detail_buku.php" id="newCardJudul">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</a>
+              <div class="card-text" id="newCardPenulis">David Cordingly</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
+    </div>
 
     <div class="row mt-5">
       <div class="col-12">
         <h1>Rekomendasi</h1>
       </div>
-      <div class="col-lg-2 col-md-4 col-sm-4 col-6">
-        <div class="card">
-          <div class="card-rating">
-            <i class="fas fa-star"></i><span id="rekCardRating">4,5</span>
-          </div>
-          <img src="img/coverbook.jpg" class="card-img-top" alt="..." id="rekCardImage">
-          <div class="card-body">
-            <a class="card-title" href="detail_buku.php" id="rekCardJudul">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</a>
-            <div class="card-text" id="rekCardPenulis">David Cordingly</div>
+      <div class="row mt-1" id="listBookRecommend">
+        <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+          <div class="card">
+            <div class="card-rating">
+              <i class="fas fa-star"></i><span id="rekCardRating">4,5</span>
+            </div>
+            <img src="img/coverbook.jpg" class="card-img-top" alt="..." id="rekCardImage">
+            <div class="card-body">
+              <a class="card-title" href="detail_buku.php" id="rekCardJudul">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</a>
+              <div class="card-text" id="rekCardPenulis">David Cordingly</div>
+            </div>
           </div>
         </div>
       </div>
+
       <div class="col-12">
         <nav aria-label="Page navigation">
           <ul class="pagination justify-content-center">
@@ -127,6 +131,8 @@
 
   <script>
     addCarousel()
+    addNewBook()
+    addRecommendBook()
   </script>
 
 </body>
