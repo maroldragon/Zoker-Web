@@ -36,6 +36,7 @@
               <li><a class="dropdown-item" href="profil.php" id="linkProfil">Iman Fajar Lombu</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="buku_terpinjam.php" id="linkBukuTerpinjam">Buku Terpinjam</a></li>
+              <li><a class="dropdown-item" href="riwayat_peminjaman.php" id="linkRiwayatPeminjaman">Riwayat Peminjaman</a></li>
               <li><a class="dropdown-item" href="login.php" id="btn-logout">Keluar</a></li>
             </div>
           </ul>
