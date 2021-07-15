@@ -162,16 +162,23 @@ p{
 }
 
 .card-img-top{
+  width: auto;
+  height: 250px;
   border-radius: 5px 5px 0px 0px;
 }
 
 .card-title{
-  display: flex;
+  display: block;
   text-transform: capitalize;
   font-size: 14px;
   text-align: center;
   text-decoration: none;
   color: #024f46;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 48px;
+  line-height: 16px;
+  height: 48px;
 }
 
 .card-title:hover{
