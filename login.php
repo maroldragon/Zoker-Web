@@ -38,7 +38,7 @@
     </div>
     <div class="row">
       <div class="col align-self-center">
-        <button type="button" class="btn btn-link form-control mt-5" id="buttonLoginAdmin">Login Sebagai Admin</button>
+        <a href="admin/" class="btn btn-link form-control mt-5" id="buttonLoginAdmin">Login Sebagai Admin</a>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
 				// Signed in
 				var user = userCredential.user;
 				console.log(user)
-				window.location.href = "./index.php?home";
+				window.location.href = "./index.php";
         $("#menuGuest").addClass("d-none");
         $("#menuUser").removeClass("d-none");
 
@@ -69,8 +69,13 @@
 				var errorCode = error.code;
 				var errorMessage = error.message;
 				console.log(errorMessage);
+        swal("Error", "Username Dan Password Salah", "error");
 			});
 		})
+
+    $("#menuUser").addClass("d-none")
+    $("#menuGuest").removeClass("d-none")
+
 	</script>
   
 </body>

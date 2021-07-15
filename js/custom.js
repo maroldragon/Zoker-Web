@@ -1,8 +1,14 @@
+const dbRef = firebase.database().ref();
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         console.log("You Login Now");
         var user = firebase.auth().currentUser;
         var userId = user.uid;
+
+        $("#menuGuest").addClass("d-none")
+        $("#menuUser").removeClass("d-none")
+
         var usernameHeader = $("#usernameHeader")
         var photoHeader = $("#photoHeader")
         var photoProfile = $("#img-profile-admin")
@@ -23,7 +29,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         var alamatText = $("#alamatText")
         var emailText = $("#emailText")
 
-        const dbRef = firebase.database().ref();
         dbRef.child("user").child(userId).get().then((snapshot) => {
         if (snapshot.exists()) {
             usernameHeader.text(snapshot.val().userName)
@@ -54,7 +59,42 @@ firebase.auth().onAuthStateChanged(function(user) {
             console.error(error);
         });
     } else {
+        $("#menuUser").addClass("d-none")
+        $("#menuGuest").removeClass("d-none")
         console.log("You Not Login")
-        window.location.href = "./login-admin.php";
     }
 });
+
+function addCarousel(){
+    var carousel = document.getElementById("carousel-book");
+    corousel.innerHTML = ""
+    dbRef.child("books").orderByChild('rating').limitToLast(3).on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            carousel.innerHTML = "<div class='carousel-item active'>"+
+            "<div class='row'>"+
+              "<div class='col-lg-3 col-md-3 col-sm-5'>"+
+                "<img src='img/coverbook.jpg' class='carousel-img' alt='...' id='carouselImage'>"+
+              "</div>"+
+              +"<div class='col-lg-9 col-md-9 col-sm-7 pos-middle'>"+
+                +"<div class='d-inline mt-4 mb-4'>"+
+                  +"<div class='carousel-highlight'>Populer</div>"+
+                  +"<div class='carousel-title' id='carouselJudul'>Under the Black Flag: The Romanc and the Reality of Life Among the Pirates</div>"+
+                  +"<div class='carousel-caption' id='carouselPenulis'>David Cordingly</div>"+
+                  +"<a href='detail_buku.php' class='btn btn-carousel form-control mt-3' id='carouselButton'>Lihat Buku</a>"+
+                +"</div>"+
+                +"</div>"+
+           +" </div>"+
+          +"</div>"
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
+
+
+$("#btn-logout").click(function(){
+    firebase.auth().signOut().then(function() {
+    }).catch(function(error) {
+    // An error happened.
+    });
+})

@@ -19,7 +19,7 @@
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
-      <div class="carousel-inner">
+      <div class="carousel-inner" id="carousel-book">
         <div class="carousel-item active">
           <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-5">
@@ -122,5 +122,12 @@
   <?php
     @include_once('footer.php')
   ?>
+
+  <script src="js/custom.js"></script>
+
+  <script>
+    addCarousel()
+  </script>
+
 </body>
 </html>
