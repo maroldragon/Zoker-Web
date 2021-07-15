@@ -55,7 +55,7 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">2.382</h1>
+												<h1 id="jumlahMember" class="mt-1 mb-3">0</h1>
 												<div class="mb-0">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
 													<span class="text-muted">Sejak minggu lalu</span>
@@ -79,7 +79,7 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">1.300</h1>
+												<h1 class="mt-1 mb-3">0</h1>
 												<div class="mb-0">
 													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
 													<span class="text-muted">Sejak minggu lalu</span>
@@ -120,13 +120,13 @@
 							<div class="card flex-fill w-100">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Statistik Peminjaman Buku</h5>
+									<h5 class="card-title mb-0">Statistik Member dan Buku</h5>
 								</div>
 								<div class="card-body d-flex">
 									<div class="align-self-center w-100">
 										<div class="py-3">
 											<div class="chart chart-xs"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-												<canvas id="chartjs-dashboard-pie" style="display: block; width: 453px; height: 200px;" class="chartjs-render-monitor" width="453" height="200"></canvas>
+												<canvas id="uploadBuku" style="display: block; width: 453px; height: 200px;" class="chartjs-render-monitor" width="453" height="200"></canvas>
 											</div>
 										</div>
 
@@ -134,15 +134,15 @@
 											<tbody>
 												<tr>
 													<td>Member Terdaftar</td>
-													<td class="text-right">2.382</td>
+													<td id="totalMember" class="text-right">0</td>													
 												</tr>
 												<tr>
 													<td>Member Baru</td>
-													<td class="text-right">1.300</td>
+													<td class="text-right">0</td>
 												</tr>
 												<tr>
 													<td>Jumlah item Buku</td>
-													<td class="text-right">64</td>
+													<td id="totalBook" class="text-right">0</td>
 												</tr>
 											</tbody>
 										</table>
@@ -245,8 +245,8 @@
 	
 	<script>
 		$(function() {
-			// Pie chart
-			new Chart(document.getElementById("chartjs-dashboard-pie"), {
+			// Pie chart document.getElementById("uploadBuku")
+			new Chart(document.getElementById("uploadBuku"), {
 				type: 'pie',
 				data: {
 					labels: ["Member Terdaftar", "Member Baru", "Jumlah item Buku"],
@@ -406,16 +406,32 @@
 	?>
 	<script src="js/custom.js"></script>
 	<script> 
-		const dbRef = firebase.database().ref("books");
+		const dbBook = firebase.database().ref("books");
 		getBookTotal()
 		function getBookTotal(){
 			var total = 0;
-			dbRef.once('value', function(allRecord){
+			dbBook.once('value', function(allRecord){
 				allRecord.forEach( function() {
 					total += 1;
 				})
 			}).then(() => {
 				$("#jumlahBuku").html(total);
+				$("#totalBook").html(total);
+			});
+		}
+	</script>
+	<script> 
+		const dbMember = firebase.database().ref("user");
+		getMemberTotal()
+		function getMemberTotal(){
+			var total = 0;
+			dbMember.once('value', function(allRecord){
+				allRecord.forEach( function() {
+					total += 1;
+				})
+			}).then(() => {
+				$("#jumlahMember").html(total);
+				$("#totalMember").html(total);
 			});
 		}
 	</script>
