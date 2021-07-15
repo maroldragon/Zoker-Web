@@ -36,24 +36,54 @@
 
     <div class="row mt-3">
       <h1>Hasil Pencarian</h1>
-      <div class="col-lg-2 col-md-4 col-sm-4 col-6">
-        <div class="card">
-          <div class="card-rating">
-            <i class="fas fa-star"></i><span id="cardRating">4,5</span>
-          </div>
-          <img src="img/coverbook.jpg" class="card-img-top" alt="..." id="cardImage">
-          <div class="card-body">
-            <a class="card-title" href="detail_buku.php"  id="cardJudul">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</a>
-            <div class="card-text" id="cardPenulis">David Cordingly</div>
+      <div class="row mt-1" id="listBookSearch">
+        <div class="col-lg-2 col-md-4 col-sm-4 col-6">
+          <div class="card">
+            <div class="card-rating">
+              <i class="fas fa-star"></i><span id="searchCardRating">4,5</span>
+            </div>
+            <img src="img/coverbook.jpg" class="card-img-top" alt="..." id="katCardImage">
+            <div class="card-body">
+              <a class="card-title" href="detail_buku.php" id="katCardJudul">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</a>
+              <div class="card-text" id="katCardPenulis">David Cordingly</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  
+
   <?php
     @include_once('footer.php')
   ?>
+
+  <script src="js/custom.js"></script>
+  <script>
+    var textInput = $("#inputSearch").val()
+    addSearchBook(textInput);
+    $("#buttonSearch").click(function(e) {
+      e.preventDefault()
+      var search = $("#inputSearch").val()
+      console.log(search);
+      addSearchBook(search)
+    })
+
+    $("#buttonSearch").keydown(function(e) {
+			if(event.keyCode == 13) {
+				var keyword = $("#searchBooklist").val()
+				addData(keyword);
+			}
+		})
+
+		$(window).keydown(function(event){
+			if(event.keyCode == 13) {
+				event.preventDefault();
+				return false;
+			}
+		});
+
+  </script>
+
 </body>
 </html>

@@ -156,6 +156,40 @@ function addKategoriBook(kategori){
     });
 }
 
+function addSearchBook(keyword){
+    var listBookSearch = document.getElementById("listBookSearch");
+    listBookSearch.innerHTML = ""
+    var query = ""
+    query = dbRef.child("books")
+    var exist = false;
+    query.on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            if(child.val().judul.toLowerCase().includes(keyword.toLowerCase())){
+                addDataSearch(listBookSearch, child)
+                exist = true;
+            }
+        }).then(() => {
+            console.log("SARA")
+            if(!exist){
+                listBookSearch.innerHTML = "<p>Hasil Pencariann Tidak Ditemukan</p>"
+            }
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
+
+function addDataSearch(list, child){
+    list.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
+    "<div class='card-rating'>"+
+      "<i class='fas fa-star'></i><span id='searchCardRating'>"+ child.val().rating +"</span>"+
+    "</div>"+
+    "<img src='"+ child.val().cover +"' class='card-img-top' alt='...' id='searchCardImage'>"+
+    "<div class='card-body'>"+
+      "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='searchCardJudul'>"+ child.val().judul +"</a>"+
+      "<div class='card-text' id='searchCardPenulis'>"+ child.val().penulis +"</div>"+
+    "</div> </div> </div>"
+}
 
 
 $("#btn-logout").click(function(){
