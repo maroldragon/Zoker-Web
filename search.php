@@ -50,6 +50,7 @@
           </div>
         </div>
       </div>
+      <p id="emptyPencarian" style="color:red;font-size:13px">Pencarian Tidak Ditemukan</p>
     </div>
   </div>
 

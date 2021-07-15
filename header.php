@@ -27,13 +27,13 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
             <div class="d-none" id="menuGuest">              
-              <li><a class="dropdown-item" href="login.php" id="linkProfil">Guest</a></li>
+              <li><a class="dropdown-item" href="login.php" id="linkProfilGuest">Guest</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="login.php" id="linkLogin">Masuk</a></li>
               <li><a class="dropdown-item" href="register.php" id="linkRegister">Daftar</a></li>
             </div>
             <div class="" id="menuUser">              
-              <li><a class="dropdown-item" href="profil.php" id="linkProfil">Iman Fajar Lombu</a></li>
+              <li><a class="dropdown-item" href="profil.php" id="linkProfilUser">Iman Fajar Lombu</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="buku_terpinjam.php" id="linkBukuTerpinjam">Buku Terpinjam</a></li>
               <li><a class="dropdown-item" href="riwayat_peminjaman.php" id="linkRiwayatPeminjaman">Riwayat Peminjaman</a></li>

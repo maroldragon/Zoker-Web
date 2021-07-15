@@ -8,8 +8,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         $("#menuGuest").addClass("d-none")
         $("#menuUser").removeClass("d-none")
-
-        var usernameHeader = $("#usernameHeader")
+        var usernameHeader = $("#linkProfilUser")
         var photoHeader = $("#photoHeader")
         var photoProfile = $("#img-profile-admin")
         var namaLengkap = $("#namaLengkap")
@@ -162,6 +161,7 @@ function addSearchBook(keyword){
     var query = ""
     query = dbRef.child("books")
     var exist = false;
+    $("#emptyPencarian").css("display", "block")
     query.on("value", function (snapshot) {
         snapshot.forEach(function(child) {
             if(child.val().judul.toLowerCase().includes(keyword.toLowerCase())){
@@ -171,7 +171,7 @@ function addSearchBook(keyword){
         }).then(() => {
             console.log("SARA")
             if(!exist){
-                listBookSearch.innerHTML = "<p>Hasil Pencariann Tidak Ditemukan</p>"
+                listBookSearch.innerHTML = ""
             }
         });
     }, function (errorObject) {
@@ -180,6 +180,7 @@ function addSearchBook(keyword){
 }
 
 function addDataSearch(list, child){
+    $("#emptyPencarian").css("display", "none")
     list.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
     "<div class='card-rating'>"+
       "<i class='fas fa-star'></i><span id='searchCardRating'>"+ child.val().rating +"</span>"+
