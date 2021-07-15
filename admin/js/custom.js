@@ -189,7 +189,8 @@ $("#btnSaveBook").click(function(e){
             penerbit: penerbit.val(),
             kategori: kategori.val(),
             tahunTerbit: tahunTerbit.val(),
-            deskripsi: deskripsi.val()
+            deskripsi: deskripsi.val(),
+            rating: "5"
         }).then(() => {
             uploadImageCover();
         });

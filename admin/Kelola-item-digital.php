@@ -123,7 +123,7 @@
 		var no = 0;
 		var dataBook = [];
 		var dataBookSearch = [];
-		var tampil = 2;
+		var tampil = 5;
 		var currentPage = 1;
 		var allPage = 1;
 		addData("");
