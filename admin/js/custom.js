@@ -273,7 +273,7 @@ function uploadBook() {
                 let database = firebase.database();
                 database.ref('books/' + isbn.val() + "/file").set(downlaodURL).then(()=> {
                     swal("Selamat", "Buku Berhasil Di Upload", "success").then(function(){ 
-                        location.reload();
+                       location.replace("Kelola-item-digital.php?kelola_item");
                     });
                 })
             });
@@ -283,3 +283,4 @@ function uploadBook() {
         swal("Error", "Masukkan File Gambar Dan Buku", "error")
     }
 }
+
