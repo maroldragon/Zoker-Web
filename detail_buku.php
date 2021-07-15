@@ -21,7 +21,7 @@
       </div>
       <div class="col-md-8">
         <h1 id="textJudul">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h1>
-        <div class="font-caption" id="textKategori">Figtion</div>
+        <div class="font-caption" id="textKategori">Fiction</div>
         <div class="font-label">Penulis</div>
         <div class="font-caption" id="textPenulis">David Cordingly</div>
         <div class="font-label">Penerbit</div>
@@ -71,6 +71,22 @@
   <?php
     @include_once('footer.php')
   ?>
+
+<script src="js/custom.js"></script>
+
+<script>
+  var isbnGet = <?php echo $_GET("isbn") ?>
+  var judul = $("#textJudul")
+  var kategori = $("#textKategori")
+  var penulis = $("#textPenulis")
+  var penerbit = $("#textPenerbit")
+  var tahunTerbit = $("#textTahunTerbit")
+  var textIsbn = $("#textIsbn")
+  var ringkasan = $("#textRingkasan")
+  var imageBuku = $("#imageBuku");
+  var buttonPinjam = $("#buttonPinjamBuku");
+  console.log(isbnGet);
+</script>
 
 </body>
 </html>

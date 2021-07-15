@@ -61,30 +61,28 @@ firebase.auth().onAuthStateChanged(function(user) {
     } else {
         $("#menuUser").addClass("d-none")
         $("#menuGuest").removeClass("d-none")
-        console.log("You Not Login")
+        //console.log("You Not Login")
     }
 });
 
 function addCarousel(){
     var carousel = document.getElementById("carousel-book");
-    corousel.innerHTML = ""
+    carousel.innerHTML = ""
+    var active = "active"
     dbRef.child("books").orderByChild('rating').limitToLast(3).on("value", function (snapshot) {
         snapshot.forEach(function(child) {
-            carousel.innerHTML = "<div class='carousel-item active'>"+
-            "<div class='row'>"+
+            carousel.innerHTML += "<div class='carousel-item " +  active + "'> <div class='row'>"+
               "<div class='col-lg-3 col-md-3 col-sm-5'>"+
-                "<img src='img/coverbook.jpg' class='carousel-img' alt='...' id='carouselImage'>"+
+                "<img src='"+ child.val().cover +"' class='carousel-img' alt='...' id='carouselImage'>"+
               "</div>"+
-              +"<div class='col-lg-9 col-md-9 col-sm-7 pos-middle'>"+
-                +"<div class='d-inline mt-4 mb-4'>"+
-                  +"<div class='carousel-highlight'>Populer</div>"+
-                  +"<div class='carousel-title' id='carouselJudul'>Under the Black Flag: The Romanc and the Reality of Life Among the Pirates</div>"+
-                  +"<div class='carousel-caption' id='carouselPenulis'>David Cordingly</div>"+
-                  +"<a href='detail_buku.php' class='btn btn-carousel form-control mt-3' id='carouselButton'>Lihat Buku</a>"+
-                +"</div>"+
-                +"</div>"+
-           +" </div>"+
-          +"</div>"
+              "<div class='col-lg-9 col-md-9 col-sm-7 pos-middle'>"+
+                "<div class='d-inline mt-4 mb-4'>"+
+                  "<div class='carousel-highlight'>Populer</div>"+
+                  "<div class='carousel-title' id='carouselJudul'>"+ child.val().judul +"</div>"+
+                  "<div class='carousel-caption' id='carouselPenulis'>"+ child.val().penulis +"</div>"+
+                  "<a href='detail_buku.php?isbn="+ child.val().isbn +"' class='btn btn-carousel form-control mt-3' id='carouselButton'>Lihat Buku</a>"+
+                "</div> </div> </div> </div>";
+                active = ""
         });
     }, function (errorObject) {
         console.log(errorObject) 
