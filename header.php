@@ -9,7 +9,7 @@
         <li class="nav-item">
           <form class="d-flex">
             <input class="form-control inp-search" value="<?php if(isset($_GET['search'])) echo $_GET['search'] ?>" type="search" placeholder="Cari" aria-label="Search" id="inputSearch">
-            <a class="btn btn-search" href="search.php" id="buttonSearch" ><i class="fas fa-search"></i></a>
+            <a class="btn btn-search" id="buttonSearch" ><i class="fas fa-search"></i></a>
           </form>
         </li>
         <li class="nav-item">

@@ -349,6 +349,13 @@ function generateProfile(snap) {
     $("#textEmail").text(snap.email);
 }
 
+$("#buttonSearch").click(function(e) {
+    e.preventDefault()
+    var search = $("#inputSearch").val();
+    location.href = "./search.php?search=" + search;
+})
+
+
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {
     }).catch(function(error) {
