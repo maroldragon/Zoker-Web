@@ -88,7 +88,7 @@
 
   //KIRIM ULASAN
   $("#buttonKirimUlasan").click(function(){
-    ulasanValue = "test";
+    ulasanValue = $("#inputUlasan").val();
     console.log(ratingValue + " " + ulasanValue);
   });
 

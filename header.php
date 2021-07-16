@@ -33,7 +33,7 @@
               <li><a class="dropdown-item" href="register.php" id="linkRegister">Daftar</a></li>
             </div>
             <div class="" id="menuUser">              
-              <li><a class="dropdown-item" href="profil.php" id="linkProfilUser">Iman Fajar Lombu</a></li>
+              <li><a class="dropdown-item" href="profil.php" id="linkProfilUser">username</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="buku_terpinjam.php" id="linkBukuTerpinjam">Buku Terpinjam</a></li>
               <li><a class="dropdown-item" href="riwayat_peminjaman.php" id="linkRiwayatPeminjaman">Riwayat Peminjaman</a></li>

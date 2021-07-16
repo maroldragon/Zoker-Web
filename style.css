@@ -1,3 +1,5 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css);
+
 *:focus{
   outline: none;
 }
@@ -15,6 +17,10 @@ body{
   color: #383838;
   font-family: 'Quicksand', sans-serif;
   font-size: 16px;
+}
+
+textarea{
+  white-space: pre-wrap;
 }
 
 .navbar{
@@ -131,9 +137,9 @@ p{
 }
 
 .carousel-img{
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 5px;
   width: 100%;
-  height: auto;
+  height: 300px;
 }
 
 .card{
