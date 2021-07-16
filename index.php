@@ -35,6 +35,8 @@
             </div>
           </div>
         </div>
+<<<<<<< HEAD
+=======
         <div class="carousel-item">
           <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-5"><img src="img/coverbook.jpg" class="card-img-top" alt="..."></div>
@@ -61,6 +63,7 @@
             </div>
           </div>
         </div>
+>>>>>>> da88eba89d24f42bd7c496b18d69815a57824fc0
       </div>
     </div>
 

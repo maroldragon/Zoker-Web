@@ -23,7 +23,12 @@
     @include_once('footer.php')
   ?>
 
-  <script>PDFObject.embed("./pdf/book.pdf", "#viewBook");</script>
+  <script src="js/custom.js"></script>
+  <script>
+      readBook()
+  </script>
+
+  <script></script>
 
 </body>
 </html>
