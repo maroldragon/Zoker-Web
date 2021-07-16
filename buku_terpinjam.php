@@ -31,8 +31,6 @@
 
   <script src="js/custom.js"></script>
   <script>
-    // var user = firebase.auth().currentUser;
-    // var userId = user.uid;
     generateBukuTerpinjam()
   </script>
 

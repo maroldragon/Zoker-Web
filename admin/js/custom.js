@@ -242,6 +242,7 @@ function uploadImageCover() {
 }
 
 function uploadBook() {
+
     //get your select image
     var book =document.getElementById("uploadBuku").files[0];
     var isbn = $("#isbn")
@@ -272,6 +273,7 @@ function uploadBook() {
                 $("#myBar").css("display", "none");
                 let database = firebase.database();
                 database.ref('books/' + isbn.val() + "/file").set(downlaodURL).then(()=> {
+                    savePrediksiRating()
                     swal("Selamat", "Buku Berhasil Di Upload", "success").then(function(){ 
                        location.replace("Kelola-item-digital.php?kelola_item");
                     });
@@ -284,3 +286,14 @@ function uploadBook() {
     }
 }
 
+/*#######################################
+            Algoritma
+#######################################*/
+
+function savePrediksiRating(){
+    
+}
+
+function updateP1(){
+    
+}

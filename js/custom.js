@@ -325,7 +325,7 @@ function generateDataTersimpan(bookId, listBookTerpinjam) {
             "<div class='card-body'>"+
                 "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='newCardJudul'>"+ child.val().judul +"</a>"+
                 "<div class='card-text' id='newCardPenulis'>"+ child.val().penulis +"</div>"+
-                "<a href='baca_buku.php' class='btn btn-primary form-control' id='buttonBacaBuku'>Baca Buku</a>"+
+                "<a href='baca_buku.php?read="+ child.val().isbn +"' class='btn btn-primary form-control' id='buttonBacaBuku'>Baca Buku</a>"+
             "</div> </div> </div>"
         });
     }, function (errorObject) {
@@ -333,6 +333,20 @@ function generateDataTersimpan(bookId, listBookTerpinjam) {
     });
 }
 
+function readBook(){
+    var isbn = (location.search.replace('?', '').split('='))[1];
+    getFileByIsbn(isbn)
+}
+
+function getFileByIsbn(isbn){
+    dbRef.child("books").orderByChild("isbn").equalTo(isbn).on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            PDFObject.embed(child.val().file, "#viewBook");
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
 
 function generateProfile(snap) {
     $("#textNamaLengkap").text(snap.namaDepan + " " + snap.namaBelakang);
@@ -354,7 +368,6 @@ $("#buttonSearch").click(function(e) {
     var search = $("#inputSearch").val();
     location.href = "./search.php?search=" + search;
 })
-
 
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {
