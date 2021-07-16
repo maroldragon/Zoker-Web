@@ -4,7 +4,7 @@
   <?php
     @include_once('head.php')
   ?>
-  <title>Register · Perpustakaan Digital</title>
+  <title>Edit Profil · Perpustakaan Digital</title>
 </head>
 <body>
   <?php
@@ -53,8 +53,8 @@
         <label class="inp-text-label" for="inputAgama">Agama</label>
         <select class="form-control inp-text" name="Agama" id="inputAgama">
           <option value="Islam">Islam</option>
-          <option value="Kristen">Kristen</option>
-          <option value="Katolik">Katolik</option>
+          <option value="Kristen Protestan">Kristen Protestan</option>
+          <option value="Khatolik">Katolik</option>
           <option value="Buddha">Buddha</option>
           <option value="Hindu">Hindu</option>
           <option value="Kong Hu Cu">Kong Hu Cu</option>
@@ -105,7 +105,26 @@
   ?>
 
   
-<script>    
+  <script src="js/custom.js">
+    
+  </script>
+  <script>
+    function generateEditProfile(snap) {
+        $("#inputNamaDepan").val(snap.namaDepan);
+        $("#inputNamaBelakang").val(snap.namaBelakang);
+        $("#inputUsername").val(snap.userName);
+        $("#inputJenisKelamin").val(snap.jenisKelamin);
+        $("#inputTempatLahir").val(snap.tempatLahir);
+        $("#inputTanggalLahir").val(snap.tanggalLahir);
+        $("#inputAgama").val(snap.agama);
+        $("#inputHobi").val(snap.hobi);
+        $("#inputNegara").val(snap.negara);
+        $("#inputProvinsi").val(snap.provinsi);
+        $("#inputKota").val(snap.kota);
+        $("#inputAlamat").val(snap.alamat);
+        $("#inputEmail").val(snap.email);
+    }
+
     $("#buttonSimpanProfil").click(function(){
       var namaDepan = $("#inputNamaDepan").val();
       var namaBelakang = $("#inputNamaBelakang").val();

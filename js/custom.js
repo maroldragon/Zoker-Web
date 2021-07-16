@@ -15,6 +15,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         dbRef.child("user").child(userId).get().then((snapshot) => {
         if (snapshot.exists()) {
             generateProfile(snapshot.val())
+            generateEditProfile(snapshot.val())
             usernameHeader.text(snapshot.val().userName)
         } else {
             console.log("No data available");
@@ -348,6 +349,22 @@ function generateProfile(snap) {
     $("#textNegara").text(snap.negara);
     $("#textEmail").text(snap.email);
 }
+
+// function generateEditProfile(snap) {
+//     $("#inputNamaDepan").val(snap.namaDepan);
+//     $("#inputNamaBelakang").val(snap.namaBelakang);
+//     $("#inputUsername").val(snap.userName);
+//     $("#inputJenisKelamin").val(snap.jenisKelamin);
+//     $("#inputTempatLahir").val(snap.tempatLahir);
+//     $("#inputTanggalLahir").val(snap.tanggalLahir);
+//     $("#inputAgama").val(snap.agama);
+//     $("#inputHobi").val(snap.hobi);
+//     $("#inputNegara").val(snap.negara);
+//     $("#inputProvinsi").val(snap.provinsi);
+//     $("#inputKota").val(snap.kota);
+//     $("#inputAlamat").val(snap.alamat);
+//     $("#inputEmail").val(snap.email);
+// }
 
 $("#buttonSearch").click(function(e) {
     e.preventDefault()

@@ -53,8 +53,8 @@
         <label class="inp-text-label" for="inputAgama">Agama</label>
         <select class="form-control inp-text" name="Agama" id="inputAgama">
           <option value="Islam">Islam</option>
-          <option value="Kristen Protestan">Kristen</option>
-          <option value="Khatolik">Katolik</option>
+          <option value="Kristen Protestan">Kristen Protestan</option>
+          <option value="Khatolik">Khatolik</option>
           <option value="Buddha">Buddha</option>
           <option value="Hindu">Hindu</option>
           <option value="Kong Hu Cu">Kong Hu Cu</option>
