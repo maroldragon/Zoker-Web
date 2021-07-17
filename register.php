@@ -33,8 +33,8 @@
       <div class="col">
         <label class="inp-text-label"  for="inputJenisKelamin">Jenis Kelamin</label>
         <select class="form-control inp-text" name="Jenis Kelamin" id="inputJenisKelamin">
-          <option value="Laki-Laki">Laki-laki</option>
-          <option value="Perempuan">Perempuan</option>
+          <option value="laki-Laki">Laki-laki</option>
+          <option value="perempuan">Perempuan</option>
         </select>
       </div>
     </div>
@@ -52,12 +52,12 @@
       <div class="col">
         <label class="inp-text-label" for="inputAgama">Agama</label>
         <select class="form-control inp-text" name="Agama" id="inputAgama">
-          <option value="Islam">Islam</option>
-          <option value="Kristen Protestan">Kristen Protestan</option>
-          <option value="Khatolik">Khatolik</option>
-          <option value="Buddha">Buddha</option>
-          <option value="Hindu">Hindu</option>
-          <option value="Kong Hu Cu">Kong Hu Cu</option>
+          <option value="islam">Islam</option>
+          <option value="kristen protestan">Kristen Protestan</option>
+          <option value="khatolik">Katolik</option>
+          <option value="buddha">Buddha</option>
+          <option value="hindu">Hindu</option>
+          <option value="kong hu cu">Kong Hu Cu</option>
         </select>
       </div>
       <div class="col">

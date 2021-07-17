@@ -70,6 +70,7 @@ function writeUserData(userId) {
     let database = firebase.database();
 
     database.ref('user/' + userId).set({
+        userId:userId,
         namaDepan: namaDepan,
         namaBelakang: namaBelakang,
         userName : userName,
@@ -219,35 +220,98 @@ function addDataSearch(list, child){
     "</div> </div> </div>"
 }
 
-function generateBookDetail(){
-    var isbnGet = (location.search.replace('?', '').split('='))[1];
-    var judul = $("#textJudul")
-    var kategori = $("#textKategori")
-    var penulis = $("#textPenulis")
-    var penerbit = $("#textPenerbit")
-    var tahunTerbit = $("#textTahunTerbit")
-    var textIsbn = $("#textIsbn")
-    var ringkasan = $("#textRingkasan")
-    var imageBuku = $("#imageBuku");
-    var rating = $("#ratingBukuDetail")
+function simpanProfileUser(){
+    let database = firebase.database();
+    var namaDepan = $("#inputNamaDepan").val();
+    var namaBelakang = $("#inputNamaBelakang").val();
+    var username = $("#inputUsername").val();
+    var jenisKelamin = $("#inputJenisKelamin").val();
+    var tempatLahir = $("#inputTempatLahir").val();
+    var tanggalLahir = $("#inputTanggalLahir").val();
+    var agama = $("#inputAgama").val();
+    var hobi = $("#inputHobi").val();
+    var negara = $("#inputNegara").val();
+    var provinsi = $("#inputProvinsi").val();
+    var kota = $("#inputKota").val();
+    var alamat = $("#inputAlamat").val();
+    var user = firebase.auth().currentUser;
+    var userId = user.uid;
 
-    dbRef.child("books").orderByChild('isbn').equalTo(isbnGet).on("value", function (snapshot) {
-        snapshot.forEach(function(child) {
-            judul.text(child.val().judul)
-            kategori.text(child.val().kategori)
-            penulis.text(child.val().penulis)
-            tahunTerbit.text(child.val().tahunTerbit)
-            penerbit.text(child.val().penerbit)
-            textIsbn.text(child.val().isbn)
-            ringkasan.text(child.val().deskripsi)
-            imageBuku.attr("src", child.val().cover)
-            rating.text((child.val().rating))
-        });
-    }, function (errorObject) {
-        console.log(errorObject) 
-    });
+    database.ref('user/' + userId + "/namaDepan").set(namaDepan)
+    database.ref('user/' + userId + "/namaBelakang").set(namaBelakang)
+    database.ref('user/' + userId + "/userName").set(username)
+    database.ref('user/' + userId + "/jenisKelamin").set(jenisKelamin)
+    database.ref('user/' + userId + "/tempatLahir").set(tempatLahir)
+    database.ref('user/' + userId + "/tanggalLahir").set(tanggalLahir)
+    database.ref('user/' + userId + "/alamat").set(alamat)
+    database.ref('user/' + userId + "/agama").set(agama)
+    database.ref('user/' + userId + "/hobi").set(hobi)
+    database.ref('user/' + userId + "/alamat").set(alamat)
+    database.ref('user/' + userId + "/negara").set(negara)
+    database.ref('user/' + userId + "/provinsi").set(provinsi)
+    database.ref('user/' + userId + "/kota").set(kota)
+    swal("Selamat", "Berhasil di edit", "success");
+
 }
 
+function generateBookDetail(){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var user = firebase.auth().currentUser;
+            var userId = user.uid;
+            var isbnGet = (location.search.replace('?', '').split('='))[1];
+            var judul = $("#textJudul")
+            var kategori = $("#textKategori")
+            var penulis = $("#textPenulis")
+            var penerbit = $("#textPenerbit")
+            var tahunTerbit = $("#textTahunTerbit")
+            var textIsbn = $("#textIsbn")
+            var ringkasan = $("#textRingkasan")
+            var imageBuku = $("#imageBuku");
+            var rating = $("#ratingBukuDetail")
+
+            dbRef.child("books").orderByChild('isbn').equalTo(isbnGet).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    judul.text(child.val().judul)
+                    kategori.text(child.val().kategori)
+                    penulis.text(child.val().penulis)
+                    tahunTerbit.text(child.val().tahunTerbit)
+                    penerbit.text(child.val().penerbit)
+                    textIsbn.text(child.val().isbn)
+                    ringkasan.text(child.val().deskripsi)
+                    imageBuku.attr("src", child.val().cover)
+                    rating.text((child.val().rating))
+                });
+            }, function (errorObject) {
+                console.log(errorObject) 
+            });
+
+            dbRef.child("ratings").orderByChild('idRating').equalTo(userId+"-"+isbnGet).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    $("#rate-"+parseInt(child.val().rating)).prop('checked', true)
+                    console.log($("rate-"+ (child.val().rating)))
+                    $("#ratingFeedback").text(parseInt(child.val().rating));
+                    $("#inputUlasan").val(child.val().ulasan);
+                    $("#buttonKirimUlasan").hide()
+                });
+            }, function (errorObject) {
+                console.log(errorObject) 
+            });
+
+            dbRef.child("peminjaman").orderByChild('idPeminjaman').equalTo(userId+"-"+isbnGet).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    $("#buttonPinjamBuku").text("Buku Sudah Dipinjam");
+                    $("#buttonPinjamBuku").prop("disabled", true);
+                });
+            }, function (errorObject) {
+                console.log(errorObject) 
+            });
+
+        }else{
+            console.log("Belum login")
+        }
+    })
+}
 function savePinjamBuku(){
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -257,7 +321,7 @@ function savePinjamBuku(){
             var bookId = isbnGet;
             var peminjamanId = userId+"-"+bookId;
             var date = new Date();
-            var tanggal = date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear;
+            let tanggal = new Date().toLocaleDateString();
             var status = "unfinished"
                 
             dbRef.child("user").child(userId).get().then((snapshot) => {
@@ -334,21 +398,6 @@ function generateDataTersimpan(bookId, listBookTerpinjam) {
     });
 }
 
-function readBook(){
-    var isbn = (location.search.replace('?', '').split('='))[1];
-    getFileByIsbn(isbn)
-}
-
-function getFileByIsbn(isbn){
-    dbRef.child("books").orderByChild("isbn").equalTo(isbn).on("value", function (snapshot) {
-        snapshot.forEach(function(child) {
-            PDFObject.embed(child.val().file, "#viewBook");
-        });
-    }, function (errorObject) {
-        console.log(errorObject) 
-    });
-}
-
 function generateProfile(snap) {
     $("#textNamaLengkap").text(snap.namaDepan + " " + snap.namaBelakang);
     $("#textUsername").text(snap.userName);
@@ -364,27 +413,90 @@ function generateProfile(snap) {
     $("#textEmail").text(snap.email);
 }
 
-// function generateEditProfile(snap) {
-//     $("#inputNamaDepan").val(snap.namaDepan);
-//     $("#inputNamaBelakang").val(snap.namaBelakang);
-//     $("#inputUsername").val(snap.userName);
-//     $("#inputJenisKelamin").val(snap.jenisKelamin);
-//     $("#inputTempatLahir").val(snap.tempatLahir);
-//     $("#inputTanggalLahir").val(snap.tanggalLahir);
-//     $("#inputAgama").val(snap.agama);
-//     $("#inputHobi").val(snap.hobi);
-//     $("#inputNegara").val(snap.negara);
-//     $("#inputProvinsi").val(snap.provinsi);
-//     $("#inputKota").val(snap.kota);
-//     $("#inputAlamat").val(snap.alamat);
-//     $("#inputEmail").val(snap.email);
-// }
+function generateEditProfile(snap) {
+    $("#inputNamaDepan").val(snap.namaDepan);
+    $("#inputNamaBelakang").val(snap.namaBelakang);
+    $("#inputUsername").val(snap.userName);
+    $("#inputJenisKelamin").val(snap.jenisKelamin);
+    $("#inputTempatLahir").val(snap.tempatLahir);
+    var mydate = convertTanggal(snap.tanggalLahir);
+    $("#inputTanggalLahir").val(mydate);
+    $("#inputAgama").val(snap.agama);
+    $("#inputHobi").val(snap.hobi);
+    $("#inputNegara").val(snap.negara);
+    $("#inputProvinsi").val(snap.provinsi);
+    $("#inputKota").val(snap.kota);
+    $("#inputAlamat").val(snap.alamat);
+    $("#inputEmail").val(snap.email);
+}
+
+function convertTanggal(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
+
+function readBook(){
+    var isbn = (location.search.replace('?', '').split('='))[1];
+    getFileByIsbn(isbn)
+}
+
+function getFileByIsbn(isbn){
+    dbRef.child("books").orderByChild("isbn").equalTo(isbn).on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            PDFObject.embed(child.val().file, "#viewBook");
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
 
 $("#buttonSearch").click(function(e) {
     e.preventDefault()
     var search = $("#inputSearch").val();
     location.href = "./search.php?search=" + search;
 })
+
+function tambahkanUlasan(){
+    var isbnGet = (location.search.replace('?', '').split('='))[1];
+    var user = firebase.auth().currentUser;
+    var userId = user.uid;
+    var bookId = (location.search.replace('?', '').split('='))[1];
+    var ratingId = userId + "-" + bookId
+    var rate =  $("#ratingFeedback").text()
+    var ulasanValue = $("#inputUlasan").val();
+    let database = firebase.database();
+    let tanggal = new Date().toLocaleDateString();
+    
+    dbRef.child("peminjaman").child(userId+"-"+isbnGet).get().then((snapshot) => {
+        if (snapshot.exists()) {
+            database.ref('ratings/' + ratingId).set({
+                idRating: ratingId,
+                idBuku : bookId,
+                idUser : userId,
+                ulasan: ulasanValue,
+                rating : rate,
+                tanggal : tanggal
+            }).then(() => {
+                swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
+                    location.href = "./detail_buku.php?isbn="+bookId
+                });
+            });
+        }else{
+            swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
+        }
+    })
+    // dbRef.child("peminjaman").orderByChild('idPeminjaman').equalTo().on("value", function (snapshot) {
+    //     snapshot.forEach(function(child) {
+            
+    //     });
+    // }, function (errorObject) {
+    //     console.log(errorObject) 
+    // });
+
+    console.log("kor");
+}
 
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {

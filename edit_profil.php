@@ -33,8 +33,8 @@
       <div class="col">
         <label class="inp-text-label"  for="inputJenisKelamin">Jenis Kelamin</label>
         <select class="form-control inp-text" name="Jenis Kelamin" id="inputJenisKelamin">
-          <option value="Laki-Laki">Laki-laki</option>
-          <option value="Perempuan">Perempuan</option>
+          <option value="laki-Laki">Laki-laki</option>
+          <option value="perempuan">Perempuan</option>
         </select>
       </div>
     </div>
@@ -52,12 +52,12 @@
       <div class="col">
         <label class="inp-text-label" for="inputAgama">Agama</label>
         <select class="form-control inp-text" name="Agama" id="inputAgama">
-          <option value="Islam">Islam</option>
-          <option value="Kristen Protestan">Kristen Protestan</option>
-          <option value="Khatolik">Katolik</option>
-          <option value="Buddha">Buddha</option>
-          <option value="Hindu">Hindu</option>
-          <option value="Kong Hu Cu">Kong Hu Cu</option>
+          <option value="islam">Islam</option>
+          <option value="kristen protestan">Kristen Protestan</option>
+          <option value="katolik">Katolik</option>
+          <option value="buddha">Buddha</option>
+          <option value="hindu">Hindu</option>
+          <option value="kong hu cu">Kong Hu Cu</option>
         </select>
       </div>
       <div class="col">
@@ -88,12 +88,12 @@
     <div class="row mb-2">
       <div class="col">
         <label class="inp-text-label"  for="inputEmail">Email</label>
-        <input type="email" class="form-control inp-text" id="inputEmail">
+        <input type="email" disabled readonly class="form-control inp-text" id="inputEmail">
       </div>
     </div>
     <div class="row">
       <div class="col">        
-        <button type="submit" class="btn btn-primary form-control mt-3" id="buttonSimpanProfil">Simpan Profil</button>
+        <button type="submit" class="btn btn-primary form-control mt-3" id="btn-simpan-profile-user">Simpan Profil</button>
         <a href="profil.php" class="btn btn-secondary form-control mt-3" id="buttonRegister">Cancel</a>
       </div>
     </div>
@@ -103,42 +103,14 @@
   <?php
     @include_once('footer.php')
   ?>
-
   
   <script src="js/custom.js">
     
   </script>
   <script>
-    function generateEditProfile(snap) {
-        $("#inputNamaDepan").val(snap.namaDepan);
-        $("#inputNamaBelakang").val(snap.namaBelakang);
-        $("#inputUsername").val(snap.userName);
-        $("#inputJenisKelamin").val(snap.jenisKelamin);
-        $("#inputTempatLahir").val(snap.tempatLahir);
-        $("#inputTanggalLahir").val(snap.tanggalLahir);
-        $("#inputAgama").val(snap.agama);
-        $("#inputHobi").val(snap.hobi);
-        $("#inputNegara").val(snap.negara);
-        $("#inputProvinsi").val(snap.provinsi);
-        $("#inputKota").val(snap.kota);
-        $("#inputAlamat").val(snap.alamat);
-        $("#inputEmail").val(snap.email);
-    }
 
-    $("#buttonSimpanProfil").click(function(){
-      var namaDepan = $("#inputNamaDepan").val();
-      var namaBelakang = $("#inputNamaBelakang").val();
-      var userName = $("#inputUsername").val();
-      var jenisKelamin = $("#inputJenisKelamin").val();
-      var tempatLahir = $("#inputTempatLahir").val();
-      var tanggalLahir = $("#inputTanggalLahir").val();
-      var agama = $("#inputAgama").val();
-      var hobi = $("#inputHobi").val();
-      var negara = $("#inputNegara").val();
-      var provinsi = $("#inputProvinsi").val();
-      var kota = $("#inputKota").val();
-      var alamat = $("#inputAlamat").val();
-      var email = $("#inputEmail").val();
+    $("#btn-simpan-profile-user").click(function(){
+      simpanProfileUser();
       //console.log(namaDepan+" "+namaBelakang+" "+userName+" "+jenisKelamin +" "+tempatLahir+" "+tanggalLahir+" "+agama+" "+hobi +" "+negara +" "+provinsi +" "+kota +" "+alamat +" "+email);
     });
   </script>
