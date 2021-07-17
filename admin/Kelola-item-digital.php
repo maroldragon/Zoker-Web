@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -126,9 +127,10 @@
 		var tampil = 5;
 		var currentPage = 1;
 		var allPage = 1;
-		// saveDataBookToCsv();
-		saveDataUserToCsv();
-		//saveDataRatingToCsv()
+		saveDataBookToCsv();
+		// saveDataUserToCsv();
+		// saveDataRatingToCsv()
+		
 		addData("");
 
 		function addData(keyword){
@@ -186,7 +188,7 @@
 			var judul = currentRecord.val().judul
 			var isbn = currentRecord.val().isbn
 			var kategori = currentRecord.val().kategori
-			var penerbit = currentRecord.val().tanggal
+			var penerbit = currentRecord.val().penerbit
 			var penulis = currentRecord.val().penulis
 			var tahunTerbit = currentRecord.val().tahunTerbit
 			var deskripsi = currentRecord.val().deskripsi

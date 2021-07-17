@@ -284,7 +284,7 @@ function uploadBook() {
                 $("#myBar").css("display", "none");
                 let database = firebase.database();
                 database.ref('books/' + isbn.val() + "/file").set(downlaodURL).then(()=> {
-                    savePrediksiRating()
+                    // saveDataBookToCsv()
                     swal("Selamat", "Buku Berhasil Di Upload", "success").then(function(){ 
                        location.href = "Kelola-item-digital.php?kelola_item";
                     });

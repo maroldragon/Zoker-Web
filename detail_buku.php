@@ -15,7 +15,7 @@
   <div class="container-md form-content col-lg-8 col-md-10 col">
     <div class="row">
       <div class="col-md-4 pos-center pb-3">
-        <img src="img/coverbook.jpg" class="img-profil" alt="" id="imageBuku">
+        <img src="img/no_image.png" class="img-profil" alt="" id="imageBuku">
         <button type="button" class="btn btn-primary mt-4" id="buttonPinjamBuku">Pinjam Buku</button>
         <p>Rating (<span id="ratingBukuDetail"></span>)</p>
       </div>
