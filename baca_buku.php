@@ -16,7 +16,7 @@
     <h1 id="textJudulBuku">Under the Black Flag: The Romance and the Reality of Life Among the Pirates</h1>
     <p id="textPenulis">David Cordingly</p>
     <div class="viewBook" id="viewBook"></div>    
-    <a href="detail_buku.php#feedbackRatingUlasan" class="btn btn-primary form-control mt-3" id="buttonRatingUlasan">Berikan Rating dan Ulasan</a>
+    <a href="detail_buku.php?isbn=<?php echo $_GET['read'];?>#feedbackRatingUlasan" class="btn btn-primary form-control mt-3" id="buttonRatingUlasan">Berikan Rating dan Ulasan</a>
   </div>
 
   <?php

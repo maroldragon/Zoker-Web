@@ -255,32 +255,53 @@ function simpanProfileUser(){
 }
 
 function generateBookDetail(){
-    var isbnGet = (location.search.replace('?', '').split('='))[1];
-    var judul = $("#textJudul")
-    var kategori = $("#textKategori")
-    var penulis = $("#textPenulis")
-    var penerbit = $("#textPenerbit")
-    var tahunTerbit = $("#textTahunTerbit")
-    var textIsbn = $("#textIsbn")
-    var ringkasan = $("#textRingkasan")
-    var imageBuku = $("#imageBuku");
-    var rating = $("#ratingBukuDetail")
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var user = firebase.auth().currentUser;
+            var userId = user.uid;
+            var isbnGet = (location.search.replace('?', '').split('='))[1];
+            var judul = $("#textJudul")
+            var kategori = $("#textKategori")
+            var penulis = $("#textPenulis")
+            var penerbit = $("#textPenerbit")
+            var tahunTerbit = $("#textTahunTerbit")
+            var textIsbn = $("#textIsbn")
+            var ringkasan = $("#textRingkasan")
+            var imageBuku = $("#imageBuku");
+            var rating = $("#ratingBukuDetail")
 
-    dbRef.child("books").orderByChild('isbn').equalTo(isbnGet).on("value", function (snapshot) {
-        snapshot.forEach(function(child) {
-            judul.text(child.val().judul)
-            kategori.text(child.val().kategori)
-            penulis.text(child.val().penulis)
-            tahunTerbit.text(child.val().tahunTerbit)
-            penerbit.text(child.val().penerbit)
-            textIsbn.text(child.val().isbn)
-            ringkasan.text(child.val().deskripsi)
-            imageBuku.attr("src", child.val().cover)
-            rating.text((child.val().rating))
-        });
-    }, function (errorObject) {
-        console.log(errorObject) 
+            dbRef.child("books").orderByChild('isbn').equalTo(isbnGet).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    judul.text(child.val().judul)
+                    kategori.text(child.val().kategori)
+                    penulis.text(child.val().penulis)
+                    tahunTerbit.text(child.val().tahunTerbit)
+                    penerbit.text(child.val().penerbit)
+                    textIsbn.text(child.val().isbn)
+                    ringkasan.text(child.val().deskripsi)
+                    imageBuku.attr("src", child.val().cover)
+                    rating.text((child.val().rating))
+                });
+            }, function (errorObject) {
+                console.log(errorObject) 
+            });
+
+            dbRef.child("ratings").orderByChild('idRating').equalTo(userId+"-"+isbnGet).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    $("#rate-"+parseInt(child.val().rating)).prop('checked', true)
+                    console.log($("rate-"+ (child.val().rating)))
+                    $("#ratingFeedback").text(parseInt(child.val().rating));
+                    $("#inputUlasan").val(child.val().ulasan);
+                    $("#buttonKirimUlasan").hide()
+                });
+            }, function (errorObject) {
+                console.log(errorObject) 
     });
+
+        }else{
+            console.log("Belum login")
+        }
+    })
 }
 
 function savePinjamBuku(){
@@ -382,6 +403,30 @@ function generateProfile(snap) {
     $("#textProvinsi").text(snap.provinsi);
     $("#textNegara").text(snap.negara);
     $("#textEmail").text(snap.email);
+}
+
+function generateEditProfile(snap) {
+    $("#inputNamaDepan").val(snap.namaDepan);
+    $("#inputNamaBelakang").val(snap.namaBelakang);
+    $("#inputUsername").val(snap.userName);
+    $("#inputJenisKelamin").val(snap.jenisKelamin);
+    $("#inputTempatLahir").val(snap.tempatLahir);
+    var mydate = convertTanggal(snap.tanggalLahir);
+    $("#inputTanggalLahir").val(mydate);
+    $("#inputAgama").val(snap.agama);
+    $("#inputHobi").val(snap.hobi);
+    $("#inputNegara").val(snap.negara);
+    $("#inputProvinsi").val(snap.provinsi);
+    $("#inputKota").val(snap.kota);
+    $("#inputAlamat").val(snap.alamat);
+    $("#inputEmail").val(snap.email);
+}
+
+function convertTanggal(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
   }
 
 function readBook(){
@@ -404,6 +449,31 @@ $("#buttonSearch").click(function(e) {
     var search = $("#inputSearch").val();
     location.href = "./search.php?search=" + search;
 })
+
+function tambahkanUlasan(){
+    var user = firebase.auth().currentUser;
+    var userId = user.uid;
+    var bookId = (location.search.replace('?', '').split('='))[1];
+    var ratingId = userId + "-" + bookId
+    var rate =  $("#ratingFeedback").text()
+    var ulasanValue = $("#inputUlasan").val();
+    let database = firebase.database();
+    let tanggal = new Date().toLocaleDateString();
+    console.log("rate : " + rate)
+    database.ref('ratings/' + ratingId).set({
+        idRating: ratingId,
+        idBuku : bookId,
+        idUser : userId,
+        ulasan: ulasanValue,
+        rating : rate,
+        tanggal : tanggal
+    }).then(() => {
+        swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
+            location.href = "./detail_buku.php?isbn="+bookId
+        });
+    });
+    console.log("kor");
+}
 
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {

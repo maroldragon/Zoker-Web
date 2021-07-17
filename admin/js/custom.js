@@ -286,7 +286,7 @@ function uploadBook() {
                 database.ref('books/' + isbn.val() + "/file").set(downlaodURL).then(()=> {
                     savePrediksiRating()
                     swal("Selamat", "Buku Berhasil Di Upload", "success").then(function(){ 
-                       location.replace("Kelola-item-digital.php?kelola_item");
+                       location.href = "Kelola-item-digital.php?kelola_item";
                     });
                 })
                 // saveDataBookToCsv()

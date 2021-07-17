@@ -108,29 +108,6 @@
     
   </script>
   <script>
-    function generateEditProfile(snap) {
-        $("#inputNamaDepan").val(snap.namaDepan);
-        $("#inputNamaBelakang").val(snap.namaBelakang);
-        $("#inputUsername").val(snap.userName);
-        $("#inputJenisKelamin").val(snap.jenisKelamin);
-        $("#inputTempatLahir").val(snap.tempatLahir);
-        var mydate = convert(snap.tanggalLahir);
-        $("#inputTanggalLahir").val(mydate);
-        $("#inputAgama").val(snap.agama);
-        $("#inputHobi").val(snap.hobi);
-        $("#inputNegara").val(snap.negara);
-        $("#inputProvinsi").val(snap.provinsi);
-        $("#inputKota").val(snap.kota);
-        $("#inputAlamat").val(snap.alamat);
-        $("#inputEmail").val(snap.email);
-    }
-
-    function convert(str) {
-      var date = new Date(str),
-        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-        day = ("0" + date.getDate()).slice(-2);
-      return [date.getFullYear(), mnth, day].join("-");
-    }
 
     $("#btn-simpan-profile-user").click(function(){
       simpanProfileUser();
