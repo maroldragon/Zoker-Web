@@ -1,6 +1,43 @@
 const dbRef = firebase.database().ref();
 var user_id_all = ""
 
+function getNewPredictionRating(){
+    $.ajax({
+        url: 'algo/ratingPrediksi.csv',
+        dataType: 'text',
+      }).done(successFunction);
+    
+    function successFunction(csv) {
+        let data = []
+        let allTextLines = csv.split(/\r\n|\n/);
+        for(let i=0;i<allTextLines.length;i++){
+            let row = allTextLines[i].split(';');
+            let col = []
+            for(let j=0;j<row.length;j++){
+                col.push(row[j]);
+            }
+            data.push(col);
+        }
+        // console.log(data);
+        savePreditionRating(data);
+    }
+}
+
+function savePreditionRating(data){
+    let database = firebase.database();
+    for(let i=1;i<data.length-1;i++){
+        let isbn = (data[i][1]).substring(4)
+        let userId = data[i][0]
+        let prediksiRatingId = userId + "-" + isbn
+        database.ref('ratingPrediksi/' + prediksiRatingId).set({
+            idRatingPrediksi: prediksiRatingId,
+            idBuku: isbn,
+            idUser: userId,
+            rating: (parseFloat(data[i][2])).toFixed(2)
+        })
+    }
+}
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         console.log("You Login Now");
@@ -139,22 +176,51 @@ function addNewBook(){
 function addRecommendBook(){
     var listBookRec = document.getElementById("listBookRecommend");
     listBookRec.innerHTML = ""
-    dbRef.child("books").orderByChild('rating').limitToLast(15).on("value", function (snapshot) {
+    firebase.auth().onAuthStateChanged(function(user) {
+        let  dataBook = []
+        if (user) {
+            var user = firebase.auth().currentUser;
+            var userId = user.uid;
+            dbRef.child("ratingPrediksi").orderByChild("idUser").equalTo(userId).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    var rate = ""+child.val().rating
+                    dataBook.push(child)
+                    // console.log(child.val());
+                });
+                
+                dataBook.sort(function(a, b) {
+                    return a.val().rating - b.val().rating;
+                });
+
+                for(var key=0;key<dataBook.length;key++){
+                    generateRecommendBook(dataBook[key].val().idBuku, listBookRec);
+                }
+                
+            }, function (errorObject) {
+                console.log(errorObject) 
+            });
+        }
+    })    
+}
+
+function generateRecommendBook(idBuku, listBookRec) {
+    dbRef.child("books").orderByChild("isbn").equalTo(idBuku).on("value", function (snapshot) {
         snapshot.forEach(function(child) {
             listBookRec.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
-              "<div class='card-rating'>"+
-                "<i class='fas fa-star'></i><span id='recCardRating'>"+ child.val().rating +"</span>"+
-              "</div>"+
-              "<img src='"+ child.val().cover +"' class='card-img-top' alt='...' id='recCardImage'>"+
-              "<div class='card-body'>"+
-                "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='recCardJudul'>"+ child.val().judul +"</a>"+
-                "<div class='card-text' id='recCardPenulis'>"+ child.val().penulis +"</div>"+
-              "</div> </div> </div>"
+            "<div class='card-rating'>"+
+            "<i class='fas fa-star'></i><span id='recCardRating'>"+ child.val().rating +"</span>"+
+            "</div>"+
+            "<img src='"+ child.val().cover +"' class='card-img-top' alt='...' id='recCardImage'>"+
+            "<div class='card-body'>"+
+            "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='recCardJudul'>"+ child.val().judul +"</a>"+
+            "<div class='card-text' id='recCardPenulis'>"+ child.val().penulis +"</div>"+
+            "</div> </div> </div>"
         });
     }, function (errorObject) {
         console.log(errorObject) 
     });
 }
+
 
 function addKategoriBook(kategori){
     var listBookKat = document.getElementById("listBookKategori");
@@ -296,14 +362,22 @@ function generateBookDetail(){
                 });
             }, function (errorObject) {
                 console.log(errorObject) 
-    });
+            });
+
+            dbRef.child("peminjaman").orderByChild('idPeminjaman').equalTo(userId+"-"+isbnGet).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    $("#buttonPinjamBuku").text("Buku Sudah Dipinjam");
+                    $("#buttonPinjamBuku").prop("disabled", true);
+                });
+            }, function (errorObject) {
+                console.log(errorObject) 
+            });
 
         }else{
             console.log("Belum login")
         }
     })
 }
-
 function savePinjamBuku(){
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -313,7 +387,7 @@ function savePinjamBuku(){
             var bookId = isbnGet;
             var peminjamanId = userId+"-"+bookId;
             var date = new Date();
-            var tanggal = date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear;
+            let tanggal = new Date().toLocaleDateString();
             var status = "unfinished"
                 
             dbRef.child("user").child(userId).get().then((snapshot) => {
@@ -451,6 +525,7 @@ $("#buttonSearch").click(function(e) {
 })
 
 function tambahkanUlasan(){
+    var isbnGet = (location.search.replace('?', '').split('='))[1];
     var user = firebase.auth().currentUser;
     var userId = user.uid;
     var bookId = (location.search.replace('?', '').split('='))[1];
@@ -459,20 +534,57 @@ function tambahkanUlasan(){
     var ulasanValue = $("#inputUlasan").val();
     let database = firebase.database();
     let tanggal = new Date().toLocaleDateString();
-    console.log("rate : " + rate)
-    database.ref('ratings/' + ratingId).set({
-        idRating: ratingId,
-        idBuku : bookId,
-        idUser : userId,
-        ulasan: ulasanValue,
-        rating : rate,
-        tanggal : tanggal
+    
+    dbRef.child("peminjaman").child(userId+"-"+isbnGet).get().then((snapshot) => {
+        if (snapshot.exists()) {
+            database.ref('ratings/' + ratingId).set({
+                idRating: ratingId,
+                idBuku : bookId,
+                idUser : userId,
+                ulasan: ulasanValue,
+                rating : rate,
+                tanggal : tanggal
+            }).then(() => {
+                saveDataRatingToCsv()
+                swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
+                    location.href = "./detail_buku.php?isbn="+bookId
+                });
+            });
+        }else{
+            swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
+        }
+    })
+}
+
+function saveDataRatingToCsv(){
+    var dataRating = []
+    const dbRef = firebase.database().ref();
+    dbRef.child("ratings").once('value', function(allRecord){
+        allRecord.forEach( function(currentRecord) {
+            var userId = currentRecord.val().idUser;
+            var itemId = "ISBN"+currentRecord.val().idBuku;
+            var rating = currentRecord.val().rating;
+            dataRating.push(userId+';'+itemId+';'+rating);
+        })
     }).then(() => {
-        swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
-            location.href = "./detail_buku.php?isbn="+bookId
-        });
+        export_rating(dataRating)
     });
-    console.log("kor");
+}
+
+function export_rating(arrayData) {
+    $.ajax({
+        url: "./admin/algo/createDataBook.php",
+        type:"POST",
+        data: {
+            listRating:arrayData,
+        },success:function(response){
+            getNewPredictionRating()
+            console.log(response);
+            if(response) {
+                //location.reload();
+            }
+        }
+    })
 }
 
 $("#btn-logout").click(function(){

@@ -50,8 +50,8 @@ def preprocessing(df, df_user, df_item):
         item_detail.iloc[i, kategori_dict[df_item["kategori"].iloc[i]]] = 1
     item_detail.index = df_item["isbn"]
 
-##    print("item_detail")
-##    print(item_detail)
+    print("item_detail")
+    print(item_detail)
 
 ##    item_detail = df_item[target_name]  # information about item
 ##    item_detail.index = df_item["item_id"]
@@ -81,8 +81,8 @@ def preprocessing(df, df_user, df_item):
     user_detail.index = df_user["user_id"]
     user_detail["usia1-30"] = np.where(df_user["usia"] <= 30,1, 0)
 
-##    print("user_detail")
-##    print(user_detail)
+    print("user_detail")
+    print(user_detail)
 
     baris_rating = df_user["user_id"]
     user_id_dict = {}
@@ -104,13 +104,15 @@ def preprocessing(df, df_user, df_item):
     
     mask_detail.index = baris_rating
 ##    mask_detail.columns = df_item["item_id"]
-
+    print("rating_detail")
+    print(rating_detail)
     for i in range(df.shape[0]):
+        print(df["rating"].iloc[i])
         rating_detail.loc[df["user_id"].iloc[i], df["item_id"].iloc[i]] = df["rating"].iloc[i]
         mask_detail.loc[df["user_id"].iloc[i], df["item_id"].iloc[i]] = 1
 
-##    print("rating_detail")
-##    print(rating_detail)
+    print("rating_detail")
+    print(rating_detail)
     
     return [item_detail, user_detail, rating_detail, mask_detail, baris_rating, kolom_rating]
 
@@ -138,7 +140,7 @@ random.shuffle(tmp)
 train_mask = tmp[0:int(training_ratio * len(tmp))]
 test_mask = tmp[int(training_ratio * len(tmp))::]
 non_zero_element = np.where(mask_detail_train == 1)
-
+print(train_mask) 
 A = np.zeros([m, n])
 A[non_zero_element[0][train_mask], non_zero_element[1][train_mask]] = 1
 
@@ -299,7 +301,7 @@ for i in range(len(result)):
         f.write(data)
 
 f.close()
-##print("final")
+print("final")
 ##print(final)
 ##print(result)
 
