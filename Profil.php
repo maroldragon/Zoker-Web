@@ -60,7 +60,12 @@
   ?>
   <script src="js/custom.js"></script>
   <script>
-    </script>  
+    $(window).on('resize', function(){
+      var cw = $('#imageProfil').width();
+    $('#imageProfil').css({'height':cw+'px'});
+    });
+    
+  </script>  
 
 </body>
 </html>
