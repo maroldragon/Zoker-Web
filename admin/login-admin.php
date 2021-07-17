@@ -6,13 +6,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-	<meta name="author" content="AdminKit">
+	<meta name="author" content="Zoker">
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
-	<title>Sign In | AdminKit Demo</title>
+	<title>Sign In Admin Perputakaan Digital</title>
 
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -37,16 +36,16 @@
 								<div class="m-sm-4">
 									<div class="row">
 										<div class="col-md-6">
-											<img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
+											<img src="img/avatars/avatar.jpg" alt="Martua Sinaga" class="img-fluid rounded-circle" width="132" height="132" />
 										</div>
 										<div class="col-md-6">
 											<div class="mb-0">
 												<label class="form-label">Email</label>
-												<input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
+												<input class="form-control form-control-lg" type="email" name="email" id="email" placeholder="Enter your email" />
 											</div>
 											<div class="mb-0">
 												<label class="form-label">Password</label>
-												<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />
+												<input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="Enter your password" />
 												<small>
 												<a href="pages-reset-password.html">Forgot password?</a>
 												</small>
@@ -64,7 +63,7 @@
 									</label>
 										</div>
 										<div class="text-center mt-3">
-											<a href="index.html" class="btn btn-lg btn-primary">Sign in</a>
+											<a class="btn btn-lg btn-primary" id="btnLogin">Sign in</a>
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
 									</form>
@@ -78,7 +77,32 @@
 		</div>
 	</main>
 
+	<?php
+		@include_once("sourceJS.html");
+	?>
+
 	<script src="js/app.js"></script>
+	<script>
+		$("#btnLogin").click(function(event){
+			event.preventDefault()
+			let email = $("#email").val()
+			let password = $("#password").val();
+
+			firebase.auth().signInWithEmailAndPassword(email, password)
+			.then((userCredential) => {
+				// Signed in
+				var user = userCredential.user;
+				console.log(user)
+				window.location.href = "./index.php?home";
+				// ...
+			})
+			.catch((error) => {
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log(errorMessage);
+			});
+		})
+	</script>
 
 </body>
 

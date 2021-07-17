@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -127,10 +126,6 @@
 		var tampil = 5;
 		var currentPage = 1;
 		var allPage = 1;
-		saveDataBookToCsv();
-		// saveDataUserToCsv();
-		// saveDataRatingToCsv()
-		
 		addData("");
 
 		function addData(keyword){

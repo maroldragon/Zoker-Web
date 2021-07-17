@@ -12,7 +12,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
-	<title>Profile | AdminKit Demo</title>
+	<title>Profile Admin-Edit</title>
 	
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -86,7 +86,7 @@
 											<label for="inputAddress">Jenis Kelamin</label>
 											<select class="form-control  mb-3" id="jenisKelaminText" value="2">
 												<option value="laki-laki">Laki-Laki</option>
-												<option value="perempuan">Perempuan</option>
+												<option value="wanita">Wanita</option>
 											</select>
 										</div>
 										<div class="navbar">
@@ -95,7 +95,7 @@
 												<input type="text" class="form-control" id="tempatLahirText" placeholder="">												
 											</form>
 											<form class="form-group col-md-4">
-												<input type="date" class="form-control" id="tanggalLahirText">
+												<input type="text" class="form-control" id="tanggalLahirText">
 											</form>
 										</div>
 										<div class="form-group">
@@ -104,7 +104,7 @@
 										</div>
 										<div class="form-group">
 											<label for="emailText">Email</label>
-											<input type="text" class="form-control" disabled readonly id="emailText" placeholder="">
+											<input type="text" class="form-control" id="emailText" placeholder="">
 										</div>
 									</div>
 
