@@ -126,6 +126,12 @@
 		var tampil = 5;
 		var currentPage = 1;
 		var allPage = 1;
+<<<<<<< HEAD
+=======
+		// saveDataBookToCsv();
+		saveDataUserToCsv();
+		//saveDataRatingToCsv()
+>>>>>>> parent of 4f00a59 (Pemberian Rating)
 		addData("");
 
 		function addData(keyword){
@@ -183,7 +189,7 @@
 			var judul = currentRecord.val().judul
 			var isbn = currentRecord.val().isbn
 			var kategori = currentRecord.val().kategori
-			var penerbit = currentRecord.val().penerbit
+			var penerbit = currentRecord.val().tanggal
 			var penulis = currentRecord.val().penulis
 			var tahunTerbit = currentRecord.val().tahunTerbit
 			var deskripsi = currentRecord.val().deskripsi

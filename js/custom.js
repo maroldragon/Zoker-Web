@@ -296,22 +296,14 @@ function generateBookDetail(){
                 });
             }, function (errorObject) {
                 console.log(errorObject) 
-            });
-
-            dbRef.child("peminjaman").orderByChild('idPeminjaman').equalTo(userId+"-"+isbnGet).on("value", function (snapshot) {
-                snapshot.forEach(function(child) {
-                    $("#buttonPinjamBuku").text("Buku Sudah Dipinjam");
-                    $("#buttonPinjamBuku").prop("disabled", true);
-                });
-            }, function (errorObject) {
-                console.log(errorObject) 
-            });
+    });
 
         }else{
             console.log("Belum login")
         }
     })
 }
+
 function savePinjamBuku(){
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -321,7 +313,7 @@ function savePinjamBuku(){
             var bookId = isbnGet;
             var peminjamanId = userId+"-"+bookId;
             var date = new Date();
-            let tanggal = new Date().toLocaleDateString();
+            var tanggal = date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear;
             var status = "unfinished"
                 
             dbRef.child("user").child(userId).get().then((snapshot) => {
@@ -459,7 +451,6 @@ $("#buttonSearch").click(function(e) {
 })
 
 function tambahkanUlasan(){
-    var isbnGet = (location.search.replace('?', '').split('='))[1];
     var user = firebase.auth().currentUser;
     var userId = user.uid;
     var bookId = (location.search.replace('?', '').split('='))[1];
@@ -468,33 +459,19 @@ function tambahkanUlasan(){
     var ulasanValue = $("#inputUlasan").val();
     let database = firebase.database();
     let tanggal = new Date().toLocaleDateString();
-    
-    dbRef.child("peminjaman").child(userId+"-"+isbnGet).get().then((snapshot) => {
-        if (snapshot.exists()) {
-            database.ref('ratings/' + ratingId).set({
-                idRating: ratingId,
-                idBuku : bookId,
-                idUser : userId,
-                ulasan: ulasanValue,
-                rating : rate,
-                tanggal : tanggal
-            }).then(() => {
-                swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
-                    location.href = "./detail_buku.php?isbn="+bookId
-                });
-            });
-        }else{
-            swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
-        }
-    })
-    // dbRef.child("peminjaman").orderByChild('idPeminjaman').equalTo().on("value", function (snapshot) {
-    //     snapshot.forEach(function(child) {
-            
-    //     });
-    // }, function (errorObject) {
-    //     console.log(errorObject) 
-    // });
-
+    console.log("rate : " + rate)
+    database.ref('ratings/' + ratingId).set({
+        idRating: ratingId,
+        idBuku : bookId,
+        idUser : userId,
+        ulasan: ulasanValue,
+        rating : rate,
+        tanggal : tanggal
+    }).then(() => {
+        swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
+            location.href = "./detail_buku.php?isbn="+bookId
+        });
+    });
     console.log("kor");
 }
 
