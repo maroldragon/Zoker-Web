@@ -86,7 +86,7 @@
 											<label for="inputAddress">Jenis Kelamin</label>
 											<select class="form-control  mb-3" id="jenisKelaminText" value="2">
 												<option value="laki-laki">Laki-Laki</option>
-												<option value="wanita">Wanita</option>
+												<option value="perempuan">Perempuan</option>
 											</select>
 										</div>
 										<div class="navbar">
@@ -95,7 +95,7 @@
 												<input type="text" class="form-control" id="tempatLahirText" placeholder="">												
 											</form>
 											<form class="form-group col-md-4">
-												<input type="text" class="form-control" id="tanggalLahirText">
+												<input type="date" class="form-control" id="tanggalLahirText">
 											</form>
 										</div>
 										<div class="form-group">
@@ -104,7 +104,7 @@
 										</div>
 										<div class="form-group">
 											<label for="emailText">Email</label>
-											<input type="text" class="form-control" id="emailText" placeholder="">
+											<input type="text" class="form-control" disabled readonly id="emailText" placeholder="">
 										</div>
 									</div>
 

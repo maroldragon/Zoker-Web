@@ -70,6 +70,7 @@ function writeUserData(userId) {
     let database = firebase.database();
 
     database.ref('user/' + userId).set({
+        userId:userId,
         namaDepan: namaDepan,
         namaBelakang: namaBelakang,
         userName : userName,
@@ -219,6 +220,40 @@ function addDataSearch(list, child){
     "</div> </div> </div>"
 }
 
+function simpanProfileUser(){
+    let database = firebase.database();
+    var namaDepan = $("#inputNamaDepan").val();
+    var namaBelakang = $("#inputNamaBelakang").val();
+    var username = $("#inputUsername").val();
+    var jenisKelamin = $("#inputJenisKelamin").val();
+    var tempatLahir = $("#inputTempatLahir").val();
+    var tanggalLahir = $("#inputTanggalLahir").val();
+    var agama = $("#inputAgama").val();
+    var hobi = $("#inputHobi").val();
+    var negara = $("#inputNegara").val();
+    var provinsi = $("#inputProvinsi").val();
+    var kota = $("#inputKota").val();
+    var alamat = $("#inputAlamat").val();
+    var user = firebase.auth().currentUser;
+    var userId = user.uid;
+
+    database.ref('user/' + userId + "/namaDepan").set(namaDepan)
+    database.ref('user/' + userId + "/namaBelakang").set(namaBelakang)
+    database.ref('user/' + userId + "/userName").set(username)
+    database.ref('user/' + userId + "/jenisKelamin").set(jenisKelamin)
+    database.ref('user/' + userId + "/tempatLahir").set(tempatLahir)
+    database.ref('user/' + userId + "/tanggalLahir").set(tanggalLahir)
+    database.ref('user/' + userId + "/alamat").set(alamat)
+    database.ref('user/' + userId + "/agama").set(agama)
+    database.ref('user/' + userId + "/hobi").set(hobi)
+    database.ref('user/' + userId + "/alamat").set(alamat)
+    database.ref('user/' + userId + "/negara").set(negara)
+    database.ref('user/' + userId + "/provinsi").set(provinsi)
+    database.ref('user/' + userId + "/kota").set(kota)
+    swal("Selamat", "Berhasil di edit", "success");
+
+}
+
 function generateBookDetail(){
     var isbnGet = (location.search.replace('?', '').split('='))[1];
     var judul = $("#textJudul")
@@ -334,6 +369,21 @@ function generateDataTersimpan(bookId, listBookTerpinjam) {
     });
 }
 
+function generateProfile(snap) {
+    $("#textNamaLengkap").text(snap.namaDepan + " " + snap.namaBelakang);
+    $("#textUsername").text(snap.userName);
+    $("#textJenisKelamin").text(snap.jenisKelamin);
+    $("#textTempatLahir").text(snap.tempatLahir);
+    $("#textTanggalLahir").text(snap.tanggalLahir);
+    $("#textAgama").text(snap.agama);
+    $("#textHobi").text(snap.hobi);
+    $("#textAlamat").text(snap.alamat);
+    $("#textKota").text(snap.kota);
+    $("#textProvinsi").text(snap.provinsi);
+    $("#textNegara").text(snap.negara);
+    $("#textEmail").text(snap.email);
+  }
+
 function readBook(){
     var isbn = (location.search.replace('?', '').split('='))[1];
     getFileByIsbn(isbn)
@@ -348,37 +398,6 @@ function getFileByIsbn(isbn){
         console.log(errorObject) 
     });
 }
-
-function generateProfile(snap) {
-    $("#textNamaLengkap").text(snap.namaDepan + " " + snap.namaBelakang);
-    $("#textUsername").text(snap.userName);
-    $("#textJenisKelamin").text(snap.jenisKelamin);
-    $("#textTempatLahir").text(snap.tempatLahir);
-    $("#textTanggalLahir").text(snap.tanggalLahir);
-    $("#textAgama").text(snap.agama);
-    $("#textHobi").text(snap.hobi);
-    $("#textAlamat").text(snap.alamat);
-    $("#textKota").text(snap.kota);
-    $("#textProvinsi").text(snap.provinsi);
-    $("#textNegara").text(snap.negara);
-    $("#textEmail").text(snap.email);
-}
-
-// function generateEditProfile(snap) {
-//     $("#inputNamaDepan").val(snap.namaDepan);
-//     $("#inputNamaBelakang").val(snap.namaBelakang);
-//     $("#inputUsername").val(snap.userName);
-//     $("#inputJenisKelamin").val(snap.jenisKelamin);
-//     $("#inputTempatLahir").val(snap.tempatLahir);
-//     $("#inputTanggalLahir").val(snap.tanggalLahir);
-//     $("#inputAgama").val(snap.agama);
-//     $("#inputHobi").val(snap.hobi);
-//     $("#inputNegara").val(snap.negara);
-//     $("#inputProvinsi").val(snap.provinsi);
-//     $("#inputKota").val(snap.kota);
-//     $("#inputAlamat").val(snap.alamat);
-//     $("#inputEmail").val(snap.email);
-// }
 
 $("#buttonSearch").click(function(e) {
     e.preventDefault()

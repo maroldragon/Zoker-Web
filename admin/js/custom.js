@@ -45,7 +45,8 @@ firebase.auth().onAuthStateChanged(function(user) {
             var jkLower = (snapshot.val().jenisKelamin).toLowerCase();
             jenisKelaminText.val(jkLower)
             tempatLahirText.val(snapshot.val().tempatLahir)
-            tanggalLahirText.val("5/12/2000")
+            var mydate = convertTanggalLahir(snapshot.val().tanggalLahir);
+            tanggalLahirText.val(mydate)
             alamatText.val(snapshot.val().alamat)
             emailText.val(snapshot.val().email)
         } else {
@@ -59,6 +60,13 @@ firebase.auth().onAuthStateChanged(function(user) {
         window.location.href = "./login-admin.php";
     }
 });
+
+function convertTanggalLahir(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
 
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {
@@ -178,10 +186,12 @@ $("#btnSaveBook").click(function(e){
     var kategori = $("#kategori")
     var tahunTerbit = $("#tahunTerbit")
     var deskripsi = $("#deskripsiBuku")
+    var tanggal = new Date().toLocaleString()
 
     if(isbn.val()=="" || judul.val()=="" || penulis.val()=="" || tahunTerbit.val()=="" || deskripsi.val()=="") {
         swal("Error", "Masih Ada Data Yang Kosong", "error");
     }else if(image && book){
+
         database.ref('books/' + isbn.val()).set({
             isbn: isbn.val(),
             judul: judul.val(),
@@ -190,7 +200,8 @@ $("#btnSaveBook").click(function(e){
             kategori: kategori.val(),
             tahunTerbit: tahunTerbit.val(),
             deskripsi: deskripsi.val(),
-            rating: "5"
+            rating: "5",
+            tanggal: tanggal
         }).then(() => {
             uploadImageCover();
         });
@@ -278,6 +289,7 @@ function uploadBook() {
                        location.replace("Kelola-item-digital.php?kelola_item");
                     });
                 })
+                // saveDataBookToCsv()
             });
         });
     }else {
@@ -290,10 +302,111 @@ function uploadBook() {
             Algoritma
 #######################################*/
 
-function savePrediksiRating(){
-    
+function saveDataBookToCsv(){
+    var dataBook = []
+    const dbRef = firebase.database().ref();
+    dbRef.child("books").once('value', function(allRecord){
+        allRecord.forEach( function(currentRecord) {
+            dataBook.push(currentRecord.val().isbn+';'+currentRecord.val().kategori);
+        })
+    }).then(() => {
+        export_book(dataBook)
+    });
 }
 
-function updateP1(){
-    
+function export_book(arrayData) {
+    $.ajax({
+        url: "./algo/createDataBook.php",
+        type:"POST",
+        data: {
+            listBook:arrayData,
+        },success:function(response){
+            console.log(response);
+            if(response) {
+                //location.reload();
+            }
+        }
+    })
 }
+
+function saveDataUserToCsv(){
+    var dataUser = []
+    const dbRef = firebase.database().ref();
+    dbRef.child("user").once('value', function(allRecord){
+        allRecord.forEach( function(currentRecord) {
+            var userId = currentRecord.val().userId;
+            var negara = currentRecord.val().negara.toLowerCase()
+            var provinsi = currentRecord.val().provinsi.toLowerCase()
+            var usia = getAge(currentRecord.val().tanggalLahir)
+            dataUser.push(userId+';'+negara+';'+provinsi+';'+usia);
+        })
+    }).then(() => {
+        export_user(dataUser)
+    });
+}
+
+function convertTl(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+}
+
+function getAge(dateString){
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
+}
+
+function export_user(arrayData) {
+    $.ajax({
+        url: "./algo/createDataBook.php",
+        type:"POST",
+        data: {
+            listUser:arrayData,
+        },success:function(response){
+            console.log(response);
+            if(response) {
+                //location.reload();
+            }
+        }
+    })
+}
+
+function saveDataRatingToCsv(){
+    var dataRating = []
+    const dbRef = firebase.database().ref();
+    dbRef.child("ratings").once('value', function(allRecord){
+        allRecord.forEach( function(currentRecord) {
+            var userId = currentRecord.val().idUser;
+            var itemId = currentRecord.val().idBuku;
+            var rating = currentRecord.val().rating;
+            dataRating.push(userId+';'+itemId+';'+rating);
+        })
+    }).then(() => {
+        export_rating(dataRating)
+    });
+}
+
+function export_rating(arrayData) {
+    $.ajax({
+        url: "./algo/createDataBook.php",
+        type:"POST",
+        data: {
+            listRating:arrayData,
+        },success:function(response){
+            console.log(response);
+            if(response) {
+                //location.reload();
+            }
+        }
+    })
+}
+
+

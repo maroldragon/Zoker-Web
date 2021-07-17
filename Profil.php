@@ -15,7 +15,7 @@
   <div class="container-md form-content col-lg-8 col-md-10 col">
     <div class="row">
       <div class="col-md-4 pos-center pb-3">
-        <img src="img/profil.jpg" class="rounded-circle img-profil" alt="" id="imageProfil">
+        <img src="img/no_image.png" class="rounded-circle img-profil" alt="" id="imageProfil">
         <button type="button" class="btn btn-primary mt-4" id="buttonUbahFoto">Ubah Foto</button>
       </div>
       <div class="col-md-8">
@@ -59,7 +59,8 @@
     @include_once('footer.php')
   ?>
   <script src="js/custom.js"></script>
-  
+  <script>
+    </script>  
 
 </body>
 </html>

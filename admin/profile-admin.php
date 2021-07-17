@@ -40,7 +40,7 @@
 						<div class="col-md-4 col-xl-12">
 							<div class="card mb-3">								
 								<div class="card-body text-center">
-									<img id="img-profile-admin" src="img/avatars/avatar-4.jpg" alt="photo" class="img-fluid rounded-circle mb-2"/>
+									<img id="img-profile-admin" src="img/no_image.png" alt="photo" class="img-fluid rounded-circle mb-2"/>
 									<h5 class="card-title mb-0" id="namaLengkap"></h5>
 									<div class="text-muted mb-2" id="username"></div>
 
