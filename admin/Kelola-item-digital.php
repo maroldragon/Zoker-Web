@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +13,6 @@
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
 	<title>Kelola Item Digital</title>
-
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link href="css/app.css" rel="stylesheet">
@@ -28,7 +26,7 @@
 		?>
 		<div class="main">
 			<?php
-				@include_once("header.php");
+			@include_once("header.php");
 			?>
 
 			<main class="content">
@@ -46,7 +44,7 @@
 										<span> Tambah Buku</span>
 									</button>
 								</form>
-								<form  class="mt-3 mb-3" class="form-inline d-sm-inline-flex">
+								<form class="mt-3 mb-3" class="form-inline d-sm-inline-flex">
 									<div class="input-group input-group-navbar">
 										<input id="searchBooklist" type="text" class="form-control" placeholder="Search…" aria-label="Search">
 										<div class="input-group-append">
@@ -74,11 +72,11 @@
 										<th>Kategori</th>
 										<th>Penulis</th>
 										<th>Penerbit</th>
-										<!-- <th>Aksi</th> -->
+										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody id="data-table-book">
-									
+
 								</tbody>
 							</table>
 						</div>
@@ -104,6 +102,32 @@
 				</div>
 			</main>
 
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+				Launch demo modal
+			</button>
+
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							...
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<footer class="footer">
 				<div class="container-fluid">
 					<p class="mb-0">
@@ -115,7 +139,7 @@
 	</div>
 
 	<?php
-		@include_once("sourceJS.html");
+	@include_once("sourceJS.html");
 	?>
 	<script src="js/app.js"></script>
 	<script src="js/custom.js"></script>
@@ -129,10 +153,10 @@
 		var allPage = 1;
 		addData("");
 
-		function addData(keyword){
+		function addData(keyword) {
 			dataBook = []
-			dbRef.orderByChild("judul").once('value', function(allRecord){
-				allRecord.forEach( function(currentRecord) {
+			dbRef.orderByChild("judul").once('value', function(allRecord) {
+				allRecord.forEach(function(currentRecord) {
 					dataBook.push(currentRecord);
 				})
 			}).then(() => {
@@ -142,45 +166,45 @@
 			});
 		}
 
-		function generateData(keyword){
+		function generateData(keyword) {
 			dataBookSearch = [];
-			for (ids=0;ids<dataBook.length;ids++){
-				if((dataBook[ids].val().judul).toLowerCase().includes(keyword.toLowerCase())){
+			for (ids = 0; ids < dataBook.length; ids++) {
+				if ((dataBook[ids].val().judul).toLowerCase().includes(keyword.toLowerCase())) {
 					dataBookSearch.push(dataBook[ids]);
 				}
 			}
 			return dataBookSearch.length;
 		}
-		
-		function tampilkan(startAt=1) {
+
+		function tampilkan(startAt = 1) {
 			currentPage = startAt;
-			if(startAt == 1) {
+			if (startAt == 1) {
 				$("#btn-previous-list-book").addClass("disabled");
-			}else {
+			} else {
 				$("#btn-previous-list-book").removeClass("disabled");
 			}
 
-			if(startAt == allPage) {
+			if (startAt == allPage) {
 				$("#btn-next-list-book").addClass("disabled");
-			}else {
+			} else {
 				$("#btn-next-list-book").removeClass("disabled");
 			}
 
 			var dataTable = document.getElementById("data-table-book");
 			dataTable.innerHTML = "";
-			no = (startAt-1) * tampil;
-			startAt = (startAt-1) * tampil
+			no = (startAt - 1) * tampil;
+			startAt = (startAt - 1) * tampil
 			var endAt = (startAt + tampil);
-			if(endAt > dataBookSearch.length){
+			if (endAt > dataBookSearch.length) {
 				endAt = dataBookSearch.length
 			}
 
-			for(var i=startAt;i<endAt;i++){
+			for (var i = startAt; i < endAt; i++) {
 				addDataToTable(dataBookSearch[i])
 			}
 		}
 
-		function addDataToTable(currentRecord){
+		function addDataToTable(currentRecord) {
 			var judul = currentRecord.val().judul
 			var isbn = currentRecord.val().isbn
 			var kategori = currentRecord.val().kategori
@@ -188,8 +212,8 @@
 			var penulis = currentRecord.val().penulis
 			var tahunTerbit = currentRecord.val().tahunTerbit
 			var deskripsi = currentRecord.val().deskripsi
-			var file  = currentRecord.val().file
-			var cover  = currentRecord.val().cover
+			var file = currentRecord.val().file
+			var cover = currentRecord.val().cover
 			var dataTable = document.getElementById("data-table-book");
 			var trow = document.createElement("tr");
 			var td1 = document.createElement("td");
@@ -198,6 +222,7 @@
 			var td4 = document.createElement("td");
 			var td5 = document.createElement("td");
 			var td6 = document.createElement("td");
+			var td7 = document.createElement("td");
 
 			td1.innerHTML = ++no;
 			td2.innerHTML = isbn;
@@ -205,6 +230,38 @@
 			td4.innerHTML = kategori;
 			td5.innerHTML = penulis;
 			td6.innerHTML = penerbit;
+			// td7.innerHTML = `<a href='Kelola-item-digital-edit.php?isbn=${isbn}' class='btn btn-danger'>Delete</a></div>`;
+			td7.innerHTML = `
+				<div class='d-flex'>
+					<a href='Kelola-item-digital-edit.php?isbn=${isbn}' class='btn btn-primary'>Update</a>&nbsp;
+					<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
+						<button class="btn btn-danger">
+							hapus
+						</button>
+					</a>
+				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="messagesDropdown">
+					<div class="dropdown-menu-header">
+						<div class="position-relative">
+							Anda Yakin?
+						</div>
+					</div>
+					<div class="list-group">
+						<span class="list-group-item">
+							<div class="navbar">
+								<form>
+									<span>Hapus Buku</span>
+								</form>
+									<button onclick="hapusBuku('${isbn}')" id="btnHapusBook${isbn}" class="btn btn-danger">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+											<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+											<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+										</svg>
+										<span>Hapus</span>
+									</button>
+							</div>
+						</span>
+					</div>
+				</div>`
 
 			trow.appendChild(td1);
 			trow.appendChild(td2);
@@ -212,91 +269,95 @@
 			trow.appendChild(td4);
 			trow.appendChild(td5);
 			trow.appendChild(td6);
+			trow.appendChild(td7);
 
 			dataTable.appendChild(trow);
 		}
 
 		function addPagination(sumData) {
-			var sumPage = Math.ceil(sumData/tampil);
+			var sumPage = Math.ceil(sumData / tampil);
 			allPage = sumPage;
 			var pagination = document.getElementById("btn-pagination-list-book");
 			pagination.innerHTML = "";
-			pagination.innerHTML =  "<button id='btn-previous-list-book' type='button' class='btn btn-secondary disabled'>Previous</button>"
+			pagination.innerHTML = "<button id='btn-previous-list-book' type='button' class='btn btn-secondary disabled'>Previous</button>"
 
-			for(var page=1;page<=sumPage;page++){
-				if(page == sumPage) {
-					pagination.innerHTML +=  "<button id='btnPageTitik' type='button' class='btn btn-secondary btnPage disabled'>" + "..." + "</button>"	
-					pagination.innerHTML +=  "<button id='btnPage"+page+"' onclick='changePage("+page+")' "+"type='button' class='btn btn-secondary btnPage'>" + page + "</button>"	
-				}else {
-					pagination.innerHTML +=  "<button id='btnPage"+page+"' onclick='changePage("+page+")' "+"type='button' class='btn btn-secondary btnPage'>" + page + "</button>"	
-				}			
+			for (var page = 1; page <= sumPage; page++) {
+				if (page == sumPage) {
+					pagination.innerHTML += "<button id='btnPageTitik' type='button' class='btn btn-secondary btnPage disabled'>" + "..." + "</button>"
+					pagination.innerHTML += "<button id='btnPage" + page + "' onclick='changePage(" + page + ")' " + "type='button' class='btn btn-secondary btnPage'>" + page + "</button>"
+				} else {
+					pagination.innerHTML += "<button id='btnPage" + page + "' onclick='changePage(" + page + ")' " + "type='button' class='btn btn-secondary btnPage'>" + page + "</button>"
+				}
 			}
 
-			pagination.innerHTML +=  "<button id='btn-next-list-book' type='button' class='btn btn-secondary'>Next</button>"
+			pagination.innerHTML += "<button id='btn-next-list-book' type='button' class='btn btn-secondary'>Next</button>"
 			$("#btnPage1").addClass("active");
 			$("#btn-previous-list-book").click(function() {
-				if($("#btnPage"+(currentPage-1)).hasClass("d-none")) {
-					$("#btnPage"+(currentPage-1)).removeClass("d-none");
-					$("#btnPage"+(currentPage+2)).addClass("d-none");
-					if(currentPage-1 == 1) {
+				if ($("#btnPage" + (currentPage - 1)).hasClass("d-none")) {
+					$("#btnPage" + (currentPage - 1)).removeClass("d-none");
+					$("#btnPage" + (currentPage + 2)).addClass("d-none");
+					if (currentPage - 1 == 1) {
 						$("#btnPageTitik").removeClass("d-none");
 					}
 				}
-				changePage(currentPage-1)
+				changePage(currentPage - 1)
 			})
 			$("#btn-next-list-book").click(function() {
-				if($("#btnPage"+(currentPage+1)).hasClass("d-none")) {
-					$("#btnPage"+(currentPage+1)).removeClass("d-none");
-					$("#btnPage"+(currentPage-2)).addClass("d-none");
-					if(currentPage+2 == sumPage) {
+				if ($("#btnPage" + (currentPage + 1)).hasClass("d-none")) {
+					$("#btnPage" + (currentPage + 1)).removeClass("d-none");
+					$("#btnPage" + (currentPage - 2)).addClass("d-none");
+					if (currentPage + 2 == sumPage) {
 						$("#btnPageTitik").addClass("d-none");
 					}
 				}
-				changePage(currentPage+1)
+				changePage(currentPage + 1)
 			})
 
-			if(sumPage < 5) {
+			if (sumPage < 5) {
 				$("#btnPageTitik").addClass("d-none");
-			}else {
-				for(var j=sumPage-1;j>3;j--){
-					$("#btnPage"+j).addClass("d-none");
+			} else {
+				for (var j = sumPage - 1; j > 3; j--) {
+					$("#btnPage" + j).addClass("d-none");
 				}
 			}
 		}
 
 		function changePage(num) {
 			offBtnPage();
-			$("#btnPage"+num).addClass("active");
+			$("#btnPage" + num).addClass("active");
 			tampilkan(num);
 		}
 
-		function offBtnPage(){
+		function offBtnPage() {
 			var btnPages = document.querySelectorAll(".btnPage");
-			btnPages.forEach(function(btn){
+			btnPages.forEach(function(btn) {
 				btn.classList.remove("active");
 			})
 		}
 
-		$("#btnSearchBooklist").click(function(e){
+		$("#btnSearchBooklist").click(function(e) {
 			e.preventDefault();
 			var keyword = $("#searchBooklist").val()
 			addData(keyword);
 		})
 
 		$("#searchBooklist").keydown(function(e) {
-			if(event.keyCode == 13) {
+			if (event.keyCode == 13) {
 				var keyword = $("#searchBooklist").val()
 				addData(keyword);
 			}
 		})
 
-		$(window).keydown(function(event){
-			if(event.keyCode == 13) {
+		$(window).keydown(function(event) {
+			if (event.keyCode == 13) {
 				event.preventDefault();
 				return false;
 			}
 		});
 
+		$('#btnHapusBook').click(function(e){
+			e.preventDefault()
+		})
 	</script>
 
 </body>

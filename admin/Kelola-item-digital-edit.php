@@ -57,7 +57,7 @@
 									<form>
 										<div class="form-group mb-1">
 											<label for="isbn">ISBN</label>
-											<input type="text" class="form-control" id="isbn" placeholder="ISBN">
+											<input type="text" disabled readonly class="form-control" id="isbn" placeholder="ISBN">
 										</div>
 										<div class="form-group mb-1">
 											<label for="judulbuku">Judul Buku</label>
@@ -74,9 +74,11 @@
 										<from class="form-group mb-1">
 											<label for="kategori">Kategori Buku</label>
 											<select id="kategori" class="form-control">
-												<option selected value="kategori1">Kategori 1</option>
-												<option value="kategori2">Kategori 2</option>
-												<option value="kategori3">Kategori 3</option>
+												<option selected value="fiction">Fiction</option>
+												<option value="social science">Social Science</option>
+												<option value="actresses">Actresses</option>
+												<option value="medical">Medical</option>
+												<option value="nature">Nature</option>
 											</select>
 										</from>
 										<from class="form-group mb-1">
@@ -90,11 +92,6 @@
 												<input type="file" id="uploadImageCover">
 												<small class="form-text text-muted">Format gambar .jpg / .png</small>
 											</div>
-											<div class="form-group">
-												<label class="form-label w-100">File Buku</label>
-												<input type="file" id="uploadBuku">
-												<small class="form-text text-muted">Format File Buku .pdf</small>
-											</div>
 										</div>
 										<div class="form-group">
 											<label for="deskripsiBuku" class="form-label w-100">Deskripsi Buku</label>
@@ -102,12 +99,12 @@
 										</div>
 
 										<div class="navbar p-0 mt-3">
-											<a class="" href="#" id="">
-												<button class="btn btn btn-primary" id="btnSaveBook">
+											<a>
+												<button class="btn btn btn-primary" id="btnUpdateBook">
 													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save2" viewBox="0 0 16 16">
 														<path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v4.5h2a.5.5 0 0 1 .354.854l-2.5 2.5a.5.5 0 0 1-.708 0l-2.5-2.5A.5.5 0 0 1 5.5 6.5h2V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
 													</svg>
-													<span>Simpan</span>
+													<span>Update</span>
 												</button>
 											</a>
 										</div>
@@ -133,10 +130,17 @@
 	<div id="overlay-dark"></div>
 
 	<?php
-	@include_once("sourceJS.html");
+		@include_once("sourceJS.html");
 	?>
 	<script src="js/app.js"></script>
 	<script src="js/custom.js"></script>
+	<script>
+		generateBookUpdate()
+		$("#btnUpdateBook").click(function(e) {
+			e.preventDefault()
+			saveBookUpdate()
+		})
+	</script>
 
 </body>
 

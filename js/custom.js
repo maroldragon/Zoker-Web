@@ -708,9 +708,6 @@ function export_user(arrayData) {
 }
 
 
-
-
-
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {
     }).catch(function(error) {

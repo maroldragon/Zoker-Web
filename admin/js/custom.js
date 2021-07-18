@@ -334,6 +334,96 @@ function uploadBook() {
     }
 }
 
+function generateBookUpdate(){
+    var image=document.getElementById("uploadImageCover").files[0];
+    var isbnGet = (location.search.replace('?', '').split('='))[1];
+    var isbn = $("#isbn")
+    var judul = $("#judulBuku")
+    var penulis = $("#penulis")
+    var penerbit= $("#penerbit")
+    var kategori = $("#kategori")
+    var tahunTerbit = $("#tahunTerbit")
+    var deskripsi = $("#deskripsiBuku")
+
+    const dbRef = firebase.database().ref();
+    dbRef.child("books").child(isbnGet).get().then((snapshot) => {
+        if (snapshot.exists()) {
+            isbn.val(snapshot.val().isbn)
+            judul.val(snapshot.val().judul)
+            penulis.val(snapshot.val().penulis)
+            penerbit.val(snapshot.val().penerbit)
+            kategori.val(snapshot.val().kategori)
+            tahunTerbit.val(snapshot.val().tahunTerbit)
+            deskripsi.val(snapshot.val().deskripsi)
+        }else{
+            console.log("ISBN tidak ditemukan")
+        }
+    })
+}
+
+function saveBookUpdate(){
+    var image=document.getElementById("uploadImageCover").files[0];
+    let database = firebase.database();
+    var isbn = $("#isbn")
+    var judul = $("#judulBuku")
+    var penulis = $("#penulis")
+    var penerbit= $("#penerbit")
+    var kategori = $("#kategori")
+    var tahunTerbit = $("#tahunTerbit")
+    var deskripsi = $("#deskripsiBuku")
+
+    if(isbn.val()=="" || judul.val()=="" || penulis.val()=="" || tahunTerbit.val()=="" || deskripsi.val()=="") {
+        swal("Error", "Masih Ada Data Yang Kosong", "error");
+    }else {
+        database.ref('books/' + isbn.val() + "/judul").set(judul.val())
+        database.ref('books/' + isbn.val() + "/penulis").set(penulis.val())
+        database.ref('books/' + isbn.val() + "/kategori").set(kategori.val())
+        database.ref('books/' + isbn.val() + "/penerbit").set(penerbit.val())
+        database.ref('books/' + isbn.val() + "/tahunTerbit").set(tahunTerbit.val())
+        database.ref('books/' + isbn.val() + "/deskripsi").set(deskripsi.val())
+    }
+    if(image) {
+        $("#overlay-dark").css("display", "block")
+        var imageName= isbn.val();
+        var storageRef=firebase.storage().ref('images-cover/'+imageName);
+        var uploadTask=storageRef.put(image);
+
+        uploadTask.on('state_changed',function (snapshot) {
+            var progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+            console.log("upload is " + progress +" done");
+            $("#myBar").css("display", "block");
+            $("#myBar").text("Upload Image " + progress.toFixed(0)+ "%");
+            $("#myBar").css("width", progress+"%");
+        },function (error) {
+            //handle error here
+            console.log(error.message);
+        },function () {
+        //handle successful uploads on complete
+            uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL) {
+                $("#overlay-dark").css("display", "none")
+                //get your upload image url here...
+                console.log(downlaodURL);
+                $("#myBar").text("");
+                $("#myBar").css("width", "0%");
+                $("#myBar").css("display", "none");
+                let database = firebase.database();
+                database.ref('books/' + isbn.val() + "/cover").set(downlaodURL)
+                swal("Selamat", "Berhasil di edit", "success");
+            });
+        });
+    }else {
+        swal("Selamat", "Data Berhasil Diupdate", "success").then(() => {
+            location.href = "./Kelola-item-digital.php?kelola_item"
+        });
+    }
+}
+
+function hapusBuku(isbn){
+    let database = firebase.database();
+    //database.ref('books/' + isbn).remove()
+    console.log(isbn)
+}
+
 /*#######################################
             Algoritma
 #######################################*/
