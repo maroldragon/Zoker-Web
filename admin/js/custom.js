@@ -424,6 +424,10 @@ function hapusBuku(isbn){
     console.log(isbn)
 }
 
+function tampilkanProsesPengujian(idPengujian) {
+    console.log(idPengujian)
+}
+
 /*#######################################
             Algoritma
 #######################################*/

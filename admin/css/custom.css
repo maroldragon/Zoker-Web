@@ -111,3 +111,7 @@
   .nav-flag, .nav-icon {
       padding : 0 !important;
   }
+
+  #dropdownPengujian {
+    transform: translate3d(75%, 5px, 0px) !important;
+  }

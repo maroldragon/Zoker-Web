@@ -39,42 +39,23 @@ function savePreditionRating(data){
     }
 }
 
-function getNewPredictionRating(){
-    $.ajax({
-        url: 'algo/ratingPrediksi.csv',
-        dataType: 'text',
-      }).done(successFunction);
-    
-    function successFunction(csv) {
-        let data = []
-        let allTextLines = csv.split(/\r\n|\n/);
-        for(let i=0;i<allTextLines.length;i++){
-            let row = allTextLines[i].split(';');
-            let col = []
-            for(let j=0;j<row.length;j++){
-                col.push(row[j]);
-            }
-            data.push(col);
-        }
-        // console.log(data);
-        savePreditionRating(data);
-    }
-}
+/*########################################/
+            DEVELOP PURPOSE
+#########################################*/
 
-function savePreditionRating(data){
-    let database = firebase.database();
-    for(let i=1;i<data.length-1;i++){
-        let isbn = (data[i][1]).substring(4)
-        let userId = data[i][0]
-        let prediksiRatingId = userId + "-" + isbn
-        database.ref('ratingPrediksi/' + prediksiRatingId).set({
-            idRatingPrediksi: prediksiRatingId,
-            idBuku: isbn,
-            idUser: userId,
-            rating: (parseFloat(data[i][2])).toFixed(2)
-        })
-    }
-}
+// dbRef.child("user").on("value", function (snapshot) {
+//     snapshot.forEach(function(child) {
+//         let database = firebase.database();
+//         console.log(child.val().userId);
+//         database.ref('user/' + child.val().userId + "/status").set("verified")
+//     });    
+// }, function (errorObject) {
+//     console.log(errorObject) 
+// });
+
+/*########################################/
+        END DEVELOP PURPOSE
+#########################################*/
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -159,7 +140,8 @@ function writeUserData(userId) {
         kota : kota,
         alamat : alamat,
         email : email,
-        password: password
+        password: password,
+        status : "unverified"
     }).then( () => {
         saveDataUserToCsv()
         swal("Success", "Registrasi Berhasil", "success").then(()=>{
@@ -593,6 +575,7 @@ function tambahkanUlasan(){
             swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
         }
     })
+}
 
 function saveDataRatingToCsv(){
     var dataRating = []
@@ -706,7 +689,6 @@ function export_user(arrayData) {
         }
     })
 }
-
 
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {
