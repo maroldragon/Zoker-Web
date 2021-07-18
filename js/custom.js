@@ -39,6 +39,43 @@ function savePreditionRating(data){
     }
 }
 
+function getNewPredictionRating(){
+    $.ajax({
+        url: 'algo/ratingPrediksi.csv',
+        dataType: 'text',
+      }).done(successFunction);
+    
+    function successFunction(csv) {
+        let data = []
+        let allTextLines = csv.split(/\r\n|\n/);
+        for(let i=0;i<allTextLines.length;i++){
+            let row = allTextLines[i].split(';');
+            let col = []
+            for(let j=0;j<row.length;j++){
+                col.push(row[j]);
+            }
+            data.push(col);
+        }
+        // console.log(data);
+        savePreditionRating(data);
+    }
+}
+
+function savePreditionRating(data){
+    let database = firebase.database();
+    for(let i=1;i<data.length-1;i++){
+        let isbn = (data[i][1]).substring(4)
+        let userId = data[i][0]
+        let prediksiRatingId = userId + "-" + isbn
+        database.ref('ratingPrediksi/' + prediksiRatingId).set({
+            idRatingPrediksi: prediksiRatingId,
+            idBuku: isbn,
+            idUser: userId,
+            rating: (parseFloat(data[i][2])).toFixed(2)
+        })
+    }
+}
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         console.log("You Login Now");
@@ -556,7 +593,38 @@ function tambahkanUlasan(){
             swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
         }
     })
-}
+
+// function saveDataRatingToCsv(){
+//     var dataRating = []
+//     const dbRef = firebase.database().ref();
+//     dbRef.child("ratings").once('value', function(allRecord){
+//         allRecord.forEach( function(currentRecord) {
+//             var userId = currentRecord.val().idUser;
+//             var itemId = "ISBN"+currentRecord.val().idBuku;
+//             var rating = currentRecord.val().rating;
+//             dataRating.push(userId+';'+itemId+';'+rating);
+//         })
+//     }).then(() => {
+//         export_rating(dataRating)
+//     });
+// }
+
+// function export_rating(arrayData) {
+//     $.ajax({
+//         url: "./admin/algo/createDataBook.php",
+//         type:"POST",
+//         data: {
+//             listRating:arrayData,
+//         },success:function(response){
+//             getNewPredictionRating()
+//             console.log(response);
+//             if(response) {
+//                 //location.reload();
+//             }
+//         }
+//     })
+// >>>>>>> 01933edd569c350c75f62e4d74571ff68362a186
+// }
 
 function saveDataRatingToCsv(){
     var dataRating = []

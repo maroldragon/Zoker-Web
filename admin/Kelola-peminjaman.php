@@ -12,7 +12,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
-	<title>Blank Page | AdminKit Demo</title>
+	<title>Kelola Peminjaman</title>
 
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -70,13 +70,13 @@
 										  </svg>
 										<span> Tampilkan</span>	
 									</button>
-									<form class="form-inline d-sm-inline-flex">
+									<form  class="mt-3 mb-3" class="form-inline d-sm-inline-flex">
 										<div class="input-group input-group-navbar">
-											<input type="text" class="form-control" placeholder="Search…" aria-label="Search">
+											<input id="searchBooklist" type="text" class="form-control" placeholder="Search…" aria-label="Search">
 											<div class="input-group-append">
-												<button class="btn" type="button">
-											<i class="align-middle" data-feather="search"></i>
-											</button>
+												<button id="btnSearchBooklist" class="btn btn-primary" type="button">
+													<i class="align-middle" data-feather="search"></i>
+												</button>
 											</div>
 										</div>
 									</form>
@@ -88,42 +88,12 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="table-responsive">
-								<table class="table mb-0">
-									<thead>
-										<tr>
-											<th scope="col">No</th>
-											<th scope="col">Kode Peminjaman</th>
-											<th scope="col">Nama Peminjam</th>
-											<th scope="col">Buku Dipinjam</th>
-											<th scope="col">Tanggal Pinjam</th>
-											<th scope="col">Status</th>											
-										</tr>
+								<table id="printTable"  class="table mb-0">
+									<thead id="data-table-head" class="data-table-head">
+										
 									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>Cell</td>
-											<td>Cell</td>
-											<td>Cell</td>
-											<td>Cell</td>
-											<td>Cell</td>
-										</tr>
-										<tr>
-											<th scope="row">2</th>
-											<td>Cell</td>
-											<td>Cell</td>
-											<td>Cell</td>
-											<td>Cell</td>
-											<td>Cell</td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td>Cell</td>
-											<td>Cell</td>
-											<td>Cell</td>
-											<td>Cell</td>
-											<td>Cell</td>
-										</tr>
+									<tbody id="data-table-pinjam" class="data-table-user"> 
+									
 									</tbody>
 								</table>
 							</div>
@@ -154,6 +124,82 @@
 ?>
 <script src="js/app.js"></script>
 <script src="js/custom.js"></script>
+<script>
+
+SelectAllData()
+		function SelectAllData(){
+			
+			//create table row
+			document.getElementById("data-table-pinjam").style.textAlign = "left";
+			document.getElementById("data-table-head").style.textAlign = "left";
+			var thead = document.getElementById("data-table-head");
+			var trow = document.createElement("tr");
+			var td1 = document.createElement("th");
+			var td2 = document.createElement("th");
+			var td3 = document.createElement("th");
+			var td4 = document.createElement("th");
+			var td5 = document.createElement("th");
+			var td6 = document.createElement("th");
+			td1.innerHTML = "No";
+			td2.innerHTML = "ISBN Buku";
+			td3.innerHTML = "Kode Peminjaman";
+			td4.innerHTML = "Kode User";
+			td5.innerHTML = "Tanggal Pinjam";
+			td6.innerHTML = "Status";
+			
+			
+			trow.appendChild(td1);
+			trow.appendChild(td2);
+			trow.appendChild(td3);
+			trow.appendChild(td4);
+			trow.appendChild(td5);
+			trow.appendChild(td6);
+
+			thead.appendChild(trow)
+			//end table row
+
+			firebase.database().ref("peminjaman").once("value", function(allRecord){
+				allRecord.forEach( function(currentRecord) {
+					
+					var judul = currentRecord.val().idBuku
+					var isbn = currentRecord.val().idPeminjaman
+					var kategori = currentRecord.val().idUser
+					var penerbit = currentRecord.val().status
+					var penulis = currentRecord.val().tanggal
+					addItemToTable(judul,isbn,kategori,penulis,penerbit);
+				})
+			});
+		}
+		var usrNo = 0;
+		//AddItemToTable()
+		function addItemToTable(usrname, name, mail, loc){
+			
+			var tbody = document.getElementById("data-table-pinjam");
+			var trow = document.createElement("tr");
+			var td1 = document.createElement("td");
+			var td2 = document.createElement("td");
+			var td3 = document.createElement("td");
+			var td4 = document.createElement("td");
+			var td5 = document.createElement("td");
+			
+
+			td1.innerHTML = ++usrNo;
+			td2.innerHTML = usrname;
+			td3.innerHTML = name;
+			td4.innerHTML = mail;
+			td5.innerHTML = loc;
+
+			trow.appendChild(td1);
+			trow.appendChild(td2);
+			trow.appendChild(td3);
+			trow.appendChild(td4);
+			trow.appendChild(td5);
+
+			tbody.appendChild(trow)
+		}
+
+</script>
+
 </body>
 
 </html>

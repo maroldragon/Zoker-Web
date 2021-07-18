@@ -447,4 +447,3 @@ function export_rating(arrayData) {
         }
     })
 }
-
