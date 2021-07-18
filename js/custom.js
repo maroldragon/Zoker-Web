@@ -594,37 +594,36 @@ function tambahkanUlasan(){
         }
     })
 
-// function saveDataRatingToCsv(){
-//     var dataRating = []
-//     const dbRef = firebase.database().ref();
-//     dbRef.child("ratings").once('value', function(allRecord){
-//         allRecord.forEach( function(currentRecord) {
-//             var userId = currentRecord.val().idUser;
-//             var itemId = "ISBN"+currentRecord.val().idBuku;
-//             var rating = currentRecord.val().rating;
-//             dataRating.push(userId+';'+itemId+';'+rating);
-//         })
-//     }).then(() => {
-//         export_rating(dataRating)
-//     });
-// }
+function saveDataRatingToCsv(){
+    var dataRating = []
+    const dbRef = firebase.database().ref();
+    dbRef.child("ratings").once('value', function(allRecord){
+        allRecord.forEach( function(currentRecord) {
+            var userId = currentRecord.val().idUser;
+            var itemId = "ISBN"+currentRecord.val().idBuku;
+            var rating = currentRecord.val().rating;
+            dataRating.push(userId+';'+itemId+';'+rating);
+        })
+    }).then(() => {
+        export_rating(dataRating)
+    });
+}
 
-// function export_rating(arrayData) {
-//     $.ajax({
-//         url: "./admin/algo/createDataBook.php",
-//         type:"POST",
-//         data: {
-//             listRating:arrayData,
-//         },success:function(response){
-//             getNewPredictionRating()
-//             console.log(response);
-//             if(response) {
-//                 //location.reload();
-//             }
-//         }
-//     })
-// >>>>>>> 01933edd569c350c75f62e4d74571ff68362a186
-// }
+function export_rating(arrayData) {
+    $.ajax({
+        url: "./admin/algo/createDataBook.php",
+        type:"POST",
+        data: {
+            listRating:arrayData,
+        },success:function(response){
+            getNewPredictionRating()
+            console.log(response);
+            if(response) {
+                //location.reload();
+            }
+        }
+    })
+}
 
 function saveDataRatingToCsv(){
     var dataRating = []
