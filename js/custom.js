@@ -1,5 +1,43 @@
 const dbRef = firebase.database().ref();
 var user_id_all = ""
+saveDataUserToCsv()
+saveDataRatingToCsv()
+function getNewPredictionRating(){
+    $.ajax({
+        url: './admin/algo/ratingPrediksi.csv',
+        dataType: 'text',
+      }).done(successFunction);
+    
+    function successFunction(csv) {
+        let data = []
+        let allTextLines = csv.split(/\r\n|\n/);
+        for(let i=0;i<allTextLines.length;i++){
+            let row = allTextLines[i].split(';');
+            let col = []
+            for(let j=0;j<row.length;j++){
+                col.push(row[j]);
+            }
+            data.push(col);
+        }
+        // console.log(data);
+        savePreditionRating(data);
+    }
+}
+
+function savePreditionRating(data){
+    let database = firebase.database();
+    for(let i=1;i<data.length-1;i++){
+        let isbn = (data[i][1]).substring(4)
+        let userId = data[i][0]
+        let prediksiRatingId = userId + "-" + isbn
+        database.ref('ratingPrediksi/' + prediksiRatingId).set({
+            idRatingPrediksi: prediksiRatingId,
+            idBuku: isbn,
+            idUser: userId,
+            rating: (parseFloat(data[i][2])).toFixed(2)
+        })
+    }
+}
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -86,6 +124,7 @@ function writeUserData(userId) {
         email : email,
         password: password
     }).then( () => {
+        saveDataUserToCsv()
         swal("Success", "Registrasi Berhasil", "success").then(()=>{
             location.href = "./index.php"
         })
@@ -139,22 +178,51 @@ function addNewBook(){
 function addRecommendBook(){
     var listBookRec = document.getElementById("listBookRecommend");
     listBookRec.innerHTML = ""
-    dbRef.child("books").orderByChild('rating').limitToLast(15).on("value", function (snapshot) {
+    firebase.auth().onAuthStateChanged(function(user) {
+        let  dataBook = []
+        if (user) {
+            var user = firebase.auth().currentUser;
+            var userId = user.uid;
+            dbRef.child("ratingPrediksi").orderByChild("idUser").equalTo(userId).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    var rate = ""+child.val().rating
+                    dataBook.push(child)
+                    // console.log(child.val());
+                });
+                
+                dataBook.sort(function(a, b) {
+                    return a.val().rating - b.val().rating;
+                });
+
+                for(var key=0;key<dataBook.length;key++){
+                    generateRecommendBook(dataBook[key].val().idBuku, listBookRec);
+                }
+                
+            }, function (errorObject) {
+                console.log(errorObject) 
+            });
+        }
+    })    
+}
+
+function generateRecommendBook(idBuku, listBookRec) {
+    dbRef.child("books").orderByChild("isbn").equalTo(idBuku).on("value", function (snapshot) {
         snapshot.forEach(function(child) {
             listBookRec.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
-              "<div class='card-rating'>"+
-                "<i class='fas fa-star'></i><span id='recCardRating'>"+ child.val().rating +"</span>"+
-              "</div>"+
-              "<img src='"+ child.val().cover +"' class='card-img-top' alt='...' id='recCardImage'>"+
-              "<div class='card-body'>"+
-                "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='recCardJudul'>"+ child.val().judul +"</a>"+
-                "<div class='card-text' id='recCardPenulis'>"+ child.val().penulis +"</div>"+
-              "</div> </div> </div>"
+            "<div class='card-rating'>"+
+            "<i class='fas fa-star'></i><span id='recCardRating'>"+ child.val().rating +"</span>"+
+            "</div>"+
+            "<img src='"+ child.val().cover +"' class='card-img-top' alt='...' id='recCardImage'>"+
+            "<div class='card-body'>"+
+            "<a class='card-title' href='detail_buku.php?isbn="+ child.val().isbn +"' id='recCardJudul'>"+ child.val().judul +"</a>"+
+            "<div class='card-text' id='recCardPenulis'>"+ child.val().penulis +"</div>"+
+            "</div> </div> </div>"
         });
     }, function (errorObject) {
         console.log(errorObject) 
     });
 }
+
 
 function addKategoriBook(kategori){
     var listBookKat = document.getElementById("listBookKategori");
@@ -479,6 +547,7 @@ function tambahkanUlasan(){
                 rating : rate,
                 tanggal : tanggal
             }).then(() => {
+                saveDataRatingToCsv()
                 swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
                     location.href = "./detail_buku.php?isbn="+bookId
                 });
@@ -487,16 +556,93 @@ function tambahkanUlasan(){
             swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
         }
     })
-    // dbRef.child("peminjaman").orderByChild('idPeminjaman').equalTo().on("value", function (snapshot) {
-    //     snapshot.forEach(function(child) {
-            
-    //     });
-    // }, function (errorObject) {
-    //     console.log(errorObject) 
-    // });
-
-    console.log("kor");
 }
+
+function saveDataRatingToCsv(){
+    var dataRating = []
+    const dbRef = firebase.database().ref();
+    dbRef.child("ratings").once('value', function(allRecord){
+        allRecord.forEach( function(currentRecord) {
+            var userId = currentRecord.val().idUser;
+            var itemId = "ISBN"+currentRecord.val().idBuku;
+            var rating = currentRecord.val().rating;
+            dataRating.push(userId+';'+itemId+';'+rating);
+        })
+    }).then(() => {
+        export_rating(dataRating)
+    });
+}
+
+function export_rating(arrayData) {
+    $.ajax({
+        url: "./admin/algo/createDataBook.php",
+        type:"POST",
+        data: {
+            listRating:arrayData,
+        },success:function(response){
+            getNewPredictionRating()
+            console.log(response);
+            if(response) {
+                //location.reload();
+            }
+        }
+    })
+}
+
+function saveDataUserToCsv(){
+    var dataUser = []
+    const dbRef = firebase.database().ref();
+    dbRef.child("user").once('value', function(allRecord){
+        allRecord.forEach( function(currentRecord) {
+            var userId = currentRecord.val().userId;
+            var negara = currentRecord.val().negara.toLowerCase()
+            var provinsi = currentRecord.val().provinsi.toLowerCase()
+            var usia = getAge(currentRecord.val().tanggalLahir)
+            dataUser.push(userId+';'+negara+';'+provinsi+';'+usia);
+        })
+    }).then(() => {
+        export_user(dataUser)
+    });
+}
+
+function convertTl(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+}
+
+function getAge(dateString){
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
+}
+
+function export_user(arrayData) {
+    $.ajax({
+        url: "./admin/algo/createDataBook.php",
+        type:"POST",
+        data: {
+            listUser:arrayData,
+        },success:function(response){
+            getNewPredictionRating()
+            console.log(response);
+            if(response) {
+                //location.reload();
+            }
+        }
+    })
+}
+
+
+
+
 
 $("#btn-logout").click(function(){
     firebase.auth().signOut().then(function() {

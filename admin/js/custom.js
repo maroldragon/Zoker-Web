@@ -1,3 +1,39 @@
+function getNewPredictionRating(){
+    $.ajax({
+        url: 'algo/ratingPrediksi.csv',
+        dataType: 'text',
+      }).done(successFunction);
+    
+    function successFunction(csv) {
+        let data = []
+        let allTextLines = csv.split(/\r\n|\n/);
+        for(let i=0;i<allTextLines.length;i++){
+            let row = allTextLines[i].split(';');
+            let col = []
+            for(let j=0;j<row.length;j++){
+                col.push(row[j]);
+            }
+            data.push(col);
+        }
+        // console.log(data);
+        savePreditionRating(data);
+    }
+}
+
+function savePreditionRating(data){
+    let database = firebase.database();
+    for(let i=1;i<data.length-1;i++){
+        let isbn = (data[i][1]).substring(4)
+        let userId = data[i][0]
+        let prediksiRatingId = userId + "-" + isbn
+        database.ref('ratingPrediksi/' + prediksiRatingId).set({
+            idRatingPrediksi: prediksiRatingId,
+            idBuku: isbn,
+            idUser: userId,
+            rating: (parseFloat(data[i][2])).toFixed(2)
+        })
+    }
+}
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -284,7 +320,7 @@ function uploadBook() {
                 $("#myBar").css("display", "none");
                 let database = firebase.database();
                 database.ref('books/' + isbn.val() + "/file").set(downlaodURL).then(()=> {
-                    // saveDataBookToCsv()
+                    saveDataBookToCsv()
                     swal("Selamat", "Buku Berhasil Di Upload", "success").then(function(){ 
                        location.href = "Kelola-item-digital.php?kelola_item";
                     });
@@ -307,7 +343,7 @@ function saveDataBookToCsv(){
     const dbRef = firebase.database().ref();
     dbRef.child("books").once('value', function(allRecord){
         allRecord.forEach( function(currentRecord) {
-            dataBook.push(currentRecord.val().isbn+';'+currentRecord.val().kategori);
+            dataBook.push("ISBN"+currentRecord.val().isbn+';'+currentRecord.val().kategori);
         })
     }).then(() => {
         export_book(dataBook)
@@ -321,6 +357,7 @@ function export_book(arrayData) {
         data: {
             listBook:arrayData,
         },success:function(response){
+            getNewPredictionRating()
             console.log(response);
             if(response) {
                 //location.reload();
@@ -371,6 +408,7 @@ function export_user(arrayData) {
         data: {
             listUser:arrayData,
         },success:function(response){
+            getNewPredictionRating()
             console.log(response);
             if(response) {
                 //location.reload();
@@ -385,7 +423,7 @@ function saveDataRatingToCsv(){
     dbRef.child("ratings").once('value', function(allRecord){
         allRecord.forEach( function(currentRecord) {
             var userId = currentRecord.val().idUser;
-            var itemId = currentRecord.val().idBuku;
+            var itemId = "ISBN"+currentRecord.val().idBuku;
             var rating = currentRecord.val().rating;
             dataRating.push(userId+';'+itemId+';'+rating);
         })
@@ -401,6 +439,7 @@ function export_rating(arrayData) {
         data: {
             listRating:arrayData,
         },success:function(response){
+            getNewPredictionRating()
             console.log(response);
             if(response) {
                 //location.reload();
@@ -408,5 +447,4 @@ function export_rating(arrayData) {
         }
     })
 }
-
 

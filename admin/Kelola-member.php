@@ -121,8 +121,10 @@
 		@include_once("sourceJS.html");
 	?>
 	<script src="js/app.js"></script>
+	<script src="js/custom.js"></script>
 	<script src="js/custom-user.js"></script>
 	<script>
+		saveDataUserToCsv()
 		var tampil = 5;
 		SelectAllData()
 		function SelectAllData(){

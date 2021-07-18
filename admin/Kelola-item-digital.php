@@ -74,7 +74,7 @@
 										<th>Kategori</th>
 										<th>Penulis</th>
 										<th>Penerbit</th>
-										<th>Aksi</th>
+										<!-- <th>Aksi</th> -->
 									</tr>
 								</thead>
 								<tbody id="data-table-book">
@@ -128,8 +128,8 @@
 		var currentPage = 1;
 		var allPage = 1;
 		saveDataBookToCsv();
-		// saveDataUserToCsv();
-		// saveDataRatingToCsv()
+		saveDataUserToCsv();
+		saveDataRatingToCsv()
 		
 		addData("");
 

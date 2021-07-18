@@ -60,9 +60,9 @@
   ?>
   <script src="js/custom.js"></script>
   <script>
+    $('#imageProfil').css({'height':$('#imageProfil').width()+'px'});
     $(window).on('resize', function(){
-      var cw = $('#imageProfil').width();
-    $('#imageProfil').css({'height':cw+'px'});
+      $('#imageProfil').css({'height':$('#imageProfil').width()+'px'});
     });
     
   </script>  

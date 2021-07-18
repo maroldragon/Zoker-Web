@@ -1,6 +1,6 @@
 <?php
-	$python = exec("DCF.py");
-	echo $python;
+$python = exec("DCF.py");
+echo $python;
 
 if(isset($_POST["listBook"])){
 	$data = $_POST["listBook"];
@@ -23,8 +23,6 @@ if(isset($_POST["listUser"])){
 	}
 	fclose($fp);
 	echo("sukses tambah User");
-	#$python = shell_exec("DCF.py");
-	#echo $python;
 }
 
 if(isset($_POST["listRating"])){
