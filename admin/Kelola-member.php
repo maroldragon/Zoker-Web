@@ -86,7 +86,7 @@
 							<div class="col-md-12 text-center">
 								<div class="btn-group btn-group ">
 									<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-										<div id="btn-pagination-list-book" class="btn-group mr-2" role="group" aria-label="First group">
+										<div id="btn-pagination-list-user" class="btn-group mr-2" role="group" aria-label="First group">
 											<!-- <button type="button" class="btn btn-secondary ">Previous</button>
 											<button type="button" class="btn btn-secondary active">1</button>
 											<button type="button" class="btn btn-secondary">2</button>
@@ -127,25 +127,74 @@
 	<script src="js/custom-user.js"></script>
 	<script>
 		saveDataUserToCsv()
+		
+		const dbRef = firebase.database().ref("user");
+		var no = 0;
+		var dataUser = [];
+		var dataUserSearch = [];
 		var tampil = 5;
-		SelectAllData()
+		var currentPage = 1;
+		var allPage = 1;
+		addData("");
 
-		function SelectAllData() {
-			firebase.database().ref("user").once("value", function(allRecord) {
+		function addData(keyword) {
+			dataUser = []
+			dbRef.orderByChild("status").equalTo("verified").once('value', function(allRecord) {
 				allRecord.forEach(function(currentRecord) {
-					var usrname = currentRecord.val().userName;
-					var name = currentRecord.val().namaDepan;
-					var mail = currentRecord.val().email;
-					var loc = currentRecord.val().alamat;
-					addItemToTable(usrname, name, mail, loc);
+					dataUser.push(currentRecord);
 				})
+			}).then(() => {
+				var sum = generateData(keyword);
+				addPagination(sum);
+				tampilkan();
 			});
 		}
 
-		var usrNo = 0;
-		//AddItemToTable()
-		function addItemToTable(usrname, name, mail, loc) {
-			var tbody = document.getElementById("data-table-user");
+		function generateData(keyword) {
+			dataUserSearch = [];
+			for (ids = 0; ids < dataUser.length; ids++) {
+				if ((dataUser[ids].val().namaDepan + dataUser[ids].val().namaBelakang).toLowerCase().includes(keyword.toLowerCase())) {
+					dataUserSearch.push(dataUser[ids]);
+				}
+			}
+			return dataUserSearch.length;
+		}
+
+		function tampilkan(startAt = 1) {
+			currentPage = startAt;
+			if (startAt == 1) {
+				$("#btn-previous-list-book").addClass("disabled");
+			} else {
+				$("#btn-previous-list-book").removeClass("disabled");
+			}
+
+			if (startAt == allPage) {
+				$("#btn-next-list-book").addClass("disabled");
+			} else {
+				$("#btn-next-list-book").removeClass("disabled");
+			}
+
+			var dataTable = document.getElementById("data-table-user");
+			dataTable.innerHTML = "";
+			no = (startAt - 1) * tampil;
+			startAt = (startAt - 1) * tampil
+			var endAt = (startAt + tampil);
+			if (endAt > dataUserSearch.length) {
+				endAt = dataUserSearch.length
+			}
+
+			for (var i = startAt; i < endAt; i++) {
+				addDataToTable(dataUserSearch[i])
+			}
+		}
+
+		function addDataToTable(currentRecord) {
+			var username = currentRecord.val().userName;
+			var name = currentRecord.val().namaDepan + " " + currentRecord.val().namaBelakang;
+			var mail = currentRecord.val().email;
+			var alamat = currentRecord.val().alamat;
+
+			var dataTable = document.getElementById("data-table-user");
 			var trow = document.createElement("tr");
 			var td1 = document.createElement("td");
 			var td2 = document.createElement("td");
@@ -154,11 +203,11 @@
 			var td5 = document.createElement("td");
 			var td6 = document.createElement("td");
 
-			td1.innerHTML = ++usrNo;
-			td2.innerHTML = usrname;
+			td1.innerHTML = ++no;
+			td2.innerHTML = username;
 			td3.innerHTML = name;
 			td4.innerHTML = mail;
-			td5.innerHTML = loc;
+			td5.innerHTML = alamat;
 			td6.innerHTML = `
 		<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
 			<form method="get" action="kelola-member-verifikasi.html">
@@ -194,18 +243,98 @@
 						</form>
 					</div>
 				</a>
-			</div>
-			`
+			</div>`
 
 			trow.appendChild(td1);
 			trow.appendChild(td2);
 			trow.appendChild(td3);
 			trow.appendChild(td4);
 			trow.appendChild(td5);
-			trow.appendChild(td6)
+			trow.appendChild(td6);
 
-			tbody.appendChild(trow)
+			dataTable.appendChild(trow);
 		}
+
+		function addPagination(sumData) {
+			var sumPage = Math.ceil(sumData / tampil);
+			allPage = sumPage;
+			var pagination = document.getElementById("btn-pagination-list-user");
+			pagination.innerHTML = "";
+			pagination.innerHTML = "<button id='btn-previous-list-book' type='button' class='btn btn-secondary disabled'>Previous</button>"
+
+			for (var page = 1; page <= sumPage; page++) {
+				if (page == sumPage) {
+					pagination.innerHTML += "<button id='btnPageTitik' type='button' class='btn btn-secondary btnPage disabled'>" + "..." + "</button>"
+					pagination.innerHTML += "<button id='btnPage" + page + "' onclick='changePage(" + page + ")' " + "type='button' class='btn btn-secondary btnPage'>" + page + "</button>"
+				} else {
+					pagination.innerHTML += "<button id='btnPage" + page + "' onclick='changePage(" + page + ")' " + "type='button' class='btn btn-secondary btnPage'>" + page + "</button>"
+				}
+			}
+
+			pagination.innerHTML += "<button id='btn-next-list-book' type='button' class='btn btn-secondary'>Next</button>"
+			$("#btnPage1").addClass("active");
+			$("#btn-previous-list-book").click(function() {
+				if ($("#btnPage" + (currentPage - 1)).hasClass("d-none")) {
+					$("#btnPage" + (currentPage - 1)).removeClass("d-none");
+					$("#btnPage" + (currentPage + 2)).addClass("d-none");
+					if (currentPage - 1 == 1) {
+						$("#btnPageTitik").removeClass("d-none");
+					}
+				}
+				changePage(currentPage - 1)
+			})
+			$("#btn-next-list-book").click(function() {
+				if ($("#btnPage" + (currentPage + 1)).hasClass("d-none")) {
+					$("#btnPage" + (currentPage + 1)).removeClass("d-none");
+					$("#btnPage" + (currentPage - 2)).addClass("d-none");
+					if (currentPage + 2 == sumPage) {
+						$("#btnPageTitik").addClass("d-none");
+					}
+				}
+				changePage(currentPage + 1)
+			})
+
+			if (sumPage < 5) {
+				$("#btnPageTitik").addClass("d-none");
+			} else {
+				for (var j = sumPage - 1; j > 3; j--) {
+					$("#btnPage" + j).addClass("d-none");
+				}
+			}
+		}
+
+		function changePage(num) {
+			offBtnPage();
+			$("#btnPage" + num).addClass("active");
+			tampilkan(num);
+		}
+
+		function offBtnPage() {
+			var btnPages = document.querySelectorAll(".btnPage");
+			btnPages.forEach(function(btn) {
+				btn.classList.remove("active");
+			})
+		}
+
+		$("#btnSearchBooklist").click(function(e) {
+			e.preventDefault();
+			var keyword = $("#searchBooklist").val()
+			addData(keyword);
+		})
+
+		$("#searchBooklist").keydown(function(e) {
+			if (event.keyCode == 13) {
+				var keyword = $("#searchBooklist").val()
+				addData(keyword);
+			}
+		})
+
+		$(window).keydown(function(event) {
+			if (event.keyCode == 13) {
+				event.preventDefault();
+				return false;
+			}
+		});
 	</script>
 
 </body>
