@@ -299,6 +299,31 @@ function addSearchBook(keyword){
     });
 }
 
+function addSearchBookCompleks(judul, penulis, isbn) {
+    var listBookSearch = document.getElementById("listBookSearch");
+    listBookSearch.innerHTML = ""
+    var query = ""
+    query = dbRef.child("books")
+    var exist = false;
+    $("#emptyPencarian").css("display", "block")
+    query.on("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            if(child.val().judul.toLowerCase().includes(judul.toLowerCase()) && 
+            child.val().penulis.toLowerCase().includes(penulis.toLowerCase()) && 
+            child.val().isbn.toLowerCase().includes(isbn.toLowerCase()) ){
+                addDataSearch(listBookSearch, child)
+                exist = true;
+            }
+        }).then(() => {
+            if(!exist){
+                listBookSearch.innerHTML = ""
+            }
+        });
+    }, function (errorObject) {
+        console.log(errorObject) 
+    });
+}
+
 function addDataSearch(list, child){
     $("#emptyPencarian").css("display", "none")
     list.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
@@ -415,21 +440,47 @@ function savePinjamBuku(){
             var date = new Date();
             let tanggal = new Date().toLocaleDateString();
             var status = "unfinished"
-                
+            var bukuTerpinjam = 0 
             dbRef.child("user").child(userId).get().then((snapshot) => {
             if (snapshot.exists()) {
-                let database = firebase.database();
-                database.ref('peminjaman/' + peminjamanId).set({
-                    idPeminjaman : peminjamanId,
-                    idBuku : bookId,
-                    idUser : userId,
-                    status : status,
-                    tanggal : tanggal
-                }).then(() => {
-                    swal("Selamat", "Buku Berhasil Di Dipinjam", "success").then(function(){ 
-                        location.href = "./buku_terpinjam.php"
-                    });
-                })
+                dbRef.child("peminjaman").orderByChild('idUser').equalTo(userId).on("value", function (snapshot) {
+                    if (snapshot.exists()) {
+                        snapshot.forEach(function(child) {
+                            bukuTerpinjam += 1
+                        });
+                        if(bukuTerpinjam >= 5) {
+                            swal("Error", "Anda Sudah Meminjam 5 Buku", "error")
+                        }else {
+                            let database = firebase.database();
+                            database.ref('peminjaman/' + peminjamanId).set({
+                                idPeminjaman : peminjamanId,
+                                idBuku : bookId,
+                                idUser : userId,
+                                status : status,
+                                tanggal : tanggal
+                            }).then(() => {
+                                swal("Selamat", "Buku Berhasil Di Dipinjam", "success").then(function(){ 
+                                    location.href = "./buku_terpinjam.php"
+                                });
+                            })
+                        }
+                    }else {
+                        let database = firebase.database();
+                        database.ref('peminjaman/' + peminjamanId).set({
+                            idPeminjaman : peminjamanId,
+                            idBuku : bookId,
+                            idUser : userId,
+                            status : status,
+                            tanggal : tanggal
+                        }).then(() => {
+                            swal("Selamat", "Buku Berhasil Di Dipinjam", "success").then(function(){ 
+                                location.href = "./buku_terpinjam.php"
+                            });
+                        })
+                    }
+                }, function (errorObject) {
+                    console.log(errorObject) 
+                });
             } else {
                 console.log("No data available");
             }

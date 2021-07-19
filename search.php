@@ -73,9 +73,18 @@
     $("#buttonSearch").keydown(function(e) {
 			if(event.keyCode == 13) {
 				var keyword = $("#searchBooklist").val()
-				addData(keyword);
+				addDataBook(keyword);
 			}
 		})
+
+    $("#buttonCariItem").click(function() {
+      var judul = $("#inputJudulBuku").val()
+      var penulis = $("#inputPenulis").val()
+      var isbn = $("#inputIsbn").val()
+
+      addSearchBookCompleks(judul, penulis, isbn)
+
+    })
 
 		$(window).keydown(function(event){
 			if(event.keyCode == 13) {
