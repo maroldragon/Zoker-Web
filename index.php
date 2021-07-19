@@ -35,35 +35,6 @@
             </div>
           </div>
         </div>
-<<<<<<< HEAD
-=======
-        <div class="carousel-item">
-          <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-5"><img src="img/coverbook.jpg" class="card-img-top" alt="..."></div>
-            <div class="col-lg-9 col-md-9 col-sm-7 pos-middle">
-              <div class="d-inline mt-4 mb-4">
-                <div class="carousel-highlight">Populer</div>
-                <div class="carousel-title">Judul Buku</div>
-                <div class="carousel-caption">Penulis Buku</div>
-                <a href="detail_buku.php" type="button" class="btn btn-carousel form-control mt-3" id="carouselButton">Lihat Buku</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-5"><img src="img/coverbook.jpg" class="card-img-top" alt="..."></div>
-            <div class="col-lg-9 col-md-9 col-sm-7 pos-middle">
-              <div class="d-inline mt-4 mb-4">
-                <div class="carousel-highlight">Populer</div>
-                <div class="carousel-title">Judul Buku</div>
-                <div class="carousel-caption">Penulis Buku</div>
-                <a href="detail_buku.php" type="button" class="btn btn-carousel form-control mt-3" id="carouselButton">Lihat Buku</a>
-              </div>
-            </div>
-          </div>
-        </div>
->>>>>>> da88eba89d24f42bd7c496b18d69815a57824fc0
       </div>
     </div>
 

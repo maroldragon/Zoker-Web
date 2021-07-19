@@ -50,21 +50,34 @@
 
 <script>
 		$("#buttonLogin").click(function(event){
+      const dbRef = firebase.database().ref();
 			event.preventDefault()
 			let username = $("#inputUsername").val()
 			let password = $("#inputPassword").val();
       console.log(username)
 			firebase.auth().signInWithEmailAndPassword(username, password)
 			.then((userCredential) => {
-				// Signed in
-				var user = userCredential.user;
-				console.log(user)
-				window.location.href = "./index.php";
-        $("#menuGuest").addClass("d-none");
-        $("#menuUser").removeClass("d-none");
-
-				// ...
-			})
+          // Signed in
+          var user = userCredential.user;
+          var userId = user.uid
+          console.log(userId)
+          // window.location.href = "./index.php";
+          $("#menuGuest").addClass("d-none");
+          $("#menuUser").removeClass("d-none");
+          dbRef.child("user").child(userId).get().then((snapshot) => {
+            if(snapshot.exists()) {
+                if(snapshot.val().status == "unverified"){
+                  firebase.auth().signOut().then(function() {
+                      swal("Error", "Anda Belum Diverifikasi Oleh Admin", "error");
+                    }).catch(function(error) {
+                      // An error happened.
+                    });
+                }else {
+                  location.href = "./index.php"
+                }
+              }
+          })
+      })
 			.catch((error) => {
 				var errorCode = error.code;
 				var errorMessage = error.message;

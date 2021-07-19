@@ -1,7 +1,7 @@
 const dbRef = firebase.database().ref();
 var user_id_all = ""
-saveDataUserToCsv()
-saveDataRatingToCsv()
+// saveDataUserToCsv()
+// saveDataRatingToCsv()
 function getNewPredictionRating(){
     $.ajax({
         url: './admin/algo/ratingPrediksi.csv',
@@ -144,8 +144,12 @@ function writeUserData(userId) {
         status : "unverified"
     }).then( () => {
         saveDataUserToCsv()
-        swal("Success", "Registrasi Berhasil", "success").then(()=>{
-            location.href = "./index.php"
+        swal("Success", "Registrasi Berhasil, Akun Anda Akan Diverifikasi Terlebih Dahulu", "success").then(()=>{
+            firebase.auth().signOut().then(function() {
+                location.href = "./index.php"
+            }).catch(function(error) {
+            // An error happened.
+            });
         })
     });
 }
@@ -206,14 +210,15 @@ function addRecommendBook(){
                 snapshot.forEach(function(child) {
                     var rate = ""+child.val().rating
                     dataBook.push(child)
-                    // console.log(child.val());
+                    // console.log(child.val())
                 });
-                
+                //console.log(dataBook)
                 dataBook.sort(function(a, b) {
                     return a.val().rating - b.val().rating;
                 });
 
-                for(var key=0;key<dataBook.length;key++){
+                for(var key=dataBook.length-1;key>=0;key--){
+                    console.log(dataBook[key].val())
                     generateRecommendBook(dataBook[key].val().idBuku, listBookRec);
                 }
                 
