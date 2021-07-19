@@ -25,7 +25,7 @@
 					<div class="d-table-cell align-middle">
 
 						<div class="text-center mt-4">
-							<h1 class="h2">Welcome back, Martua </h1>
+							<h1 class="h2">Welcome back </h1>
 							<p class="lead">
 								Sign in to your account to continue
 							</p>
@@ -36,16 +36,24 @@
 								<div class="m-sm-4">
 									<div class="row">
 										<div class="col-md-6">
-											<img src="img/avatars/avatar.jpg" alt="Martua Sinaga" class="img-fluid rounded-circle" width="132" height="132" />
+											<img src="img/avatars/avatar.jpg" alt=""  class="img-fluid rounded-circle"  width="132" height="132" />
 										</div>
 										<div class="col-md-6">
 											<div class="mb-0">
 												<label class="form-label">Email</label>
 												<input class="form-control form-control-lg" type="email" name="email" id="email" placeholder="Enter your email" />
 											</div>
-											<div class="mb-0">
+											<div class="mb-0 ">
 												<label class="form-label">Password</label>
-												<input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="Enter your password" />
+												<div class="input-group">
+												<input class="form-control form-control-lg pwd" type="password" name="password" id="password" placeholder="Enter your password" />
+												<button class="btn btn-primary" type="button">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill reveal" viewBox="0 0 16 16">
+														<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+														<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+														</svg>
+												</button>
+												</div> 
 												<small>
 												<a href="pages-reset-password.html">Forgot password?</a>
 												</small>
@@ -63,7 +71,7 @@
 									</label>
 										</div>
 										<div class="text-center mt-3">
-											<a class="btn btn-lg btn-primary" id="btnLogin">Sign in</a>
+											<a class="btn btn-lg btn-primary" id="btnLogin" >Sign in</a>
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
 									</form>
@@ -102,6 +110,21 @@
 				console.log(errorMessage);
 			});
 		})
+		//----------------------------------------------//
+		//show hide password
+		$(".reveal").on('click',function() {
+			var $pwd = $(".pwd");
+			if ($pwd.attr('type') === 'password') {
+				$pwd.attr('type', 'text');
+			} else {
+				$pwd.attr('type', 'password');
+			}
+		});
+
+
+		//--------------------------------------------------//
+		//empty from
+		
 	</script>
 
 </body>
