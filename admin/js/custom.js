@@ -289,7 +289,6 @@ function uploadImageCover() {
 }
 
 function uploadBook() {
-
     //get your select image
     var book =document.getElementById("uploadBuku").files[0];
     var isbn = $("#isbn")
@@ -424,8 +423,56 @@ function hapusBuku(isbn){
     console.log(isbn)
 }
 
-function tampilkanProsesPengujian(idPengujian) {
-    console.log(idPengujian)
+function tampilkanProsesPengujian(jenisPengujian, tanggal) {
+    //console.log(pengujian)
+    $("#tanggalPengujian").text(jenisPengujian)
+    $("#jenisPengujian").text(tanggal)
+    //const dbRef = firebase.database().ref();
+    getMemberTotal()
+    getItemTotal()
+    getRating()
+    function getMemberTotal(){
+        var total = 0;
+        firebase.database().ref("user").once('value', function(allRecord){
+            allRecord.forEach( function() {
+                total += 1;
+            })
+        }).then(() => {
+            $("#jumlahUser").html(total);
+        });
+    }
+
+    function getItemTotal(){
+        var total = 0;
+        firebase.database().ref("books").once('value', function(allRecord){
+            allRecord.forEach( function() {
+                total += 1;
+            })
+        }).then(() => {
+            $("#jumlahItem").html(total);
+        });
+    }
+    
+    function getRating(){
+        var absoluteString = ""
+        firebase.database().ref("ratingPrediksi").once('value', function(allRecord){
+            allRecord.forEach( function(child) { 
+                //console.log(child.val().idRatingPrediksi)
+                const dbRef = firebase.database().ref();
+                dbRef.child("ratings").child(child.val().idRatingPrediksi).get().then((snapshot) => {
+                    absoluteString += "|" + child.val().rating + " - "
+                    if (snapshot.exists()) {
+                        absoluteString += snapshot.val().rating + "|" + " + "
+                    }else{
+                        absoluteString += "0" + "|" + " + ";
+                        console.log("ISBN tidak ditemukan")
+                    }
+                    $("#totalAbsoluteError").text(absoluteString);
+                })
+            })
+        }).then(() => {
+        });
+    }
 }
 
 /*#######################################
