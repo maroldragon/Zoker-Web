@@ -13,27 +13,21 @@
   ?>
   
   <div class="container-md form-contact">
-		<div class="row">
-			<div class="col-md-4 side-left">
-        <img src="img/logo.png" class="img-logo" alt="">
-				<div class="row mt-4">
-          <div class="contact-caption">Ikuti Kami:</div>
-          <div class="flex mt-3">
-            <a class="footer-link" href="https://www.facebook.com"><i class="fab fa-facebook fa-2x"></i></a>
-            <a class="footer-link" href="https://www.instagram.com"><i class="fab fa-instagram fa-2x"></i></a>
-            <a class="footer-link" href="https://www.twitter.com"><i class="fab fa-twitter fa-2x"></i></a>
-            <a class="footer-link" href="https://www.youtube.com"><i class="fab fa-youtube fa-2x"></i></a>
-          </div>
-        </div>
-			</div>
-			<div class="col-md-8 side-right">				
-        <h1>Perpustakaan Digital</h1>
-        <p>Perpustakaan digital adalah layanan perpustakaan digital dengan konsep easy to use.
-          Kami hadir untuk memudahkan pengguna dalam membaca dan mencari item di perpustakaan digital.
-          Baca buku dengan berbagi koleksi bacaan dan bersosialisasi secara bersamaan. 
-          Di mana pun, kapan pun dengan nyaman bersama setiap orang.
-          Nikmati kemudahan peminjaman buku, dan berbagai koleksi bacaan terlengkap lainnya dalam satu aplikasi. </p>
-			</div>
+		<div class="row p-5 pos-center">
+      <h1>APLIKASI REKOMENDASI PERPUSTAKAAN DIGITAL MENGGUNAKAN DEEP COLLABORATIVE FILTERING BERBASIS MOBILE DAN WEB</h1>
+			<h1 class="mt-5 mb-5">Tugas Akhir</h1>
+      <h1 class="mt-5 mb-5">Oleh:</h1>
+      <h1>Evan Owen Pasaribu</h1>
+      <h1 class="mb-3">(171111067)</h1>
+      <h1>Iman Fajar Lombu</h1>
+      <h1 class="mb-3">(171111768)</h1>
+      <h1>Martua Sinaga</h1>
+      <h1 class="mb-5">(171112356)</h1>
+      <h1 class="mt-5">PROGRAM STUDI TEKNIK INFORMATIKA</h1>
+      <h1>SEKOLAH TINGGI MANAJEMEN INFORMATIKA DAN KOMPUTER</h1>
+      <h1>MIKROSKIL</h1>
+      <h1>MEDAN</h1>
+      <h1>2021</h1>
 		</div>
   </div>
 
