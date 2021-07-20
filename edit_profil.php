@@ -15,12 +15,8 @@
     <h1>Edit Profil</h1>
     <div class="row mt-3 mb-2">
       <div class="col">
-        <label class="inp-text-label" for="inputNamaDepan">Nama Depan</label>
-        <input type="text" class="form-control inp-text" id="inputNamaDepan">
-      </div>
-      <div class="col">
-        <label class="inp-text-label"  for="inputNamaBelakang">Nama Belakang</label>
-        <input type="text" class="form-control inp-text" id="inputNamaBelakang">
+        <label class="inp-text-label" for="inputNamaLengkap">Nama Lengkap</label>
+        <input type="text" class="form-control inp-text" id="inputNamaLengkap">
       </div>
     </div>
     <div class="row mb-2 col">
@@ -46,23 +42,6 @@
       <div class="col">
         <label class="inp-text-label" for="inputTanggalLahir">Tanggal Lahir</label>
         <input type="date" class="form-control inp-text" id="inputTanggalLahir">
-      </div>
-    </div>
-    <div class="row mb-2">
-      <div class="col">
-        <label class="inp-text-label" for="inputAgama">Agama</label>
-        <select class="form-control inp-text" name="Agama" id="inputAgama">
-          <option value="islam">Islam</option>
-          <option value="kristen protestan">Kristen Protestan</option>
-          <option value="katolik">Katolik</option>
-          <option value="buddha">Buddha</option>
-          <option value="hindu">Hindu</option>
-          <option value="kong hu cu">Kong Hu Cu</option>
-        </select>
-      </div>
-      <div class="col">
-        <label class="inp-text-label"  for="inputHobi">Hobi</label>        
-        <input type="text" class="form-control inp-text" id="inputHobi">
       </div>
     </div>
     <div class="row mb-2">

@@ -27,8 +27,6 @@
             <p>Jenis Kelamin</p>
             <p>Tempat Lahir</p>
             <p>Tanggal Lahir</p>
-            <p>Agama</p>
-            <p>Hobi</p>
             <p>Alamat</p>
             <p>Kota</p>
             <p>Provinsi</p>
@@ -41,8 +39,6 @@
             <p>: <span id="textJenisKelamin"></span></p>
             <p>: <span id="textTempatLahir"></span></p>
             <p>: <span id="textTanggalLahir"></span></p>
-            <p>: <span id="textAgama"></span></p>
-            <p>: <span id="textHobi"></span></p>
             <p>: <span id="textAlamat"></span></p>
             <p>: <span id="textKota"></span></p>
             <p>: <span id="textProvinsi"></span></p>

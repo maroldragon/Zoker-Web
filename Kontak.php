@@ -44,6 +44,19 @@
       var nama = $("#inputKontakNama").val()
       var email = $("#inputKontakEmail").val()
       var pesan = $("#inputKontakPesan").val()
+      // var verifikasiEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+      // if (nama == ""){
+      //   swal("Error", "Alamat Tidak Boleh Kosong", "error");
+      // }else if(email == ""){
+      //   swal("Error", "Email Tidak Boleh Kosong", "error");
+      // }else if(!verifikasiEmail.test(valueToTest)){
+      //   swal("Error", "Format Email Salah", "error");
+      // }else if(pesan == ""){        
+      //   swal("Error", "Pesan Tidak Boleh Kosong", "error");
+      // }else{
+
+      // }
+      
       var idFeedback = guid();
       console.log(idFeedback)
       let tanggal = new Date().toLocaleDateString();
@@ -61,7 +74,6 @@
       })
 
     })
-
 
     let guid = () => {
       let s4 = () => {

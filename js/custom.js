@@ -109,6 +109,7 @@ function registerUser(){
 }
 
 function writeUserData(userId) {
+    var namaLengkap = $("#inputNamaLengkap").val();
     var namaDepan = $("#inputNamaDepan").val();
     var namaBelakang = $("#inputNamaBelakang").val();
     var userName = $("#inputUsername").val();
@@ -122,7 +123,32 @@ function writeUserData(userId) {
     var kota = $("#inputKota").val();
     var alamat = $("#inputAlamat").val();
     var email = $("#inputEmail").val();
+    var verifikasiEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
     //var password = $("#inputPassword").val();
+    
+    // if(namaLengkap == ""){
+    //     swal("Error", "Nama Lengkap Tidak Boleh Kosong", "error");
+    // }else if (username == ""){
+    //     swal("Error", "Username Tidak Boleh Kosong", "error");
+    // }else if(tempatLahir == ""){
+    //     swal("Error", "Tempat Lahir Tidak Boleh Kosong", "error");
+    // }else if(negara == ""){
+    //     swal("Error", "Negara Tidak Boleh Kosong", "error");
+    // }else if(provinsi == ""){
+    //     swal("Error", "Provinsi Tidak Boleh Kosong", "error");
+    // }else if(kota == ""){
+    //     swal("Error", "Kota Tidak Boleh Kosong", "error");
+    // }else if(alamat == ""){
+    //     swal("Error", "Alamat Tidak Boleh Kosong", "error");
+    // }else if(email == ""){
+    //     swal("Error", "Email Tidak Boleh Kosong", "error");
+    // }else if(!verifikasiEmail.test(valueToTest)){
+    //     swal("Error", "Format Email Salah", "error");
+    // }else{
+        
+    // }
+
+    
     let database = firebase.database();
 
     database.ref('user/' + userId).set({
@@ -363,8 +389,6 @@ function simpanProfileUser(){
     var jenisKelamin = $("#inputJenisKelamin").val();
     var tempatLahir = $("#inputTempatLahir").val();
     var tanggalLahir = $("#inputTanggalLahir").val();
-    var agama = $("#inputAgama").val();
-    var hobi = $("#inputHobi").val();
     var negara = $("#inputNegara").val();
     var provinsi = $("#inputProvinsi").val();
     var kota = $("#inputKota").val();
@@ -372,21 +396,34 @@ function simpanProfileUser(){
     var user = firebase.auth().currentUser;
     var userId = user.uid;
 
-    database.ref('user/' + userId + "/namaDepan").set(namaDepan)
-    database.ref('user/' + userId + "/namaBelakang").set(namaBelakang)
-    database.ref('user/' + userId + "/userName").set(username)
-    database.ref('user/' + userId + "/jenisKelamin").set(jenisKelamin)
-    database.ref('user/' + userId + "/tempatLahir").set(tempatLahir)
-    database.ref('user/' + userId + "/tanggalLahir").set(tanggalLahir)
-    database.ref('user/' + userId + "/alamat").set(alamat)
-    database.ref('user/' + userId + "/agama").set(agama)
-    database.ref('user/' + userId + "/hobi").set(hobi)
-    database.ref('user/' + userId + "/alamat").set(alamat)
-    database.ref('user/' + userId + "/negara").set(negara)
-    database.ref('user/' + userId + "/provinsi").set(provinsi)
-    database.ref('user/' + userId + "/kota").set(kota)
-    swal("Selamat", "Berhasil di edit", "success");
-
+    if (username == ""){
+        swal("Error", "Username Tidak Boleh Kosong", "error");
+    }else if(tempatLahir == ""){
+        swal("Error", "Tempat Lahir Tidak Boleh Kosong", "error");
+    }else if(negara == ""){
+        swal("Error", "Negara Tidak Boleh Kosong", "error");
+    }else if(provinsi == ""){
+        swal("Error", "Provinsi Tidak Boleh Kosong", "error");
+    }else if(kota == ""){
+        swal("Error", "Kota Tidak Boleh Kosong", "error");
+    }else if(alamat == ""){
+        swal("Error", "Alamat Tidak Boleh Kosong", "error");
+    }else{
+        // database.ref('user/' + userId + "/namaDepan").set(namaDepan)
+        // database.ref('user/' + userId + "/namaBelakang").set(namaBelakang)
+        // database.ref('user/' + userId + "/userName").set(username)
+        // database.ref('user/' + userId + "/jenisKelamin").set(jenisKelamin)
+        // database.ref('user/' + userId + "/tempatLahir").set(tempatLahir)
+        // database.ref('user/' + userId + "/tanggalLahir").set(tanggalLahir)
+        // database.ref('user/' + userId + "/alamat").set(alamat)
+        // database.ref('user/' + userId + "/alamat").set(alamat)
+        // database.ref('user/' + userId + "/negara").set(negara)
+        // database.ref('user/' + userId + "/provinsi").set(provinsi)
+        // database.ref('user/' + userId + "/kota").set(kota)
+        swal("Selamat", "Berhasil di edit", "success").then(()=> {
+            location.href = "./profil.php"
+        })
+    }
 }
 
 function generateBookDetail(){
