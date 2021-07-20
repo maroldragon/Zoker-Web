@@ -37,7 +37,7 @@
   <?php
     @include_once('footer.php')
   ?>
-  <script src="js/custom.js"></script>
+  <!-- <script src="js/custom.js"></script> -->
   
   <script>
     $("#buttonKirim").click(function() {

@@ -25,8 +25,8 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <h1>Masuk</h1>
         <div class="mt-3 mb-2">
-          <label class="inp-text-label" for="inputUsername">Username</label>
-          <input type="text" class="form-control inp-text" id="inputUsername" placeholder="Username">
+          <label class="inp-text-label" for="inputUsername">Email</label>
+          <input type="text" class="form-control inp-text" id="inputUsername" placeholder="Email">
         </div>
         <div class="mb-2">
           <label class="inp-text-label" for="inputPassword">Password</label>
@@ -82,7 +82,11 @@
 				var errorCode = error.code;
 				var errorMessage = error.message;
 				console.log(errorMessage);
-        swal("Error", "Username Dan Password Salah", "error");
+        if(username.trim() == "" || password.trim() == ""){
+          swal("Error", "Masih Ada yang Kosong", "error");
+        }else {
+          swal("Error", "Username Dan Password Salah", "error");
+        }
 			});
 		})
 

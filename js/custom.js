@@ -181,7 +181,7 @@ function addCarousel(){
 function addNewBook(){
     var listBookNew = document.getElementById("listBookNew");
     listBookNew.innerHTML = ""
-    dbRef.child("books").limitToFirst(6).on("value", function (snapshot) {
+    dbRef.child("books").orderByChild("tanggal").limitToFirst(6).on("value", function (snapshot) {
         snapshot.forEach(function(child) {
             listBookNew.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
               "<div class='card-rating'>"+
@@ -221,7 +221,25 @@ function addRecommendBook(){
                     console.log(dataBook[key].val())
                     generateRecommendBook(dataBook[key].val().idBuku, listBookRec);
                 }
-                
+               
+            }, function (errorObject) {
+                console.log(errorObject) 
+            });
+        }else {
+            dbRef.child("books").orderByChild("rating").on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    dataBook.push(child)
+                });
+
+                dataBook.sort(function(a, b) {
+                    return a.val().rating - b.val().rating;
+                });
+
+                for(var key=dataBook.length-1;key>=0;key--){
+                    console.log(dataBook[key].val())
+                    generateRecommendBook(dataBook[key].val().isbn, listBookRec);
+                }
+
             }, function (errorObject) {
                 console.log(errorObject) 
             });
@@ -426,6 +444,31 @@ function generateBookDetail(){
 
         }else{
             console.log("Belum login")
+            var isbnGet = (location.search.replace('?', '').split('='))[1];
+            var judul = $("#textJudul")
+            var kategori = $("#textKategori")
+            var penulis = $("#textPenulis")
+            var penerbit = $("#textPenerbit")
+            var tahunTerbit = $("#textTahunTerbit")
+            var textIsbn = $("#textIsbn")
+            var ringkasan = $("#textRingkasan")
+            var imageBuku = $("#imageBuku");
+            var rating = $("#ratingBukuDetail")
+            dbRef.child("books").orderByChild('isbn').equalTo(isbnGet).on("value", function (snapshot) {
+                snapshot.forEach(function(child) {
+                    judul.text(child.val().judul)
+                    kategori.text(child.val().kategori)
+                    penulis.text(child.val().penulis)
+                    tahunTerbit.text(child.val().tahunTerbit)
+                    penerbit.text(child.val().penerbit)
+                    textIsbn.text(child.val().isbn)
+                    ringkasan.text(child.val().deskripsi)
+                    imageBuku.attr("src", child.val().cover)
+                    rating.text((child.val().rating))
+                });
+            }, function (errorObject) {
+                console.log(errorObject) 
+            });
         }
     })
 }
@@ -488,7 +531,9 @@ function savePinjamBuku(){
                 console.error(error);
             });
         } else {
-            location.href = "./login.php"
+            swal("Error", "Anda Belum Melakukan Login", "error").then(()=> {
+                location.href = "./login.php"
+            })
         }
     });
 }
@@ -602,33 +647,41 @@ $("#buttonSearch").click(function(e) {
 })
 
 function tambahkanUlasan(){
-    var isbnGet = (location.search.replace('?', '').split('='))[1];
-    var user = firebase.auth().currentUser;
-    var userId = user.uid;
-    var bookId = (location.search.replace('?', '').split('='))[1];
-    var ratingId = userId + "-" + bookId
-    var rate =  $("#ratingFeedback").text()
-    var ulasanValue = $("#inputUlasan").val();
-    let database = firebase.database();
-    let tanggal = new Date().toLocaleDateString();
-    
-    dbRef.child("peminjaman").child(userId+"-"+isbnGet).get().then((snapshot) => {
-        if (snapshot.exists()) {
-            database.ref('ratings/' + ratingId).set({
-                idRating: ratingId,
-                idBuku : bookId,
-                idUser : userId,
-                ulasan: ulasanValue,
-                rating : rate,
-                tanggal : tanggal
-            }).then(() => {
-                saveDataRatingToCsv()
-                swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
-                    location.href = "./detail_buku.php?isbn="+bookId
-                });
-            });
-        }else{
-            swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user) {
+            var isbnGet = (location.search.replace('?', '').split('='))[1];
+            var user = firebase.auth().currentUser;
+            var userId = user.uid;
+            var bookId = (location.search.replace('?', '').split('='))[1];
+            var ratingId = userId + "-" + bookId
+            var rate =  $("#ratingFeedback").text()
+            var ulasanValue = $("#inputUlasan").val();
+            let database = firebase.database();
+            let tanggal = new Date().toLocaleDateString();
+            
+            dbRef.child("peminjaman").child(userId+"-"+isbnGet).get().then((snapshot) => {
+                if (snapshot.exists()) {
+                    database.ref('ratings/' + ratingId).set({
+                        idRating: ratingId,
+                        idBuku : bookId,
+                        idUser : userId,
+                        ulasan: ulasanValue,
+                        rating : rate,
+                        tanggal : tanggal
+                    }).then(() => {
+                        saveDataRatingToCsv()
+                        swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
+                            location.href = "./detail_buku.php?isbn="+bookId
+                        });
+                    });
+                }else{
+                    swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
+                }
+            })
+        }else {
+            swal("Error", "Anda Belum Melakukan Login", "error").then(()=> {
+                location.href = "./login.php"
+            })
         }
     })
 }
