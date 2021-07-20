@@ -51,10 +51,10 @@
 								<div class="card-body">
 									<h5 class="h6 card-title">About</h5>
 									<ul class="list-unstyled mb-0">
-										<li class="mb-1"><span data-feather="heart" class="feather-sm me-1"></span> Jenis Kelamin  <a  id="jenisKelamin" href="#">Laki-Laki</a></li>
-										<li class="mb-1"><span data-feather="home" class="feather-sm me-1"></span> Tempat Tanggal Lahir <a id="ttl" href="#">Sidikalang <time>30/april/1999</time> </a></li>
-										<li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> Alamat <a id="alamat" href="#">Medan</a></li>
-										<li class="mb-1"><span data-feather="maik" class="feather-sm me-1"></span> Email <a id="emailProfil" href="#">marolddragon@gmail.com</a></li>
+										<li class="mb-1"><span data-feather="heart" class="feather-sm me-1"></span> Jenis Kelamin  <a  id="jenisKelamin" href="#">-</a></li>
+										<li class="mb-1"><span data-feather="home" class="feather-sm me-1"></span> Tempat Tanggal Lahir <a id="ttl" href="#">- <time>dd/mm/yyyy</time> </a></li>
+										<li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> Alamat <a id="alamat" href="#">-</a></li>
+										<li class="mb-1"><span data-feather="maik" class="feather-sm me-1"></span> Email <a id="emailProfil" href="#">-</a></li>
 									</ul>
 								</div>								
 							</div>
