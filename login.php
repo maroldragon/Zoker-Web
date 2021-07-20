@@ -85,7 +85,7 @@
         if(username.trim() == "" || password.trim() == ""){
           swal("Error", "Masih Ada yang Kosong", "error");
         }else {
-          swal("Error", "Username Dan Password Salah", "error");
+          swal("Error", "Anda Belum Terdaftar", "error");
         }
 			});
 		})

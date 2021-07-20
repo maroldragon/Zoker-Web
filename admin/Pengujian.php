@@ -144,7 +144,7 @@
 												<h5>Jenis Pengujian : <span id="jenisPengujian"></span></h5>
 												<h5>Jumlah User : <span id="jumlahUser"></span></h4>
 												<h5>Jumlah Item : <span id="jumlahItem"></span></h5>
-												<h5>Jumlah Data : <span id="jumlahItem"></span></h5>
+												<h5>Jumlah Data : <span id="jumlahData"></span></h5>
 												<h5  style="line-height : 1.5;text-align:justify">Perhitungan Absolute Error : <br><span id="totalAbsoluteError"></span></h5>
 												<h5 style="font-weight:700;font-size:17px" mt-5 mb-4>Hasil = Total Absolute / jumlah Data = <span id="hasilPengujian"></span></h5>
 												<!-- <h5><span id="hasilPengujian"></span></h5> -->

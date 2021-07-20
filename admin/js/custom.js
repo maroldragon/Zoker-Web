@@ -553,6 +553,7 @@ function tampilkanProsesPengujian(jenisPengujian, tanggal) {
         allRecord.forEach( function(child) { 
             $("#jumlahUser").html(child.val().jumlahUser);
             $("#jumlahItem").html(child.val().jumlahItem);
+            $("#jumlahData").html(child.val().jumlahUser * child.val().jumlahItem)
             $("#totalAbsoluteError").text(child.val().stringAbsoluteError + " = " + child.val().nilaiAbsoluteError);
             $("#hasilPengujian").text(child.val().hasil)
         })

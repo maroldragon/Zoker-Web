@@ -122,7 +122,7 @@ function writeUserData(userId) {
     var kota = $("#inputKota").val();
     var alamat = $("#inputAlamat").val();
     var email = $("#inputEmail").val();
-    var password = $("#inputPassword").val();
+    //var password = $("#inputPassword").val();
     let database = firebase.database();
 
     database.ref('user/' + userId).set({
