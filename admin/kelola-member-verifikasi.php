@@ -130,7 +130,7 @@
 		function generateData(keyword) {
 			dataUserSearch = [];
 			for (ids = 0; ids < dataUser.length; ids++) {
-				if ((dataUser[ids].val().namaDepan + dataUser[ids].val().namaBelakang).toLowerCase().includes(keyword.toLowerCase())) {
+				if ((dataUser[ids].val().namaLengkap).toLowerCase().includes(keyword.toLowerCase())) {
 					dataUserSearch.push(dataUser[ids]);
 				}
 			}
@@ -167,7 +167,7 @@
 
 		function addDataToTable(currentRecord) {
 			var username = currentRecord.val().userName;
-			var name = currentRecord.val().namaDepan + " " + currentRecord.val().namaBelakang;
+			var name = currentRecord.val().namaLengkap;
 			var mail = currentRecord.val().email;
 			var alamat = currentRecord.val().alamat;
 
