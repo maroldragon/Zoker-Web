@@ -423,56 +423,149 @@ function hapusBuku(isbn){
     console.log(isbn)
 }
 
-function tampilkanProsesPengujian(jenisPengujian, tanggal) {
-    //console.log(pengujian)
-    $("#tanggalPengujian").text(jenisPengujian)
-    $("#jenisPengujian").text(tanggal)
-    //const dbRef = firebase.database().ref();
+function addPengujian(jenisPengujian, idPeng) {
+    var idPengujian = idPeng
+    var tanggal = new Date().toLocaleString()
+    var jumlahUser = 0
+    var jumlahItem = 0
+    var nilaiAbsolute =  0
+    var stringAbsoluteError = ""
+    var std = 0
+    var normalizationZero = 0
     getMemberTotal()
-    getItemTotal()
-    getRating()
+
+    function add() {
+        let database = firebase.database();
+        database.ref('pengujian/'+idPengujian).set({
+            idPengujian : idPengujian,
+            jenisPengujian : jenisPengujian,
+            tanggal: tanggal,
+            jumlahItem : ""+jumlahItem,
+            jumlahUser : ""+jumlahUser,
+            nilaiAbsoluteError : ""+nilaiAbsolute,
+            stringAbsoluteError : stringAbsoluteError,
+            hasil: ""+(nilaiAbsolute/(jumlahItem*jumlahUser))
+        }).then(() => {
+            console.log("Pengujian Ditambahkan")
+        });
+    }
+
     function getMemberTotal(){
-        var total = 0;
         firebase.database().ref("user").once('value', function(allRecord){
             allRecord.forEach( function() {
-                total += 1;
+                jumlahUser += 1;
             })
         }).then(() => {
-            $("#jumlahUser").html(total);
+            getItemTotal()
         });
     }
 
     function getItemTotal(){
-        var total = 0;
         firebase.database().ref("books").once('value', function(allRecord){
             allRecord.forEach( function() {
-                total += 1;
+                jumlahItem += 1;
             })
         }).then(() => {
-            $("#jumlahItem").html(total);
+            getRatarata()
+        });
+    }
+
+    function getRatarata() {
+        var jumlah = 0;
+        firebase.database().ref("ratings").once('value', function(allRecord){
+            allRecord.forEach( function(child) { 
+                jumlah += parseFloat(child.val().rating)
+            })
+        }).then(()=> {
+            ratarata = jumlah / (jumlahItem*jumlahUser);
+            //console.log("Rata-rata"+ratarata)
+            getSTD(ratarata)
+        })
+    }
+    
+    function getSTD(ratarata) {
+        var jumlah = 0;
+        var index = 0;
+        firebase.database().ref("ratings").once('value', function(allRecord){
+            allRecord.forEach( function(child) { 
+                index += 1
+                jumlah += Math.pow(parseFloat(child.val().rating) - ratarata,2)
+            })
+        }).then(()=> {
+            var total = (((jumlahItem*jumlahUser)-index) * Math.pow(ratarata,2));
+            total += jumlah
+            std = total/(jumlahUser*jumlahItem)
+            normalizationZero = ((0-ratarata)/std)
+            //console.log("STD"+std)
+            getAbsoluteError()
+        })
+    }
+
+    function getAbsoluteError(){
+        var absoluteString = ""
+        var totalAbosuluteError = 0
+        var index = 0
+        firebase.database().ref("ratingPrediksi").once('value', function(allRecord){
+            allRecord.forEach( function(child) { 
+                // console.log("SIZE" + allRecord.val().size)
+                const dbRef = firebase.database().ref();
+                dbRef.child("ratings").child(child.val().idRatingPrediksi).get().then((snapshot) => {  
+                    if(index >= 1) {
+                        absoluteString += " + "
+                    }   
+                    absoluteString += "|" + child.val().rating + " - "
+                    if (snapshot.exists()) {
+                        var rat = ((snapshot.val().rating-ratarata)/std).toFixed(2)
+                        if(rat < 0) {
+                            rat = "-" + rat;
+                        }
+                        totalAbosuluteError += Math.abs(child.val().rating - ((snapshot.val().rating-ratarata)/std))
+                        absoluteString += rat + "|"
+                    }else{
+                        totalAbosuluteError += normalizationZero
+                        absoluteString += "("+normalizationZero.toFixed(2)+")" + "|";
+                    }
+                    index += 1;
+                    nilaiAbsolute = totalAbosuluteError
+                    stringAbsoluteError = absoluteString
+                })
+            })
+
+            setTimeout(function() {
+                add()
+            }, 4000);
+
+        }).then(() => {
+            
         });
     }
     
-    function getRating(){
-        var absoluteString = ""
-        firebase.database().ref("ratingPrediksi").once('value', function(allRecord){
-            allRecord.forEach( function(child) { 
-                //console.log(child.val().idRatingPrediksi)
-                const dbRef = firebase.database().ref();
-                dbRef.child("ratings").child(child.val().idRatingPrediksi).get().then((snapshot) => {
-                    absoluteString += "|" + child.val().rating + " - "
-                    if (snapshot.exists()) {
-                        absoluteString += snapshot.val().rating + "|" + " + "
-                    }else{
-                        absoluteString += "0" + "|" + " + ";
-                        console.log("ISBN tidak ditemukan")
-                    }
-                    $("#totalAbsoluteError").text(absoluteString);
-                })
-            })
-        }).then(() => {
-        });
-    }
+}
+//tampilkanProsesPengujian("RMSE", "10/23/23")
+
+function tampilkanProsesPengujian(jenisPengujian, tanggal) {
+    $("#pengujianHasil").addClass("d-none")
+    $("#pengujianProses").removeClass("d-none");
+    $("#tanggalPengujian").text(jenisPengujian)
+    $("#jenisPengujian").text(tanggal)
+
+    firebase.database().ref("pengujian").once('value', function(allRecord){
+        allRecord.forEach( function(child) { 
+            $("#jumlahUser").html(child.val().jumlahUser);
+            $("#jumlahItem").html(child.val().jumlahItem);
+            $("#totalAbsoluteError").text(child.val().stringAbsoluteError + " = " + child.val().nilaiAbsoluteError);
+            $("#hasilPengujian").text(child.val().hasil)
+        })
+    }).then(()=> {
+        
+    })
+}
+
+function verifiedUser(idUser) {
+    firebase.database().ref('user/' + idUser + "/status").set("verified")
+    swal("Suskses", "user dengan id " + idUser + "Sudah di verifikasi", "success").then(() => {
+        location.href = "kelola-member-verifikasi.php"
+    })
 }
 
 /*#######################################

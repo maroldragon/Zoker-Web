@@ -43,13 +43,13 @@
 												<label class="col-form-label  text-sm-right">Jenis Pengujian</label>
 											</div>
 											<div class="col-md-6 ">
-												<select class="form-control">
-													<option selected="">Pilih Metode Pengujian</option>
-													<option value="mae">MAE</option>
-													<option vaue="rmse">RMSE</option>
+												<select id="metodePengujian" class="form-control">
+													<option value="">Pilih Metode Pengujian</option>
+													<option>MAE</option>
+													<option>RMSE</option>
 												</select>
 												<div class="card mt-3 ">
-													<button class="btn btn-primary">
+													<button id="btnHitungPengujian" class="btn btn-primary">
 														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
 															<path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
 															<path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
@@ -77,7 +77,7 @@
 						</div>
 					</div>
 
-					<div class="col-12">
+					<div class="col-12"  id="pengujianHasil">
 						<div class="card">
 							<div class="table-responsive">
 								<table class="table mb-0">
@@ -118,13 +118,13 @@
 					</div>
 
 					<!-- Result Pengujian Proses -->
-					<div class="container-fluid p-0">
+					<div class="container-fluid p-0 d-none" id="pengujianProses">
 						<!-- <h1 class="h3 mb-3"><strong>Proses</strong> Pengujian</h1> -->
 						<div class="col-12">
 							<div class="card-header">
 								<div class="mb-0">
 									<nav class="navbar p-0 mt-2">
-										<a class="btn btn-secondary" type="submit" href="Kelola-item-digital.php?kelola_item">
+										<a id="btnPengujianProses" class="btn btn-secondary" type="submit">
 											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace" viewBox="0 0 16 16">
 												<path d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z" />
 												<path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z" />
@@ -139,13 +139,15 @@
 								<div class="card">
 									<div class="card-body">
 										<div class="navbar p-0 mt-3">
-											<a class="" id="">
+											<a style="text-decoration:none" class="" id="">
 												<h5>Tanggal Pengujian : <span id="tanggalPengujian"></span></h4>
 												<h5>Jenis Pengujian : <span id="jenisPengujian"></span></h5>
 												<h5>Jumlah User : <span id="jumlahUser"></span></h4>
 												<h5>Jumlah Item : <span id="jumlahItem"></span></h5>
-												<h5>Perhitungan Absolute Error : <br><span id="totalAbsoluteError"></span></h5>
-												<h5><span id="hasilPengujian"></span></h5>
+												<h5>Jumlah Data : <span id="jumlahItem"></span></h5>
+												<h5  style="line-height : 1.5;text-align:justify">Perhitungan Absolute Error : <br><span id="totalAbsoluteError"></span></h5>
+												<h5 style="font-weight:700;font-size:17px" mt-5 mb-4>Hasil = Total Absolute / jumlah Data = <span id="hasilPengujian"></span></h5>
+												<!-- <h5><span id="hasilPengujian"></span></h5> -->
 											</a>
 										</div>
 									</div>
@@ -254,7 +256,7 @@
 			td1.innerHTML = ++no;
 			td2.innerHTML = tanggal;
 			td3.innerHTML = jenis;
-			td4.innerHTML = hasil;
+			td4.innerHTML = parseFloat(hasil).toFixed(3);
 			td5.innerHTML =
 			`<a onclick="tampilkanProsesPengujian('${jenis}', '${tanggal}')">
 				<button class="btn btn-success" type="submit">
@@ -356,6 +358,34 @@
 				return false;
 			}
 		});
+
+		$("#btnPengujianProses").click(function() {
+			$("#pengujianProses").addClass("d-none");
+			$("#pengujianHasil").removeClass("d-none");
+		})
+
+		$("#btnHitungPengujian").click(function(e) {
+			e.preventDefault()
+			idPengujian = guid()
+			var metode = $("#metodePengujian").val()
+			if(metode == "") {
+				console.log(metode + "sde")
+				swal("Error", "Silahkan Pilih Metode Terlebih Dahulu", "error")
+			}else {
+				addPengujian(metode, idPengujian)
+			}
+		})
+
+		let guid = () => {
+			let s4 = () => {
+				return Math.floor((1 + Math.random()) * 0x10000)
+					.toString(16)
+					.substring(1);
+			}
+			//return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
+			return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+		}
+
 	</script>
 </body>
 

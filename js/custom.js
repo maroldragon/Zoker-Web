@@ -425,9 +425,12 @@ function generateBookDetail(){
                 snapshot.forEach(function(child) {
                     $("#rate-"+parseInt(child.val().rating)).prop('checked', true)
                     console.log($("rate-"+ (child.val().rating)))
-                    $("#ratingFeedback").text(parseInt(child.val().rating));
-                    $("#inputUlasan").val(child.val().ulasan);
-                    $("#buttonKirimUlasan").hide()
+                    var txtUlasan = $("#inputUlasan").val()
+                    if(child.val().ulasan.trim() != ""){
+                        $("#ratingFeedback").text(parseInt(child.val().rating));
+                        $("#inputUlasan").val(child.val().ulasan);
+                        $("#buttonKirimUlasan").hide()
+                    }
                 });
             }, function (errorObject) {
                 console.log(errorObject) 
@@ -623,11 +626,40 @@ function convertTanggal(str) {
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
-  }
+}
 
 function readBook(){
-    var isbn = (location.search.replace('?', '').split('='))[1];
-    getFileByIsbn(isbn)
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var bookId = (location.search.replace('?', '').split('='))[1];
+            var ratingId = userId + "-" + bookId
+            var user = firebase.auth().currentUser;
+            var userId = user.uid;
+            let database = firebase.database();
+            let tanggal = new Date().toLocaleDateString();
+
+            dbRef.child("ratings").child(ratingId).get().then((snapshot) => {
+                if (!snapshot.exists()) {
+                    database.ref('ratings/' + ratingId).set({
+                    idRating: ratingId,
+                    idBuku : bookId,
+                    idUser : userId,
+                    ulasan: "",
+                    rating : 5,
+                    tanggal : tanggal
+                    }).then(() => {
+                        saveDataRatingToCsv()
+                        // swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
+                        // });
+                    });
+                }
+            })
+        
+            getFileByIsbn(bookId)
+        }else {
+            console.log("Belum Login")
+        }
+    })
 }
 
 function getFileByIsbn(isbn){
@@ -658,26 +690,29 @@ function tambahkanUlasan(){
             var ulasanValue = $("#inputUlasan").val();
             let database = firebase.database();
             let tanggal = new Date().toLocaleDateString();
-            
-            dbRef.child("peminjaman").child(userId+"-"+isbnGet).get().then((snapshot) => {
-                if (snapshot.exists()) {
-                    database.ref('ratings/' + ratingId).set({
-                        idRating: ratingId,
-                        idBuku : bookId,
-                        idUser : userId,
-                        ulasan: ulasanValue,
-                        rating : rate,
-                        tanggal : tanggal
-                    }).then(() => {
-                        saveDataRatingToCsv()
-                        swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
-                            location.href = "./detail_buku.php?isbn="+bookId
+            if(ulasanValue.trim() != "") {
+                dbRef.child("peminjaman").child(userId+"-"+isbnGet).get().then((snapshot) => {
+                    if (snapshot.exists()) {
+                        database.ref('ratings/' + ratingId).set({
+                            idRating: ratingId,
+                            idBuku : bookId,
+                            idUser : userId,
+                            ulasan: ulasanValue,
+                            rating : rate,
+                            tanggal : tanggal
+                        }).then(() => {
+                            saveDataRatingToCsv()
+                            swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function(){ 
+                                location.href = "./detail_buku.php?isbn="+bookId
+                            });
                         });
-                    });
-                }else{
-                    swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
-                }
-            })
+                    }else{
+                        swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
+                    }
+                })
+            }else {
+                swal("Error", "Silahkan Isi Teks Ulasan", "error")
+            }
         }else {
             swal("Error", "Anda Belum Melakukan Login", "error").then(()=> {
                 location.href = "./login.php"
