@@ -92,10 +92,39 @@
 	<script>
 		$("#btnLogin").click(function(event) {
 			event.preventDefault()
+			const dbRef = firebase.database().ref();
 			let email = $("#email").val()
 			let password = $("#password").val();
+			//console.log(username)
+			var state = false
+			if (email.trim() == "" && password == "") {
+				swal("Error", "Email dan Password Tidak Boleh Kosong", "error");
+			} else if (email.trim() == "") {
+				swal("Error", "Email Tidak Boleh Kosong", "error");
+			}else if(!validateEmail(email)) {
+				swal("Error", "Format Email Salah", "error");
+			}else if (password.trim() == "") {
+				swal("Error", "Password Tidak Boleh Kosong", "error");
+			} else {
+				dbRef.child("admin").orderByChild('email').on("value", function(snapshot) {
+				snapshot.forEach(function(child) {
+					console.log(child.val())
+					if (child.val().email == email) {
+					state = true;
+					}
+				});
+				if (state) {
+					runAuth()
+				} else {
+					swal("Error", "Anda Belum Terdaftar", "error");
+				}
+				}, function(errorObject) {
+				console.log(errorObject)
+				});
+			}
 
-			firebase.auth().signInWithEmailAndPassword(email, password)
+			function runAuth() {
+				firebase.auth().signInWithEmailAndPassword(email, password)
 				.then((userCredential) => {
 
 					var user = userCredential.user;
@@ -107,7 +136,10 @@
 					var errorCode = error.code;
 					var errorMessage = error.message;
 					console.log(errorMessage);
+					swal("Error", "Password Anda Salah", "error");
 				});
+			}
+
 		})
 		//----------------------------------------------//
 		//show hide password
@@ -119,9 +151,14 @@
 				$pwd.attr('type', 'password');
 			}
 		});
-
 		//--------------------------------------------------//
 		//empty from
+
+		function validateEmail(email) {
+			const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(String(email).toLowerCase());
+		}
+
 	</script>
 
 </body>

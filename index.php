@@ -78,11 +78,11 @@
         </div>
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col">
           <a class="btn btn-secondary form-control mt-" id="btnLebihBanyak">Tampilkan Lebih Banyak</a>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   
