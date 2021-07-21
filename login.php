@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <?php
-    @include_once('head.php')
+  @include_once('head.php')
   ?>
   <title>Login · Perpustakaan Digital</title>
 </head>
+
 <body>
-  
+
   <?php
-    @include_once('header.php')
+  @include_once('header.php')
   ?>
 
-  <div class="container form-content col-lg-6 col-md-10 col">   
+  <div class="container form-content col-lg-6 col-md-10 col">
     <div class="row mb-3 d-none" id="textLogout">
       <div class="col pos-center p-danger">
         Anda Telah Keluar
       </div>
-    </div> 
+    </div>
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12 pos-middle">
         <img src="img/login-cover.jpg" class="img-login" alt="">
@@ -43,57 +45,94 @@
     </div>
   </div>
 
-  
+
   <?php
-    @include_once('footer.php')
+  @include_once('footer.php')
   ?>
 
-<script>
-		$("#buttonLogin").click(function(event){
+  <script>
+    $("#buttonLogin").click(function(event) {
       const dbRef = firebase.database().ref();
-			event.preventDefault()
-			let username = $("#inputUsername").val()
-			let password = $("#inputPassword").val();
-      console.log(username)
-			firebase.auth().signInWithEmailAndPassword(username, password)
-			.then((userCredential) => {
-          // Signed in
-          var user = userCredential.user;
-          var userId = user.uid
-          console.log(userId)
-          // window.location.href = "./index.php";
-          $("#menuGuest").addClass("d-none");
-          $("#menuUser").removeClass("d-none");
-          dbRef.child("user").child(userId).get().then((snapshot) => {
-            if(snapshot.exists()) {
-                if(snapshot.val().status == "unverified"){
+      event.preventDefault()
+      let username = $("#inputUsername").val()
+      let password = $("#inputPassword").val();
+      //console.log(username)
+      var data = []
+      var state = false
+      if (username.trim() == "" && password == "") {
+        swal("Error", "Email dan Password Tidak Boleh Kosong", "error");
+      } else if (username.trim() == "") {
+        swal("Error", "Email Tidak Boleh Kosong", "error");
+      }else if(!validateEmail(username)) {
+        swal("Error", "Format Email Salah", "error");
+      }else if (password.trim() == "") {
+        swal("Error", "Password Tidak Boleh Kosong", "error");
+      } else {
+        dbRef.child("user").orderByChild('email').on("value", function(snapshot) {
+          snapshot.forEach(function(child) {
+            console.log(child.val())
+            if (child.val().email == username) {
+              state = true;
+            }
+          });
+          if (state) {
+            runAuth()
+          } else {
+            swal("Error", "Anda Belum Terdaftar", "error");
+          }
+        }, function(errorObject) {
+          console.log(errorObject)
+        });
+
+      }
+
+      function runAuth() {
+        firebase.auth().signInWithEmailAndPassword(username, password)
+          .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            var userId = user.uid
+            console.log(userId)
+            // window.location.href = "./index.php";
+            $("#menuGuest").addClass("d-none");
+            $("#menuUser").removeClass("d-none");
+            dbRef.child("user").child(userId).get().then((snapshot) => {
+              if (snapshot.exists()) {
+                if (snapshot.val().status == "unverified") {
                   firebase.auth().signOut().then(function() {
-                      swal("Error", "Anda Belum Diverifikasi Oleh Admin", "error");
-                    }).catch(function(error) {
-                      // An error happened.
-                    });
-                }else {
+                    swal("Error", "Akun Anda Belum Diverifikasi Oleh Admin", "error");
+                  }).catch(function(error) {
+                    // An error happened.
+                  });
+                } else {
                   location.href = "./index.php"
                 }
               }
+            })
           })
-      })
-			.catch((error) => {
-				var errorCode = error.code;
-				var errorMessage = error.message;
-				console.log(errorMessage);
-        if(username.trim() == "" || password.trim() == ""){
-          swal("Error", "Masih Ada yang Kosong", "error");
-        }else {
-          swal("Error", "Anda Belum Terdaftar", "error");
-        }
-			});
-		})
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorMessage);
+            if (username.trim() == "" || password.trim() == "") {
+              swal("Error", "Email dan Password Tidak Boleh Kosong", "error");
+            } else {
+              swal("Error", "Password Anda Salah", "error");
+            }
+          });
+      }
+
+      function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+    })
 
     $("#menuUser").addClass("d-none")
     $("#menuGuest").removeClass("d-none")
+  </script>
 
-	</script>
-  
 </body>
+
 </html>

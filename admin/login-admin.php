@@ -25,9 +25,9 @@
 					<div class="d-table-cell align-middle">
 
 						<div class="text-center mt-4">
-							<h1 class="h2">Welcome back </h1>
+							<h1 class="h2">Selamat Datang </h1>
 							<p class="lead">
-								Sign in to your account to continue
+								Silahkan Login Sebagai Admin
 							</p>
 						</div>
 
@@ -98,7 +98,7 @@
 
 			firebase.auth().signInWithEmailAndPassword(email, password)
 			.then((userCredential) => {
-				// Signed in
+				
 				var user = userCredential.user;
 				console.log(user)
 				window.location.href = "./index.php?home";
@@ -120,7 +120,6 @@
 				$pwd.attr('type', 'password');
 			}
 		});
-
 
 		//--------------------------------------------------//
 		//empty from

@@ -74,8 +74,9 @@ firebase.auth().onAuthStateChanged(function(user) {
             ttl.text(snapshot.val().tempatLahir + " " + snapshot.val().tanggalLahir)
             alamat.text(snapshot.val().alamat)
             emailProfil.text(snapshot.val().email)
-
-            photoEdit.css("background-image", "url("+snapshot.val().photo+")")
+            if(snapshot.val().photo != ""){
+                photoEdit.css("background-image", "url("+snapshot.val().photo+")")
+            }
             namaLengkapText.val(snapshot.val().namaLengkap)
             usernameText.val(snapshot.val().userName)
             var jkLower = (snapshot.val().jenisKelamin).toLowerCase();
@@ -202,6 +203,56 @@ function updateUserData() {
     database.ref('user/' + userId + "/tanggalLahir").set(tanggalLahirText.val())
     database.ref('user/' + userId + "/alamat").set(alamatText.val())
     swal("Selamat", "Berhasil di edit", "success");
+}
+
+function uploadImage() {
+    //get your select image
+    var image=document.getElementById("imageUpload").files[0];
+    if(image){
+        $("#overlay-dark").css("display", "block")
+        //now get your image name
+        var user = firebase.auth().currentUser;
+        var userId = user.uid;
+        var now = new Date();
+        var imageName= now.getDay() + now.getSeconds() + now.getMilliseconds() + userId;
+        console.log(image);
+        //firebase  storage reference
+        //it is the path where yyour image will store
+        var storageRef=firebase.storage().ref('images/'+imageName);
+        //upload image to selected storage reference
+
+        var uploadTask=storageRef.put(image);
+
+        uploadTask.on('state_changed',function (snapshot) {
+            //observe state change events such as progress , pause ,resume
+            //get task progress by including the number of bytes uploaded and total
+            //number of bytes
+            var progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+            console.log("upload is " + progress +" done");
+            $("#myBar").text(progress.toFixed(0)+ "%");
+            $("#myBar").css("width", progress+"%");
+        },function (error) {
+            //handle error here
+            console.log(error.message);
+        },function () {
+        //handle successful uploads on complete
+            uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL) {
+                $("#overlay-dark").css("display", "none")
+                //get your upload image url here...
+                console.log(downlaodURL);
+                $("#myBar").text("0%");
+                $("#myBar").css("width", "0%");
+                let database = firebase.database();
+                var user = firebase.auth().currentUser;
+                var userId = user.uid;
+                database.ref('user/' + userId + "/photo").set(downlaodURL)
+                updateUserData();
+            });
+        });
+    }else {
+        updateUserData();
+        console.log("Image Not Set")
+    }
 }
 
 /*#######################################

@@ -15,8 +15,16 @@
   <div class="container-md form-content col-lg-8 col-md-10 col">
     <div class="row">
       <div class="col-md-4 pos-center pb-3">
-        <img src="img/no_image.png" class="rounded-circle img-profil" alt="" id="imageProfil">
-        <button type="button" class="btn btn-primary mt-4" id="buttonUbahFoto">Ubah Foto</button>
+      <div class="avatar-upload">
+        <div class="avatar-edit">
+          <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+          <label for="imageUpload"></label>
+        </div>
+        <div class="avatar-preview">
+          <div id="imagePreview">
+          </div>
+        </div>
+    </div>
       </div>
       <div class="col-md-8">
         <h1>Profil</h1>
@@ -61,6 +69,10 @@
       $('#imageProfil').css({'height':$('#imageProfil').width()+'px'});
     });
     
+    $("#buttonUbahFoto").click(function() {
+
+    })
+
   </script>  
 
 </body>

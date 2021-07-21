@@ -40,6 +40,8 @@ function savePreditionRating(data) {
         })
     }
 }
+    
+//firebase.auth().sendPasswordResetEmail('evanowenpasaribu7@gmail.com')
 
 /*########################################/
             DEVELOP PURPOSE
@@ -68,6 +70,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
         $("#menuGuest").addClass("d-none")
         $("#menuUser").removeClass("d-none")
+        var photoEdit = $("#imagePreview");
         var usernameHeader = $("#linkProfilUser")
 
         dbRef.child("user").child(userId).get().then((snapshot) => {
@@ -75,6 +78,11 @@ firebase.auth().onAuthStateChanged(function (user) {
                 generateProfile(snapshot.val())
                 generateEditProfile(snapshot.val())
                 usernameHeader.text(snapshot.val().userName)
+                if(snapshot.val().photo != ""){
+                    photoEdit.css("background-image", "url("+snapshot.val().photo+")")
+                }else {
+                    photoEdit.css("background-image", "url("+"'../img/no_image.png'"+")")
+                }
             } else {
                 console.log("No data available");
             }
@@ -142,7 +150,6 @@ function registerUser() {
                 // ..
             });
     }
-
 }
 
 function writeUserData(userId) {
@@ -157,8 +164,6 @@ function writeUserData(userId) {
     var alamat = $("#inputAlamat").val();
     var email = $("#inputEmail").val();
     var formatEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-    var password = $("#inputPassword").val();
-
     let database = firebase.database();
 
     database.ref('user/' + userId).set({
@@ -330,20 +335,13 @@ function addSearchBook(keyword) {
     listBookSearch.innerHTML = ""
     var query = ""
     query = dbRef.child("books")
-    var exist = false;
     $("#emptyPencarian").css("display", "block")
     query.on("value", function (snapshot) {
         snapshot.forEach(function (child) {
             if (child.val().judul.toLowerCase().includes(keyword.toLowerCase())) {
                 addDataSearch(listBookSearch, child)
-                exist = true;
             }
-        }).then(() => {
-            console.log("SARA")
-            if (!exist) {
-                listBookSearch.innerHTML = ""
-            }
-        });
+        })
     }, function (errorObject) {
         console.log(errorObject)
     });
@@ -387,6 +385,10 @@ function addDataSearch(list, child) {
         "</div> </div> </div>"
 }
 
+/*#######################################
+                Profile
+#######################################*/
+
 function simpanProfileUser() {
     let database = firebase.database();
     var namaLengkap = $("#inputNamaLengkap").val();
@@ -426,6 +428,70 @@ function simpanProfileUser() {
         swal("Selamat", "Berhasil di edit", "success").then(() => {
             location.href = "./profil.php"
         })
+    }
+}
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+            $('#imagePreview').hide();
+            $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$("#imageUpload").change(function() {
+    readURL(this);
+    upload()
+});
+
+function upload() {
+    //get your select image
+    var image=document.getElementById("imageUpload").files[0];
+    if(image){
+        //$("#overlay-dark").css("display", "block")
+        //now get your image name
+        var user = firebase.auth().currentUser;
+        var userId = user.uid;
+        var now = new Date();
+        var imageName= now.getDay() + now.getSeconds() + now.getMilliseconds() + userId;
+        console.log(image);
+        //firebase  storage reference
+        //it is the path where yyour image will store
+        var storageRef=firebase.storage().ref('images/'+imageName);
+        //upload image to selected storage reference
+
+        var uploadTask=storageRef.put(image);
+
+        uploadTask.on('state_changed',function (snapshot) {
+            //observe state change events such as progress , pause ,resume
+            //get task progress by including the number of bytes uploaded and total
+            //number of bytes
+            var progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+            // console.log("upload is " + progress +" done");
+            // $("#myBar").text(progress.toFixed(0)+ "%");
+            // $("#myBar").css("width", progress+"%");
+        },function (error) {
+            //handle error here
+            console.log(error.message);
+        },function () {
+        //handle successful uploads on complete
+            uploadTask.snapshot.ref.getDownloadURL().then(function (downlaodURL) {
+                // $("#overlay-dark").css("display", "none")
+                // //get your upload image url here...
+                // console.log(downlaodURL);
+                // $("#myBar").text("0%");
+                // $("#myBar").css("width", "0%");
+                let database = firebase.database();
+                var user = firebase.auth().currentUser;
+                var userId = user.uid;
+                database.ref('user/' + userId + "/photo").set(downlaodURL)
+            });
+        });
+    }else {
+        console.log("Image Not Set")
     }
 }
 
