@@ -20,116 +20,42 @@
         Anda Telah Keluar
       </div>
     </div>
-    <div class="row">      
+    <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
         <h1>Pemulihan akun</h1>
         <div class="mt-3 mb-4">
-          <label class="inp-text-label mb-2" for="inputUsername">Masukkan email pemulihan</label>
-          <input type="text" class="form-control inp-text" id="inputUsername" placeholder="Email">
+          <label class="inp-text-label mb-2" for="inputEmailForgot">Masukkan Email Anda</label>
+          <input type="text" class="form-control inp-text" id="inputEmailForgot" placeholder="Email">
         </div>
         <div class="row mb-5">
           <div class="col">
             <a href="./login.php" class="btn form-control mt-3" id="buttonRegister">Kembali</a>
           </div>
-          <div class="col ">      
-            <button type="button" class="btn btn-primary form-control mt-3" id="buttonLogin">Kirim Verifikasi</button>
+          <div class="col ">
+            <button type="button" class="btn btn-primary form-control mt-3" id="buttonKirimVerifikasi">Kirim Verifikasi</button>
           </div>
-    </div>        
-        
-        
-      </div>
-    </div>
-    <div class="row">
-      <div class="col align-self-center">
-        <a href="admin/" class="btn btn-link form-control mt-5" id="buttonLoginAdmin">Login Sebagai Admin</a>
+        </div>
       </div>
     </div>
   </div>
 
-
   <?php
-  @include_once('footer.php')
+    @include_once('footer.php')
   ?>
 
   <script>
-    $("#buttonLogin").click(function(event) {
-      const dbRef = firebase.database().ref();
-      event.preventDefault()
-      let username = $("#inputUsername").val()
-      let password = $("#inputPassword").val();
-      //console.log(username)
-      var state = false
-      if (username.trim() == "" && password == "") {
-        swal("Error", "Email dan Password Tidak Boleh Kosong", "error");
-      } else if (username.trim() == "") {
-        swal("Error", "Email Tidak Boleh Kosong", "error");
-      }else if(!validateEmail(username)) {
-        swal("Error", "Format Email Salah", "error");
-      }else if (password.trim() == "") {
-        swal("Error", "Password Tidak Boleh Kosong", "error");
-      } else {
-        dbRef.child("user").orderByChild('email').on("value", function(snapshot) {
-          snapshot.forEach(function(child) {
-            console.log(child.val())
-            if (child.val().email == username) {
-              state = true;
-            }
-          });
-          if (state) {
-            runAuth()
-          } else {
-            swal("Error", "Anda Belum Terdaftar", "error");
-          }
-        }, function(errorObject) {
-          console.log(errorObject)
-        });
-      }
-
-      function runAuth() {
-        firebase.auth().signInWithEmailAndPassword(username, password)
-          .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            var userId = user.uid
-            console.log(userId)
-            // window.location.href = "./index.php";
-            $("#menuGuest").addClass("d-none");
-            $("#menuUser").removeClass("d-none");
-            dbRef.child("user").child(userId).get().then((snapshot) => {
-              if (snapshot.exists()) {
-                if (snapshot.val().status == "unverified") {
-                  firebase.auth().signOut().then(function() {
-                    swal("Error", "Akun Anda Belum Diverifikasi Oleh Admin", "error");
-                  }).catch(function(error) {
-                    // An error happened.
-                  });
-                } else {
-                  location.href = "./index.php"
-                }
-              }
-            })
-          })
-          .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorMessage);
-            if (username.trim() == "" || password.trim() == "") {
-              swal("Error", "Email dan Password Tidak Boleh Kosong", "error");
-            } else {
-              swal("Error", "Password Anda Salah", "error");
-            }
-          });
-      }
-
-      function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-      }
-
+    $("#buttonKirimVerifikasi").click(function() {
+      var email = $("#inputEmailForgot").val()
+      lupaPassword(email)
     })
 
-    $("#menuUser").addClass("d-none")
-    $("#menuGuest").removeClass("d-none")
+    function lupaPassword(email) {
+      firebase.auth().sendPasswordResetEmail(email).then(() => {
+        swal("Success", "Silahkan Periksa Email Anda Untuk Mengganti Password", "success").then(() => {
+          location.href= "./login.php"
+        })
+      })
+    }
   </script>
 
 </body>

@@ -40,8 +40,6 @@ function savePreditionRating(data) {
         })
     }
 }
-    
-//firebase.auth().sendPasswordResetEmail('evanowenpasaribu7@gmail.com')
 
 /*########################################/
             DEVELOP PURPOSE
@@ -957,3 +955,5 @@ $("#btn-logout").click(function () {
         // An error happened.
     });
 })
+
+
