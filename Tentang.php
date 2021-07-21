@@ -12,7 +12,7 @@
     @include_once('header.php')
   ?>
   
-  <div class="container-md form-contact">
+  <div class="container form-contact">
 		<div class="row p-5 pos-center">
       <h1>APLIKASI REKOMENDASI PERPUSTAKAAN DIGITAL MENGGUNAKAN DEEP COLLABORATIVE FILTERING BERBASIS MOBILE DAN WEB</h1>
 			<h1 class="mt-5 mb-5">Tugas Akhir</h1>
