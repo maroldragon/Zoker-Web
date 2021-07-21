@@ -51,7 +51,7 @@
     </div>
     <div class="row">
       <div class="col align-self-center">
-        <a href="admin/" class="btn btn-link form-control mt-5" id="buttonLoginAdmin">Login Sebagai Admin</a>
+        <a href="admin/" class="btn btn-primary form-control mt-5" id="buttonLoginAdmin">Login Sebagai Admin</a>
       </div>
     </div>
   </div>

@@ -80,19 +80,24 @@ firebase.auth().onAuthStateChanged(function (user) {
         var userId = user.uid;
         user_id_all = userId;
 
-        $("#menuGuest").addClass("d-none")
-        $("#menuUser").removeClass("d-none")
+        $("#menuGuest").addClass("d-none");
+        $("#menuUser").removeClass("d-none");
         var photoEdit = $("#imagePreview");
-        var usernameHeader = $("#linkProfilUser")
+        var photoHeader = $("#headerPhotoProfil");
+        var usernameHeader = $("#headerUserName");
+        var namaLengkapHeader = $("#linkProfilUser");
 
         dbRef.child("user").child(userId).get().then((snapshot) => {
             if (snapshot.exists()) {
                 generateProfile(snapshot.val())
                 generateEditProfile(snapshot.val())
                 usernameHeader.text(snapshot.val().userName)
+                namaLengkapHeader.text(snapshot.val().namaLengkap)
                 if(snapshot.val().photo != ""){
+                    photoHeader.attr("src", snapshot.val().photo);                    
                     photoEdit.css("background-image", "url("+snapshot.val().photo+")")
                 }else {
+                    photoHeader.attr("src", "../img/no_image.png");      
                     photoEdit.css("background-image", "url("+"'../img/no_image.png'"+")")
                 }
             } else {
