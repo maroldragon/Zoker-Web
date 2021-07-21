@@ -29,7 +29,7 @@
       <div class="col">
         <label class="inp-text-label"  for="inputJenisKelamin">Jenis Kelamin</label>
         <select class="form-control inp-text" name="Jenis Kelamin" id="inputJenisKelamin">
-          <option value="laki-Laki">Laki-laki</option>
+          <option value="laki-laki">Laki-laki</option>
           <option value="perempuan">Perempuan</option>
         </select>
       </div>
