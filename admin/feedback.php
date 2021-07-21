@@ -108,10 +108,6 @@
 		</div>
 	</div>
 
-	
-
-	<script src="js/vendor.js"></script>
-
 	<?php
 	@include_once("sourceJS.html");
 	?>
@@ -120,18 +116,18 @@
 	<script src="js/custom-user.js"></script>
 	<script>
 		function printData()
-			{
+		{
 			var divToPrint=document.getElementById("printTable");
 			newWin= window.open("");
 			newWin.document.write(divToPrint.outerHTML);
 			newWin.print();
 			newWin.close(location.href = "feedback.php?feedback");
-			
-			}
+		
+		}
 
-			$('#print').on('click',function(){
+		$('#print').on('click',function(){
 			printData();
-			})
+		})
 		//=============================================================//
 		SelectAllData()
 		function SelectAllData(){
@@ -147,9 +143,9 @@
 			var td4 = document.createElement("th");
 			var td5 = document.createElement("th");
 			td1.innerHTML = "No";
-			td2.innerHTML = "ID User";
-			td3.innerHTML = "ID Feedback";
-			td4.innerHTML = "Gmail";
+			td2.innerHTML = "ID FeedBack";
+			td3.innerHTML = "Nama";
+			td4.innerHTML = "Email";
 			td5.innerHTML = "Pesan";
 			
 			trow.appendChild(td1);
@@ -163,18 +159,17 @@
 
 			firebase.database().ref("feedback").once("value", function(allRecord){
 				allRecord.forEach( function(currentRecord) {
-					
-					var idUser = currentRecord.val().idUser
-					var idFeedback = currentRecord.val().idFeedback
-					var gmail = currentRecord.val().gmail
+					var idFeedback = currentRecord.val().feebackId
+					var nama = currentRecord.val().nama
+					var email = currentRecord.val().email
 					var pesan = currentRecord.val().pesan
-					addItemToTable(idUser,idFeedback,gmail,pesan);
+					addItemToTable(idFeedback,nama, email, pesan);
 				})
 			});
 		}
-		var usrNo = 0;
+		var fedNo = 0;
 		//AddItemToTable()
-		function addItemToTable(usrname, name, mail, loc){
+		function addItemToTable(idFed, nama, email, pesan){
 			
 			var tbody = document.getElementById("data-table-feeds");
 			var trow = document.createElement("tr");
@@ -184,16 +179,17 @@
 			var td4 = document.createElement("td");
 			var td5 = document.createElement("td");
 
-			td1.innerHTML = ++usrNo;
-			td2.innerHTML = usrname;
-			td3.innerHTML = name;
-			td4.innerHTML = mail;
-			td5.innerHTML = loc;
+			td1.innerHTML = ++fedNo;
+			td2.innerHTML = idFed;
+			td3.innerHTML = nama;
+			td4.innerHTML = email;
+			td5.innerHTML = pesan;
 
 			trow.appendChild(td1);
 			trow.appendChild(td2);
 			trow.appendChild(td3);
 			trow.appendChild(td4);
+			trow.appendChild(td5);
 
 			tbody.appendChild(trow)
 		}

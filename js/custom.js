@@ -302,7 +302,6 @@ function generateRecommendBook(idBuku, listBookRec) {
     });
 }
 
-
 function addKategoriBook(kategori) {
     var listBookKat = document.getElementById("listBookKategori");
     listBookKat.innerHTML = ""
