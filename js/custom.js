@@ -487,8 +487,9 @@ function upload() {
                 let database = firebase.database();
                 var user = firebase.auth().currentUser;
                 var userId = user.uid;
-                database.ref('user/' + userId + "/photo").set(downlaodURL)
-            });
+                database.ref('user/' + userId + "/photo").set(downlaodURL);
+            });            
+            swal("Success", "Foto Anda Berhasil Diupdate", "success");
         });
     }else {
         console.log("Image Not Set")
