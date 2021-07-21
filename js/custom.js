@@ -387,8 +387,7 @@ function addDataSearch(list, child) {
 
 function simpanProfileUser() {
     let database = firebase.database();
-    var namaDepan = $("#inputNamaDepan").val();
-    var namaBelakang = $("#inputNamaBelakang").val();
+    var namaLengkap = $("#inputNamaLengkap").val();
     var username = $("#inputUsername").val();
     var jenisKelamin = $("#inputJenisKelamin").val();
     var tempatLahir = $("#inputTempatLahir").val();
@@ -413,17 +412,15 @@ function simpanProfileUser() {
     } else if (alamat == "") {
         swal("Error", "Alamat Tidak Boleh Kosong", "error");
     } else {
-        // database.ref('user/' + userId + "/namaDepan").set(namaDepan)
-        // database.ref('user/' + userId + "/namaBelakang").set(namaBelakang)
-        // database.ref('user/' + userId + "/userName").set(username)
-        // database.ref('user/' + userId + "/jenisKelamin").set(jenisKelamin)
-        // database.ref('user/' + userId + "/tempatLahir").set(tempatLahir)
-        // database.ref('user/' + userId + "/tanggalLahir").set(tanggalLahir)
-        // database.ref('user/' + userId + "/alamat").set(alamat)
-        // database.ref('user/' + userId + "/alamat").set(alamat)
-        // database.ref('user/' + userId + "/negara").set(negara)
-        // database.ref('user/' + userId + "/provinsi").set(provinsi)
-        // database.ref('user/' + userId + "/kota").set(kota)
+        database.ref('user/' + userId + "/namaLengkap").set(namaLengkap)
+        database.ref('user/' + userId + "/userName").set(username)
+        database.ref('user/' + userId + "/jenisKelamin").set(jenisKelamin)
+        database.ref('user/' + userId + "/tempatLahir").set(tempatLahir)
+        database.ref('user/' + userId + "/tanggalLahir").set(tanggalLahir)
+        database.ref('user/' + userId + "/alamat").set(alamat)
+        database.ref('user/' + userId + "/negara").set(negara)
+        database.ref('user/' + userId + "/provinsi").set(provinsi)
+        database.ref('user/' + userId + "/kota").set(kota)
         swal("Selamat", "Berhasil di edit", "success").then(() => {
             location.href = "./profil.php"
         })
@@ -631,13 +628,11 @@ function generateDataTersimpan(bookId, listBookTerpinjam) {
 }
 
 function generateProfile(snap) {
-    $("#textNamaLengkap").text(snap.namaDepan + " " + snap.namaBelakang);
+    $("#textNamaLengkap").text(snap.namaLengkap);
     $("#textUsername").text(snap.userName);
     $("#textJenisKelamin").text(snap.jenisKelamin);
     $("#textTempatLahir").text(snap.tempatLahir);
     $("#textTanggalLahir").text(snap.tanggalLahir);
-    $("#textAgama").text(snap.agama);
-    $("#textHobi").text(snap.hobi);
     $("#textAlamat").text(snap.alamat);
     $("#textKota").text(snap.kota);
     $("#textProvinsi").text(snap.provinsi);
@@ -646,15 +641,12 @@ function generateProfile(snap) {
 }
 
 function generateEditProfile(snap) {
-    $("#inputNamaDepan").val(snap.namaDepan);
-    $("#inputNamaBelakang").val(snap.namaBelakang);
+    $("#inputNamaLengkap").val(snap.namaLengkap);
     $("#inputUsername").val(snap.userName);
     $("#inputJenisKelamin").val(snap.jenisKelamin);
     $("#inputTempatLahir").val(snap.tempatLahir);
     var mydate = convertTanggal(snap.tanggalLahir);
     $("#inputTanggalLahir").val(mydate);
-    $("#inputAgama").val(snap.agama);
-    $("#inputHobi").val(snap.hobi);
     $("#inputNegara").val(snap.negara);
     $("#inputProvinsi").val(snap.provinsi);
     $("#inputKota").val(snap.kota);
