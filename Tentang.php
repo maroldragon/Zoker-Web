@@ -12,17 +12,41 @@
     @include_once('header.php')
   ?>
   
-  <div class="container form-contact">
+  <div class="container form-contact col-lg-8 col">
 		<div class="row p-5 pos-center">
       <h1>APLIKASI REKOMENDASI PERPUSTAKAAN DIGITAL MENGGUNAKAN DEEP COLLABORATIVE FILTERING BERBASIS MOBILE DAN WEB</h1>
-			<h1 class="mt-5 mb-5">Tugas Akhir</h1>
-      <h1 class="mt-5 mb-5">Oleh:</h1>
-      <h1>Evan Owen Pasaribu</h1>
-      <h1 class="mb-3">(171111067)</h1>
-      <h1>Iman Fajar Lombu</h1>
-      <h1 class="mb-3">(171111768)</h1>
-      <h1>Martua Sinaga</h1>
-      <h1 class="mb-5">(171112356)</h1>
+			<div class="row mt-5 ">
+        <div class="col">
+          <p class="p-title">Dosen Pembimbing I</p>
+          <p class="p-caption">Ronsen Purba</p>
+        </div>
+        <div class="col">
+          <p class="p-title">Dosen Pendamping II</p>
+          <p class="p-caption">Darwin</p>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col">
+          <img class="img-logo-mikroskil" src="img/logo-mikroskil.png" alt="">
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col">
+          <p class="p-title">Mahasiswa I</p>
+          <p class="p-caption">Evan Owen Pasaribu</p>
+          <p class="p-caption">171111067</p>
+        </div>
+        <div class="col">
+          <p class="p-title">Mahasiswa I</p>
+          <p class="p-caption">Iman Fajar Lombu</p>
+          <p class="p-caption">171111768</p>
+        </div>
+        <div class="col">
+          <p class="p-title">Mahasiswa I</p>
+          <p class="p-caption">Martua Sinanga</p>
+          <p class="p-caption">171112356</p>
+        </div>
+      </div>
       <h1 class="mt-5">PROGRAM STUDI TEKNIK INFORMATIKA</h1>
       <h1>SEKOLAH TINGGI MANAJEMEN INFORMATIKA DAN KOMPUTER</h1>
       <h1>MIKROSKIL</h1>

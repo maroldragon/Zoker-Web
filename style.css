@@ -89,6 +89,15 @@ p{
   color: #ff0000;
 }
 
+.p-title{
+  font-weight: bold;
+  font-size: 20px;
+}
+.p-caption{
+  font-size: 18px;
+}
+
+
 .font-label{
   font-size: 18px;
   margin: 10px 0px 0px 0px;
@@ -367,6 +376,11 @@ p{
   width: 100%;
   height: auto; 
   padding: 0px;
+}
+
+.img-logo-mikroskil{
+  width: 300px;
+  height: 150px;
 }
 
 .form-contact{
