@@ -285,6 +285,10 @@ $("#btnSaveBook").click(function(e){
     var deskripsi = $("#deskripsiBuku")
     var tanggal = new Date().toLocaleString()
 
+    if(status_new_kategori == true) {
+        kategori = $("#newKategori")
+    }
+
     if(isbn.val()=="" || judul.val()=="" || penulis.val()=="" || tahunTerbit.val()=="" || deskripsi.val()=="") {
         swal("Error", "Masih Ada Data Yang Kosong", "error");
     }else if(image && book){

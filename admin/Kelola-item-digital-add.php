@@ -79,13 +79,14 @@
 												<option value="actresses">Actresses</option>
 												<option value="medical">Medical</option>
 												<option value="nature">Nature</option>
+												<option value="other">Lainnya</option>
 											</select>
 										</from>
-										<div class="form-group mb-1">
+										<div class="form-group mb-1 d-none" id="wrapNewKategori">
 											<label for="new kategori">New Kategori</label>
-											<input type="text" class="form-control" id="new kategori" placeholder="New Kategori">
+											<input type="text" class="form-control" id="newKategori" placeholder="New Kategori">
 										</div>
-										
+
 										<from class="form-group mb-1">
 											<label for="Tahun Terbit">Tahun Terbit</label>
 											<input class="form-control" id="tahunTerbit" type="number" min="1900" max="2099" step="1" value="2010" />
@@ -144,6 +145,18 @@
 	?>
 	<script src="js/app.js"></script>
 	<script src="js/custom.js"></script>
+	<script>
+		var status_new_kategori = false;
+		$("#kategori").on("change", function() {
+			if($(this).val() == "other"){
+				$("#wrapNewKategori").removeClass("d-none")
+				status_new_kategori = true;
+			}else {
+				status_new_kategori = false;
+				$("#wrapNewKategori").addClass("d-none")
+			}
+		})
+	</script>
 
 </body>
 
