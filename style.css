@@ -383,6 +383,13 @@ p{
   height: 150px;
 }
 
+.img-header{
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 1px solid #888888;
+}
+
 .form-contact{
   position: relative;
   border-radius: 5px;

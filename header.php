@@ -23,7 +23,8 @@
         </li>
         <li class="nav-item dropdown" id="navbar-profile">
           <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="far fa-user-circle"></i>
+            <img class="img-header" src="img/no_user.png" id="headerPhotoProfil" alt="">
+            <span id="headerUserName">username</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
             <div class="d-none" id="menuGuest">              
