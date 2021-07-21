@@ -258,9 +258,10 @@ function addRecommendBook() {
     firebase.auth().onAuthStateChanged(function (user) {
         let dataBook = []
         if (user) {
+            $("#textRecommendation").text("Rekomedasi")
             var user = firebase.auth().currentUser;
             var userId = user.uid;
-            dbRef.child("ratingPrediksi").orderByChild("idUser").equalTo(userId).on("value", function (snapshot) {
+            dbRef.child("ratingPrediksi").orderByChild("idUser").equalTo(userId).limitToFirst(20).on("value", function (snapshot) {
                 snapshot.forEach(function (child) {
                     var rate = "" + child.val().rating
                     dataBook.push(child)
@@ -280,6 +281,7 @@ function addRecommendBook() {
                 console.log(errorObject)
             });
         } else {
+            $("#textRecommendation").text("Rekomedasi Populer")
             dbRef.child("books").orderByChild("rating").on("value", function (snapshot) {
                 snapshot.forEach(function (child) {
                     dataBook.push(child)

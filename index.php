@@ -61,7 +61,7 @@
 
     <div class="row mt-5">
       <div class="col-12">
-        <h1>Rekomendasi</h1>
+        <h1 id="textRecommendation">Rekomendasi</h1>
       </div>
       <div class="row mt-1" id="listBookRecommend">
         <div class="col-lg-2 col-md-4 col-sm-4 col-6">
