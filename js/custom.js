@@ -63,6 +63,20 @@ function savePreditionRating(data) {
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
+        var user = firebase.auth().currentUser;
+        var userId = user.uid;
+        const dbRef = firebase.database().ref();
+        dbRef.child("user").child(userId).get().then((snapshot) => {
+            if (!snapshot.exists()) {
+                firebase.auth().signOut().then(function() {
+                }).catch(function(error) {
+                // An error happened.
+                });
+            } else {
+
+            }
+        })
+
         console.log("You Login Now");
         var user = firebase.auth().currentUser;
         var userId = user.uid;

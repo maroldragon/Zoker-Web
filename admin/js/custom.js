@@ -39,9 +39,21 @@ function savePreditionRating(data){
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        console.log("You Login Now");
         var user = firebase.auth().currentUser;
         var userId = user.uid;
+        const dbRef = firebase.database().ref();
+        dbRef.child("admin").child(userId).get().then((snapshot) => {
+            if (!snapshot.exists()) {
+                firebase.auth().signOut().then(function() {
+                }).catch(function(error) {
+                // An error happened.
+                });
+            } else {
+
+            }
+        })
+
+        console.log("You Login Now");
         var usernameHeader = $("#usernameHeader")
         var photoHeader = $("#photoHeader")
         var photoProfile = $("#img-profile-admin")
@@ -61,7 +73,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         var alamatText = $("#alamatText")
         var emailText = $("#emailText")
 
-        const dbRef = firebase.database().ref();
         dbRef.child("admin").child(userId).get().then((snapshot) => {
         if (snapshot.exists()) {
             usernameHeader.text(snapshot.val().userName)
