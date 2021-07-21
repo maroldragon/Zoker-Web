@@ -31,6 +31,8 @@ function savePreditionRating(data){
             idBuku: isbn,
             idUser: userId,
             rating: (parseFloat(data[i][2])).toFixed(2)
+        }).then(()=> {
+            console.log("Rating Prediction Added")  
         })
     }
 }
@@ -239,6 +241,7 @@ $("#btnSaveBook").click(function(e){
             rating: "5",
             tanggal: tanggal
         }).then(() => {
+            saveDataBookToCsv()
             uploadImageCover();
         });
     }else {
@@ -319,7 +322,7 @@ function uploadBook() {
                 $("#myBar").css("display", "none");
                 let database = firebase.database();
                 database.ref('books/' + isbn.val() + "/file").set(downlaodURL).then(()=> {
-                    saveDataBookToCsv()
+                    //saveDataBookToCsv()
                     swal("Selamat", "Buku Berhasil Di Upload", "success").then(function(){ 
                        location.href = "Kelola-item-digital.php?kelola_item";
                     });
@@ -566,6 +569,14 @@ function verifiedUser(idUser) {
     firebase.database().ref('user/' + idUser + "/status").set("verified")
     swal("Suskses", "user dengan id " + idUser + "Sudah di verifikasi", "success").then(() => {
         location.href = "kelola-member-verifikasi.php"
+    })
+}
+
+function deleteVerifikasi(idUser) {
+    console.log(idUser)
+    firebase.database().ref('user/' + idUser + "/status").set("unverified")
+    swal("", "verifikasi dihapus untuk id user " + idUser , "success").then(() => {
+        location.href = "kelola-member.php?kelola_member"
     })
 }
 

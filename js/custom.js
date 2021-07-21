@@ -35,6 +35,8 @@ function savePreditionRating(data) {
             idBuku: isbn,
             idUser: userId,
             rating: (parseFloat(data[i][2])).toFixed(2)
+        }).then(()=> {
+            console.log("Rating Prediction Added")  
         })
     }
 }
@@ -522,7 +524,7 @@ function savePinjamBuku() {
             var bookId = isbnGet;
             var peminjamanId = userId + "-" + bookId;
             var date = new Date();
-            let tanggal = new Date().toLocaleDateString();
+            var tanggal = new Date().toLocaleString()
             var status = "unfinished"
             var bukuTerpinjam = 0
             dbRef.child("user").child(userId).get().then((snapshot) => {
@@ -665,11 +667,11 @@ function readBook() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             var bookId = (location.search.replace('?', '').split('='))[1];
-            var ratingId = userId + "-" + bookId
             var user = firebase.auth().currentUser;
             var userId = user.uid;
+            var ratingId = userId + "-" + bookId
             let database = firebase.database();
-            let tanggal = new Date().toLocaleDateString();
+            let tanggal = new Date().toLocaleString();
 
             dbRef.child("ratings").child(ratingId).get().then((snapshot) => {
                 if (!snapshot.exists()) {
@@ -722,7 +724,7 @@ function tambahkanUlasan() {
             var rate = $("#ratingFeedback").text()
             var ulasanValue = $("#inputUlasan").val();
             let database = firebase.database();
-            let tanggal = new Date().toLocaleDateString();
+            var tanggal = new Date().toLocaleString()
             if (ulasanValue.trim() != "") {
                 dbRef.child("peminjaman").child(userId + "-" + isbnGet).get().then((snapshot) => {
                     if (snapshot.exists()) {
@@ -753,6 +755,9 @@ function tambahkanUlasan() {
         }
     })
 }
+
+saveDataRatingToCsv()
+getNewPredictionRating()
 
 function saveDataRatingToCsv() {
     var dataRating = []

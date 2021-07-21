@@ -59,7 +59,7 @@
       
       var idFeedback = guid();
       console.log(idFeedback)
-      let tanggal = new Date().toLocaleDateString();
+      let tanggal = new Date().toLocaleString();
       let database = firebase.database();
       database.ref('feedback/' + idFeedback).set({
           feebackId : idFeedback,
