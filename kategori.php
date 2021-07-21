@@ -24,7 +24,7 @@
         <option value="medical">Medical</option>
         <option value="nature">Nature</option>
       </select>
-      <button class="btn btn-select" type="button" id="buttonFilter">Filter</button>
+      <button class="btn btn-select ps-5 pe-5" type="button" id="buttonFilter">Filter</button>
     </form>
     <div class="row mt-4">
       <div class="col-12">
