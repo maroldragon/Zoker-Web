@@ -53,8 +53,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         var emailProfil = $("#emailProfil")
 
         var photoEdit = $("#imagePreview");
-        var namaDepanText = $("#namaDepanText")
-        var namaBelakangText = $("#namaBelakangText")
+        var namaLengkapText = $("#namaLengkapText")
         var usernameText = $("#usernameText")
         var jenisKelaminText = $("#jenisKelaminText")
         var tempatLahirText = $("#tempatLahirText")
@@ -69,7 +68,7 @@ firebase.auth().onAuthStateChanged(function(user) {
             photoHeader.attr("src",snapshot.val().photo);
             photoProfile.attr("src",snapshot.val().photo);
 
-            namaLengkap.text(snapshot.val().namaDepan + " " + snapshot.val().namaBelakang)
+            namaLengkap.text(snapshot.val().namaLengkap)
             username.text(snapshot.val().userName)
             jenisKelamin.text(snapshot.val().jenisKelamin)
             ttl.text(snapshot.val().tempatLahir + " " + snapshot.val().tanggalLahir)
@@ -77,8 +76,7 @@ firebase.auth().onAuthStateChanged(function(user) {
             emailProfil.text(snapshot.val().email)
 
             photoEdit.css("background-image", "url("+snapshot.val().photo+")")
-            namaDepanText.val(snapshot.val().namaDepan)
-            namaBelakangText.val(snapshot.val().namaBelakang)
+            namaLengkapText.val(snapshot.val().namaLengkap)
             usernameText.val(snapshot.val().userName)
             var jkLower = (snapshot.val().jenisKelamin).toLowerCase();
             jenisKelaminText.val(jkLower)
@@ -188,8 +186,7 @@ function upload() {
 
 function updateUserData() {
     let database = firebase.database();
-    var namaDepanText = $("#namaDepanText")
-    var namaBelakangText = $("#namaBelakangText")
+    var namaLengkapText = $("#namaLengkapText")
     var usernameText = $("#usernameText")
     var jenisKelaminText = $("#jenisKelaminText")
     var tempatLahirText = $("#tempatLahirText")
@@ -197,9 +194,8 @@ function updateUserData() {
     var alamatText = $("#alamatText")
     var user = firebase.auth().currentUser;
     var userId = user.uid;
-    
-    database.ref('user/' + userId + "/namaDepan").set(namaDepanText.val())
-    database.ref('user/' + userId + "/namaBelakang").set(namaBelakangText.val())
+
+    database.ref('user/' + userId + "/namaLengkap").set(namaLengkapText.val())
     database.ref('user/' + userId + "/userName").set(usernameText.val())
     database.ref('user/' + userId + "/jenisKelamin").set(jenisKelaminText.val())
     database.ref('user/' + userId + "/tempatLahir").set(tempatLahirText.val())

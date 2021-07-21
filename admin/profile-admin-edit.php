@@ -71,12 +71,8 @@
 									<h5 class="h6 card-title">Data Pribadi</h5>
 									<div class="col-md-12">
 										<div class="form-group">
-											<label for="namaDepanText">Nama Depan</label>
-											<input type="text" class="form-control" id="namaDepanText" placeholder="">
-										</div>
-										<div class="form-group">
-											<label for="namaBelakangText">Nama Belakang</label>
-											<input type="text" class="form-control" id="namaBelakangText" placeholder="">
+											<label for="namaLengkapText">Nama Lengkap</label>
+											<input type="text" class="form-control" id="namaLengkapText" placeholder="">
 										</div>
 										<div class="form-group">
 											<label for="inputAddress">Username</label>
