@@ -5,7 +5,7 @@
         <h1>Navigasi</h1>
       </div>
       <div class="col-8 pos-right">
-        <h1>Perpustakaan Digital</h1>
+        <h1>Aplikasi Rekomendasi Perpustakaan Digital Menggunakan Deep Collaborative Filtering Berbasis Mobile Dan Web</h1>
       </div>
     </div>
     <div class="row">
@@ -18,12 +18,28 @@
         </ul>
       </div>
       <div class="col-8 pos-right">
-        <p>Aplikasi Rekomendasi Perpustakaan Digital Menggunakan Deep Collaborative Filtering Berbasis Mobile Dan Web</p>
-        <div class="flex mt-3">
-          <a class="footer-link" href="https://www.facebook.com"><i class="fab fa-facebook fa-2x"></i></a>
-          <a class="footer-link" href="https://www.instagram.com"><i class="fab fa-instagram fa-2x"></i></a>
-          <a class="footer-link" href="https://www.twitter.com"><i class="fab fa-twitter fa-2x"></i></a>
-          <a class="footer-link" href="https://www.youtube.com"><i class="fab fa-youtube fa-2x"></i></a>
+        <div class="row">
+          <div class="col">
+            Dikembangkan Oleh:
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            Evan Owen Pasaribu
+            <span><img src="./img/photo_owen.png" class="img-footer" alt=""></span>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col">
+            Iman Fajar Lombu
+            <span><img src="./img/photo_fajar.png" class="img-footer" alt=""></span>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col">
+            Martua Sinaga
+            <span><img src="./img/photo_martua.png" class="img-footer" alt=""></span>
+          </div>
         </div>
       </div>
     </div>

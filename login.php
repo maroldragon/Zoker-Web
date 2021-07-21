@@ -34,22 +34,24 @@
           <label class="inp-text-label" for="inputPassword">Password</label>
          <div class="input-group">
          <input type="password" class="form-control inp-text pwd" id="inputPassword" placeholder="Password">
-          <button class="btn btn-primary " type="button">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill reveal" viewBox="0 0 16 16">
-														<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-														<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-														</svg>
+          <button class="btn btn-select" type="button" id="showPassword">
+            <i class="fas fa-eye" id="iconShowPassword"></i>
 					</button>
          </div>
         </div>
-        <button type="button" class="btn btn-primary form-control mt-3" id="buttonLogin">Masuk</button>
-        <a href="./forgot-pass.php" class="btn  mt-3" >Lupa Sandi</a>
+        <div class="row">
+          <div class="col pos-right">
+            <a href="./forgot-pass.php" class="btn p-danger" >Lupa Sandi?</a>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary form-control" id="buttonLogin">Masuk</button>
+        
         <a href="./register.php" class="btn btn-secondary form-control mt-3" id="buttonRegister">Daftar</a>
       </div>
     </div>
     <div class="row">
       <div class="col align-self-center">
-        <a href="admin/" class="btn btn-link form-control mt-5" id="buttonLoginAdmin">Login Sebagai Admin</a>
+        <a href="admin/" class="btn btn-primary form-control mt-5" id="buttonLoginAdmin">Login Sebagai Admin</a>
       </div>
     </div>
   </div>
@@ -142,12 +144,16 @@
 
     //==================
 
-    $(".reveal").on('click',function() {
+    $("#showPassword").on('click',function() {
 			var $pwd = $(".pwd");
 			if ($pwd.attr('type') === 'password') {
 				$pwd.attr('type', 'text');
+        $("#iconShowPassword").removeClass("fa-eye");
+        $("#iconShowPassword").addClass("fa-eye-slash");
 			} else {
 				$pwd.attr('type', 'password');
+        $("#iconShowPassword").removeClass("fa-eye-slash");
+        $("#iconShowPassword").addClass("fa-eye");
 			}
 		});
 
