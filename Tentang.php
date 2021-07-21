@@ -18,11 +18,11 @@
 			<div class="row mt-5 ">
         <div class="col">
           <p class="p-title">Dosen Pembimbing I</p>
-          <p class="p-caption">Ronsen Purba</p>
+          <p class="p-caption">Dr. Ronsen Purba, M.Sc.</p>
         </div>
         <div class="col">
-          <p class="p-title">Dosen Pendamping II</p>
-          <p class="p-caption">Darwin</p>
+          <p class="p-title">Pendamping Pembimbing</p>
+          <p class="p-caption">Darwin, S.Kom., M.Kom.</p>
         </div>
       </div>
       <div class="row mt-5">
