@@ -47,7 +47,7 @@
 											</select>
 										</div>
 									</div>
-									<div class="form-group row">
+									<!-- <div class="form-group row">
 										<label class="col-form-label col-sm-2 text-sm-right">Tanggal Awal</label>
 										<div class="col-md-3 ">
 											<input type="Date" class="form-control" placeholder="Date">
@@ -58,7 +58,7 @@
 										<div class="col-md-3 ">
 											<input type="Date" class="form-control" placeholder="Date">
 										</div>
-									</div>					
+									</div>					 -->
 								</form>
 								<nav class="navbar ">
 									<div class="">

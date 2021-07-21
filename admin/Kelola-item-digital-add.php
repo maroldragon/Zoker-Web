@@ -81,6 +81,11 @@
 												<option value="nature">Nature</option>
 											</select>
 										</from>
+										<div class="form-group mb-1">
+											<label for="new kategori">New Kategori</label>
+											<input type="text" class="form-control" id="new kategori" placeholder="New Kategori">
+										</div>
+										
 										<from class="form-group mb-1">
 											<label for="Tahun Terbit">Tahun Terbit</label>
 											<input class="form-control" id="tahunTerbit" type="number" min="1900" max="2099" step="1" value="2010" />

@@ -126,8 +126,7 @@
 	<script src="js/custom.js"></script>
 	<script src="js/custom-user.js"></script>
 	<script>
-		saveDataUserToCsv()
-		
+		//saveDataUserToCsv()
 		const dbRef = firebase.database().ref("user");
 		var no = 0;
 		var dataUser = [];

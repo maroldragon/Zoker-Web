@@ -121,7 +121,7 @@
 			newWin= window.open("");
 			newWin.document.write(divToPrint.outerHTML);
 			newWin.print();
-			newWin.close(location.href = "feedback.php?feedback");
+			// newWin.close(location.href = "feedback.php?feedback");
 		
 		}
 

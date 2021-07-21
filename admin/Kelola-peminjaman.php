@@ -39,7 +39,7 @@
 						<div class="card">
 							<div class="card-body">
 								<form>
-									<div class="form-group row">
+									<!-- <div class="form-group row">
 										<label class="col-form-label col-sm-2 text-sm-right">Tanggal Awal</label>
 										<div class="col-md-3">
 											<input type="Date" class="form-control" placeholder="Date">											
@@ -50,7 +50,7 @@
 										<div class="col-md-3">
 											<input type="Date" class="form-control" placeholder="Date">
 										</div>
-									</div>								
+									</div>								 -->
 									<div class="form-group row">
 										<label class="col-form-label col-sm-2 text-sm-right">Urutkan</label>
 										<div class="col-md-3">									
@@ -70,7 +70,7 @@
 										  </svg>
 										<span> Tampilkan</span>	
 									</button>
-									<form  class="mt-3 mb-3" class="form-inline d-sm-inline-flex">
+									<!-- <form  class="mt-3 mb-3" class="form-inline d-sm-inline-flex">
 										<div class="input-group input-group-navbar">
 											<input id="searchBooklist" type="text" class="form-control" placeholder="Search…" aria-label="Search">
 											<div class="input-group-append">
@@ -79,7 +79,7 @@
 												</button>
 											</div>
 										</div>
-									</form>
+									</form> -->
 								</nav>									
 							</div>							
 						</div>											
@@ -145,7 +145,7 @@ SelectAllData()
 			td3.innerHTML = "Kode Peminjaman";
 			td4.innerHTML = "Kode User";
 			td5.innerHTML = "Tanggal Pinjam";
-			td6.innerHTML = "Status";
+			// td6.innerHTML = "Status";
 			
 			
 			trow.appendChild(td1);

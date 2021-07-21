@@ -1,7 +1,7 @@
 const dbRef = firebase.database().ref();
 var user_id_all = ""
-// saveDataUserToCsv()
-// saveDataRatingToCsv()
+saveDataUserToCsv()
+saveDataRatingToCsv()
 function getNewPredictionRating() {
     $.ajax({
         url: './admin/algo/ratingPrediksi.csv',
@@ -834,8 +834,6 @@ function tambahkanUlasan() {
     })
 }
 
-saveDataRatingToCsv()
-getNewPredictionRating()
 
 function saveDataRatingToCsv() {
     var dataRating = []

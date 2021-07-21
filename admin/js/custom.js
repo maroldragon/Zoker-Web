@@ -1,3 +1,4 @@
+saveDataUserToCsv()
 function getNewPredictionRating(){
     $.ajax({
         url: 'algo/ratingPrediksi.csv',
@@ -497,6 +498,13 @@ function addPengujian(jenisPengujian, idPeng) {
 
     function add() {
         let database = firebase.database();
+        hasil = 0;
+        if(jenisPengujian == "MAE"){
+            hasil = nilaiAbsolute/(jumlahItem*jumlahUser)
+        }else {
+            hasil = Math.sqrt(nilaiAbsolute/(jumlahItem*jumlahUser))
+        }
+        
         database.ref('pengujian/'+idPengujian).set({
             idPengujian : idPengujian,
             jenisPengujian : jenisPengujian,
@@ -505,9 +513,12 @@ function addPengujian(jenisPengujian, idPeng) {
             jumlahUser : ""+jumlahUser,
             nilaiAbsoluteError : ""+nilaiAbsolute,
             stringAbsoluteError : stringAbsoluteError,
-            hasil: ""+(nilaiAbsolute/(jumlahItem*jumlahUser))
+            hasil: ""+hasil
         }).then(() => {
             console.log("Pengujian Ditambahkan")
+            swal("", "Pegunjian Ditambahkan", "success").then(()=> {
+                location.href = "./Pengujian.php?pengujian"
+            })
         });
     }
 
@@ -556,7 +567,7 @@ function addPengujian(jenisPengujian, idPeng) {
             var total = (((jumlahItem*jumlahUser)-index) * Math.pow(ratarata,2));
             total += jumlah
             std = total/(jumlahUser*jumlahItem)
-            normalizationZero = ((0-ratarata)/std)
+            normalizationZero = (Math.abs(0-ratarata)/std)
             //console.log("STD"+std)
             getAbsoluteError()
         })
@@ -580,11 +591,22 @@ function addPengujian(jenisPengujian, idPeng) {
                         if(rat < 0) {
                             rat = "-" + rat;
                         }
-                        totalAbosuluteError += Math.abs(child.val().rating - ((snapshot.val().rating-ratarata)/std))
-                        absoluteString += rat + "|"
+                        if(jenisPengujian == "MAE"){
+                            totalAbosuluteError += Math.abs(child.val().rating - ((snapshot.val().rating-ratarata)/std))
+                            absoluteString += rat + "|"
+                        }else if(jenisPengujian == "RMSE"){
+                            totalAbosuluteError += Math.pow((child.val().rating - ((snapshot.val().rating-ratarata)/std)),2)
+                            absoluteString += rat + "|" + "2".sup()
+                        } 
                     }else{
-                        totalAbosuluteError += normalizationZero
-                        absoluteString += "("+normalizationZero.toFixed(2)+")" + "|";
+                        if(jenisPengujian == "MAE"){
+                            totalAbosuluteError += normalizationZero
+                            absoluteString += "("+normalizationZero.toFixed(2)+")" + "|";
+                        }else if(jenisPengujian == "RMSE"){
+                            totalAbosuluteError += Math.pow(normalizationZero,2)
+                            absoluteString += "("+normalizationZero.toFixed(2)+")" + "|" + "2".sup();
+                        }
+                        
                     }
                     index += 1;
                     nilaiAbsolute = totalAbosuluteError
@@ -594,7 +616,7 @@ function addPengujian(jenisPengujian, idPeng) {
 
             setTimeout(function() {
                 add()
-            }, 4000);
+            }, 2000);
 
         }).then(() => {
             
@@ -604,28 +626,32 @@ function addPengujian(jenisPengujian, idPeng) {
 }
 //tampilkanProsesPengujian("RMSE", "10/23/23")
 
-function tampilkanProsesPengujian(jenisPengujian, tanggal) {
+function tampilkanProsesPengujian(idPengujian, jenisPengujian, tanggal) {
     $("#pengujianHasil").addClass("d-none")
     $("#pengujianProses").removeClass("d-none");
     $("#tanggalPengujian").text(jenisPengujian)
     $("#jenisPengujian").text(tanggal)
 
-    firebase.database().ref("pengujian").once('value', function(allRecord){
+    firebase.database().ref("pengujian").orderByChild("idPengujian").equalTo(idPengujian).once('value', function(allRecord){
         allRecord.forEach( function(child) { 
             $("#jumlahUser").html(child.val().jumlahUser);
             $("#jumlahItem").html(child.val().jumlahItem);
             $("#jumlahData").html(child.val().jumlahUser * child.val().jumlahItem)
-            $("#totalAbsoluteError").text(child.val().stringAbsoluteError + " = " + child.val().nilaiAbsoluteError);
-            $("#hasilPengujian").text(child.val().hasil)
+            $("#totalAbsoluteError").html(child.val().stringAbsoluteError + " = " + child.val().nilaiAbsoluteError);
+            if(jenisPengujian == "MAE"){
+                $("#hasilPengujian").text("Hasil = Total Absolute / jumlah Data = " + child.val().hasil)
+            }else {
+                $("#hasilPengujian").text("Hasil = Akar(Total Absolute/jumlah Data) = " + child.val().hasil)
+            }
         })
     }).then(()=> {
         
     })
 }
-
 function verifiedUser(idUser) {
     firebase.database().ref('user/' + idUser + "/status").set("verified")
     swal("Suskses", "user dengan id " + idUser + "Sudah di verifikasi", "success").then(() => {
+        saveDataUserToCsv()
         location.href = "kelola-member-verifikasi.php"
     })
 }

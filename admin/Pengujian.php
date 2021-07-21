@@ -103,13 +103,6 @@
 								<div class="btn-group btn-group ">
 									<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 										<div id="btn-pagination-list-pengujian" class="btn-group mr-2" role="group" aria-label="First group">
-											<!-- <button type="button" class="btn btn-secondary ">Previous</button>
-											<button type="button" class="btn btn-secondary active">1</button>
-											<button type="button" class="btn btn-secondary">2</button>
-											<button type="button" class="btn btn-secondary">3</button>
-											<button type="button" class="btn btn-secondary">..</button>
-											<button type="button" class="btn btn-secondary">4</button>
-											<button type="button" class="btn btn-secondary ">Next</button> -->
 										</div>
 									</div>
 								</div>
@@ -146,7 +139,7 @@
 												<h5>Jumlah Item : <span id="jumlahItem"></span></h5>
 												<h5>Jumlah Data : <span id="jumlahData"></span></h5>
 												<h5  style="line-height : 1.5;text-align:justify">Perhitungan Absolute Error : <br><span id="totalAbsoluteError"></span></h5>
-												<h5 style="font-weight:700;font-size:17px" mt-5 mb-4>Hasil = Total Absolute / jumlah Data = <span id="hasilPengujian"></span></h5>
+												<h5 style="font-weight:700;font-size:17px" mt-5 mb-4><span id="hasilPengujian"></span></h5>
 												<!-- <h5><span id="hasilPengujian"></span></h5> -->
 											</a>
 										</div>
@@ -205,7 +198,7 @@
 			dataPengujianSearch = [];
 			for (ids = 0; ids < dataPengujian.length; ids++) {
 				console.log(dataPengujian[ids].val().hasil);
-				if ((dataPengujian[ids].val().hasil).toLowerCase().includes(keyword.toLowerCase())) {
+				if ((dataPengujian[ids].val().jenisPengujian).toLowerCase().includes(keyword.toLowerCase())) {
 					dataPengujianSearch.push(dataPengujian[ids]);
 				}
 			}
@@ -258,7 +251,7 @@
 			td3.innerHTML = jenis;
 			td4.innerHTML = parseFloat(hasil).toFixed(3);
 			td5.innerHTML =
-			`<a onclick="tampilkanProsesPengujian('${jenis}', '${tanggal}')">
+			`<a onclick="tampilkanProsesPengujian('${idPengujian}','${jenis}', '${tanggal}')">
 				<button class="btn btn-success" type="submit">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16">
 						<path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
