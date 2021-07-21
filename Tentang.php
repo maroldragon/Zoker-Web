@@ -37,12 +37,12 @@
           <p class="p-caption">171111067</p>
         </div>
         <div class="col">
-          <p class="p-title">Mahasiswa I</p>
+          <p class="p-title">Mahasiswa II</p>
           <p class="p-caption">Iman Fajar Lombu</p>
           <p class="p-caption">171111768</p>
         </div>
         <div class="col">
-          <p class="p-title">Mahasiswa I</p>
+          <p class="p-title">Mahasiswa III</p>
           <p class="p-caption">Martua Sinanga</p>
           <p class="p-caption">171112356</p>
         </div>
