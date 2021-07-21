@@ -14,37 +14,29 @@
   @include_once('header.php')
   ?>
 
-  <div class="container form-content col-lg-6 col-md-10 col">
+  <div class="container form-content col-lg-4 col-md-6 col">
     <div class="row mb-3 d-none" id="textLogout">
       <div class="col pos-center p-danger">
         Anda Telah Keluar
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12 pos-middle">
-        <img src="img/login-cover.jpg" class="img-login" alt="">
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <h1>Masuk</h1>
-        <div class="mt-3 mb-2">
-          <label class="inp-text-label" for="inputUsername">Email</label>
+    <div class="row">      
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <h1>Pemulihan akun</h1>
+        <div class="mt-3 mb-4">
+          <label class="inp-text-label mb-2" for="inputUsername">Masukkan email pemulihan</label>
           <input type="text" class="form-control inp-text" id="inputUsername" placeholder="Email">
         </div>
-        <div class="mb-2">
-          <label class="inp-text-label" for="inputPassword">Password</label>
-         <div class="input-group">
-         <input type="password" class="form-control inp-text pwd" id="inputPassword" placeholder="Password">
-          <button class="btn btn-primary " type="button">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill reveal" viewBox="0 0 16 16">
-														<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-														<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-														</svg>
-					</button>
-         </div>
-        </div>
-        <button type="button" class="btn btn-primary form-control mt-3" id="buttonLogin">Masuk</button>
-        <a href="./forgot-pass.php" class="btn  mt-3" >Lupa Sandi</a>
-        <a href="./register.php" class="btn btn-secondary form-control mt-3" id="buttonRegister">Daftar</a>
+        <div class="row mb-5">
+          <div class="col">
+            <a href="./login.php" class="btn form-control mt-3" id="buttonRegister">Kembali</a>
+          </div>
+          <div class="col ">      
+            <button type="button" class="btn btn-primary form-control mt-3" id="buttonLogin">Kirim Verifikasi</button>
+          </div>
+    </div>        
+        
+        
       </div>
     </div>
     <div class="row">
@@ -138,19 +130,6 @@
 
     $("#menuUser").addClass("d-none")
     $("#menuGuest").removeClass("d-none")
-
-
-    //==================
-
-    $(".reveal").on('click',function() {
-			var $pwd = $(".pwd");
-			if ($pwd.attr('type') === 'password') {
-				$pwd.attr('type', 'text');
-			} else {
-				$pwd.attr('type', 'password');
-			}
-		});
-
   </script>
 
 </body>
