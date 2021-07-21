@@ -74,12 +74,12 @@
 										<from class="form-group mb-1">
 											<label for="kategori">Kategori Buku</label>
 											<select id="kategori" class="form-control">
-												<option selected value="fiction">Fiction</option>
+												<!-- <option selected value="fiction">Fiction</option>
 												<option value="social science">Social Science</option>
 												<option value="actresses">Actresses</option>
 												<option value="medical">Medical</option>
 												<option value="nature">Nature</option>
-												<option value="other">Lainnya</option>
+												<option value="other">Lainnya</option> -->
 											</select>
 										</from>
 										<div class="form-group mb-1 d-none" id="wrapNewKategori">
@@ -147,6 +147,17 @@
 	<script src="js/custom.js"></script>
 	<script>
 		var status_new_kategori = false;
+
+		// $("#kategori").html()
+		// const dbRef = firebase.database().ref();
+		// dbRef.child("kategori").once('value', function (allRecord) {
+		// 	allRecord.forEach(function (currentRecord) {
+		// 		$("#kategori").appendChild("<option value=" + currentRecordactresses">Actresses</option>")
+		// 	})
+		// }).then(() => {
+		// 	export_rating(dataRating)
+		// });
+
 		$("#kategori").on("change", function() {
 			if($(this).val() == "other"){
 				$("#wrapNewKategori").removeClass("d-none")
