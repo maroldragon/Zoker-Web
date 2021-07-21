@@ -57,7 +57,6 @@
       let username = $("#inputUsername").val()
       let password = $("#inputPassword").val();
       //console.log(username)
-      var data = []
       var state = false
       if (username.trim() == "" && password == "") {
         swal("Error", "Email dan Password Tidak Boleh Kosong", "error");
@@ -83,7 +82,6 @@
         }, function(errorObject) {
           console.log(errorObject)
         });
-
       }
 
       function runAuth() {

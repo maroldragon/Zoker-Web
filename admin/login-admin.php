@@ -61,15 +61,6 @@
 										</div>									
 									</div>
 									<form>
-										
-										<div>
-											<label class="form-check">
-										<input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
-										<span class="form-check-label">
-										Remember me next time
-										</span>
-									</label>
-										</div>
 										<div class="text-center mt-3">
 											<a class="btn btn-lg btn-primary" id="btnLogin" >Sign in</a>
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
@@ -96,20 +87,61 @@
 			let email = $("#email").val()
 			let password = $("#password").val();
 
-			firebase.auth().signInWithEmailAndPassword(email, password)
-			.then((userCredential) => {
-				
-				var user = userCredential.user;
-				console.log(user)
-				window.location.href = "./index.php?home";
-				// ...
+			var state = false
+			if (email.trim() == "" && password == "") {
+				swal("Error", "Email dan Password Tidak Boleh Kosong", "error");
+			} else if (email.trim() == "") {
+				swal("Error", "Email Tidak Boleh Kosong", "error");
+			}else if(!validateEmail(email)) {
+				swal("Error", "Format Email Salah", "error");
+			}else if (password.trim() == "") {
+				swal("Error", "Password Tidak Boleh Kosong", "error");
+			} else {
+				const dbRef = firebase.database().ref();
+				dbRef.child("admin").orderByChild('email').on("value", function(snapshot) {
+				snapshot.forEach(function(child) {
+					if (child.val().email == email) {
+					state = true;
+					}
+				});
+				if (state) {
+					runAuth()
+				} else {
+					swal("Error", "Anda Belum Terdaftar", "error");
+				}
+				}, function(errorObject) {
+				console.log(errorObject)
+				});
+			}
+
+	function runAuth() {
+		firebase.auth().signInWithEmailAndPassword(email, password)
+		.then((userCredential) => {
+			// Signed in
+			var user = userCredential.user;
+			var userId = user.uid
+			console.log(userId)
+			const dbRef = firebase.database().ref();
+			dbRef.child("admin").child(userId).get().then((snapshot) => {
+				if (snapshot.exists()) {
+					location.href = "./index.php"
+				}
 			})
-			.catch((error) => {
-				var errorCode = error.code;
-				var errorMessage = error.message;
-				console.log(errorMessage);
-			});
 		})
+		.catch((error) => {
+			var errorCode = error.code;
+			var errorMessage = error.message;
+			console.log(errorMessage);
+			swal("Error", "Password Anda Salah", "error");
+		});
+	}
+
+      function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+	})
 		//----------------------------------------------//
 		//show hide password
 		$(".reveal").on('click',function() {

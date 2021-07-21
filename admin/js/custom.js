@@ -62,7 +62,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         var emailText = $("#emailText")
 
         const dbRef = firebase.database().ref();
-        dbRef.child("user").child(userId).get().then((snapshot) => {
+        dbRef.child("admin").child(userId).get().then((snapshot) => {
         if (snapshot.exists()) {
             usernameHeader.text(snapshot.val().userName)
             photoHeader.attr("src",snapshot.val().photo);
@@ -175,7 +175,7 @@ function upload() {
                 let database = firebase.database();
                 var user = firebase.auth().currentUser;
                 var userId = user.uid;
-                database.ref('user/' + userId + "/photo").set(downlaodURL)
+                database.ref('admin/' + userId + "/photo").set(downlaodURL)
                 updateUserData();
             });
         });
@@ -196,12 +196,12 @@ function updateUserData() {
     var user = firebase.auth().currentUser;
     var userId = user.uid;
 
-    database.ref('user/' + userId + "/namaLengkap").set(namaLengkapText.val())
-    database.ref('user/' + userId + "/userName").set(usernameText.val())
-    database.ref('user/' + userId + "/jenisKelamin").set(jenisKelaminText.val())
-    database.ref('user/' + userId + "/tempatLahir").set(tempatLahirText.val())
-    database.ref('user/' + userId + "/tanggalLahir").set(tanggalLahirText.val())
-    database.ref('user/' + userId + "/alamat").set(alamatText.val())
+    database.ref('admin/' + userId + "/namaLengkap").set(namaLengkapText.val())
+    database.ref('admin/' + userId + "/userName").set(usernameText.val())
+    database.ref('admin/' + userId + "/jenisKelamin").set(jenisKelaminText.val())
+    database.ref('admin/' + userId + "/tempatLahir").set(tempatLahirText.val())
+    database.ref('admin/' + userId + "/tanggalLahir").set(tanggalLahirText.val())
+    database.ref('admin/' + userId + "/alamat").set(alamatText.val())
     swal("Selamat", "Berhasil di edit", "success");
 }
 
