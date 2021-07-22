@@ -11,6 +11,9 @@
   <?php
     @include_once('header.php')
   ?>
+  <?php
+    @include_once('sourceJs.php')
+  ?>
   
   <div class="container form-contact col-lg-8 col">
 		<div class="row p-5 pos-center">

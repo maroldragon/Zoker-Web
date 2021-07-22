@@ -42,6 +42,9 @@
   <?php
     @include_once('footer.php')
   ?>
+  <?php
+    @include_once('sourceJs.php')
+  ?>
 
   <script>
     $("#buttonKirimVerifikasi").click(function() {

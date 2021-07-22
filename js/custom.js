@@ -607,10 +607,9 @@ function generateBookDetail() {
                     }else{
                         $("#buttonPinjamBuku").text("Buku Sudah Dipinjam");
                         setInterval(function(){
-                            //var deadline = moment("12/22/2021 14:54:50", 'MM/DD/YYYY HH:mm:ss').format('MM/DD/YYYY HH:mm:ss'); 
                             b = moment()
                             diffTime = moment.duration(b.diff(moment(a, 'MM/DD/YYYY HH:mm:ss')));
-                            waktu = diffTime.days() + "Hari " + diffTime.hours() + " Jam " + diffTime.minutes() + " Menit " + diffTime.seconds() + " Detik";
+                            waktu = ("Sisa Waktu " + (6 - diffTime.days()) + " Hari " + (60 - diffTime.hours()) + ":" + (60 - diffTime.minutes()) + ":" + (60 - diffTime.seconds()));
                             if(diffTime.days() >= 7){
                                 setBukuTerpinjamFinish(child.val().idPeminjaman);
                             }

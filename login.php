@@ -33,7 +33,7 @@
         <div class="mb-2">
           <label class="inp-text-label" for="inputPassword">Password</label>
           <div class="input-group">
-            <input type="password" class="form-control inp-text pwd" id="inputPassword" placeholder="Password">
+            <input type="password" class="form-control inp-text" id="inputPassword" placeholder="Password">
             <button class="btn btn-select" type="button" id="showPassword">
               <i class="fas fa-eye" id="iconShowPassword"></i>
             </button>
@@ -59,6 +59,9 @@
 
   <?php
   @include_once('footer.php')
+  ?>
+  <?php
+    @include_once('sourceJs.php')
   ?>
 
   <script>
@@ -145,7 +148,7 @@
     //==================
 
     $("#showPassword").on('click',function() {
-			var $pwd = $(".pwd");
+			var $pwd = $("#inputPassword");
 			if ($pwd.attr('type') === 'password') {
 				$pwd.attr('type', 'text');
         $("#iconShowPassword").removeClass("fa-eye");
