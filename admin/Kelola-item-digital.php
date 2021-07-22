@@ -134,6 +134,13 @@
 		</div>
 	</div>
 
+	<!-- TEMP -->
+	<!-- <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
+		<button class="btn btn-danger">
+			hapus
+		</button>
+	</a> -->
+
 	<?php
 	@include_once("sourceJS.html");
 	?>
@@ -230,11 +237,7 @@
 			td7.innerHTML = `
 				<div class='d-flex'>
 					<a href='Kelola-item-digital-edit.php?isbn=${isbn}' class='btn btn-primary'>Update</a>&nbsp;
-					<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-toggle="dropdown">
-						<button class="btn btn-danger">
-							hapus
-						</button>
-					</a>
+					
 				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="messagesDropdown">
 					<div class="dropdown-menu-header">
 						<div class="position-relative">

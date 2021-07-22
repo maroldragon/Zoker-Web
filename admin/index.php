@@ -56,10 +56,10 @@
 													</div>
 												</div>
 												<h1 id="jumlahMember" class="mt-1 mb-3">0</h1>
-												<div class="mb-0">
+												<!-- <div class="mb-0">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
 													<span class="text-muted">Sejak minggu lalu</span>
-												</div>
+												</div> -->
 											</div>
 										</div>																				
 									</div>
@@ -79,11 +79,11 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">0</h1>
-												<div class="mb-0">
+												<h1  id="jumlahMemberBaru" class="mt-1 mb-3">0</h1>
+												<!-- <div class="mb-0">
 													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
 													<span class="text-muted">Sejak minggu lalu</span>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>
@@ -105,10 +105,10 @@
 													</div>
 												</div>
 												<h1 id="jumlahBuku" class="mt-1 mb-3">0</h1>
-												<div class="mb-0">
+												<!-- <div class="mb-0">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
 													<span class="text-muted">Sejak minggu lalu</span>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>
@@ -138,7 +138,7 @@
 												</tr>
 												<tr>
 													<td>Member Baru</td>
-													<td class="text-right">0</td>
+													<td id="totalMemberBaru" class="text-right">0</td>
 												</tr>
 												<tr>
 													<td>Jumlah item Buku</td>
@@ -245,159 +245,57 @@
 	
 	<script>
 		$(function() {
+			var sumUserVer = 0;
+			var sumUserNon = 0;
+			var sumBook = 0;
 			// Pie chart document.getElementById("uploadBuku")
-			new Chart(document.getElementById("uploadBuku"), {
-				type: 'pie',
-				data: {
-					labels: ["Member Terdaftar", "Member Baru", "Jumlah item Buku"],
-					datasets: [{
-						data: [2382, 1300, 64],
-						backgroundColor: [
-							window.theme.primary,
-							window.theme.warning,
-							window.theme.danger
-						],
-						borderWidth: 5
-					}]
-				},
-				options: {
-					responsive: !window.MSInputMethodContext,
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					cutoutPercentage: 75
-				}
-			});
-		});
-	</script>
-	<script>
-		$(function() {
-			// Bar chart
-			new Chart(document.getElementById("chartjs-dashboard-bar"), {
-				type: 'bar',
-				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-					datasets: [{
-						label: "This year",
-						backgroundColor: window.theme.primary,
-						borderColor: window.theme.primary,
-						hoverBackgroundColor: window.theme.primary,
-						hoverBorderColor: window.theme.primary,
-						data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-						barPercentage: .75,
-						categoryPercentage: .5
-					}]
-				},
-				options: {
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					scales: {
-						yAxes: [{
-							gridLines: {
+			firebase.database().ref("user").once('value', function(allRecord){
+				allRecord.forEach( function(child) { 
+					if(child.val().status == "verified"){
+						sumUserVer += 1;
+					}else{
+						sumUserNon += 1;
+					}
+				})
+			}).then(()=> {
+				getTotalBook()
+			})
+
+			function getTotalBook(){
+				firebase.database().ref("books").once('value', function(allRecord){
+				allRecord.forEach( function(child) { 
+					sumBook += 1;
+				})
+				}).then(()=> {
+					//function generateChart() {}
+					new Chart(document.getElementById("uploadBuku"), {
+						type: 'pie',
+						data: {
+							labels: ["Member Terdaftar", "Member Baru", "Jumlah item Buku"],
+							datasets: [{
+								data: [sumUserVer, sumUserNon, sumBook],
+								backgroundColor: [
+									window.theme.primary,
+									window.theme.warning,
+									window.theme.danger
+								],
+								borderWidth: 5
+							}]
+						},
+						options: {
+							responsive: !window.MSInputMethodContext,
+							maintainAspectRatio: false,
+							legend: {
 								display: false
 							},
-							stacked: false,
-							ticks: {
-								stepSize: 20
-							}
-						}],
-						xAxes: [{
-							stacked: false,
-							gridLines: {
-								color: "transparent"
-							}
-						}]
-					}
-				}
-			});
-		});
-	</script>
-	<script>
-		$(function() {
-			$("#world_map").vectorMap({
-				map: "world_mill",
-				normalizeFunction: "polynomial",
-				hoverOpacity: .7,
-				hoverColor: false,
-				regionStyle: {
-					initial: {
-						fill: "#e3eaef"
-					}
-				},
-				markerStyle: {
-					initial: {
-						"r": 9,
-						"fill": window.theme.primary,
-						"fill-opacity": .95,
-						"stroke": "#fff",
-						"stroke-width": 7,
-						"stroke-opacity": .4
-					},
-					hover: {
-						"stroke": "#fff",
-						"fill-opacity": 1,
-						"stroke-width": 1.5
-					}
-				},
-				backgroundColor: "transparent",
-				zoomOnScroll: false,
-				markers: [{
-						latLng: [31.230391, 121.473701],
-						name: "Shanghai"
-					},
-					{
-						latLng: [28.704060, 77.102493],
-						name: "Delhi"
-					},
-					{
-						latLng: [6.524379, 3.379206],
-						name: "Lagos"
-					},
-					{
-						latLng: [35.689487, 139.691711],
-						name: "Tokyo"
-					},
-					{
-						latLng: [23.129110, 113.264381],
-						name: "Guangzhou"
-					},
-					{
-						latLng: [40.7127837, -74.0059413],
-						name: "New York"
-					},
-					{
-						latLng: [34.052235, -118.243683],
-						name: "Los Angeles"
-					},
-					{
-						latLng: [41.878113, -87.629799],
-						name: "Chicago"
-					},
-					{
-						latLng: [51.507351, -0.127758],
-						name: "London"
-					},
-					{
-						latLng: [40.416775, -3.703790],
-						name: "Madrid"
-					}
-				]
-			});
-			setTimeout(function() {
-				$(window).trigger('resize');
-			}, 250)
-		});
-	</script>
-	<script>
-		$(function() {
-			$('#datetimepicker-dashboard').datetimepicker({
-				inline: true,
-				sideBySide: false,
-				format: 'L'
-			});
+							cutoutPercentage: 75
+						}
+					});
+				})
+			}
+			
+	
+
 		});
 	</script>
 
@@ -425,13 +323,20 @@
 		getMemberTotal()
 		function getMemberTotal(){
 			var total = 0;
+			var totalNew = 0;
 			dbMember.once('value', function(allRecord){
-				allRecord.forEach( function() {
-					total += 1;
+				allRecord.forEach( function(child) {
+					if(child.val().status == "verified") {
+						total += 1;
+					}else {
+						totalNew += 1;
+					}
 				})
 			}).then(() => {
 				$("#jumlahMember").html(total);
 				$("#totalMember").html(total);
+				$("#jumlahMemberBaru").html(totalNew);
+				$("#totalMemberBaru").html(totalNew);
 			});
 		}
 	</script>
