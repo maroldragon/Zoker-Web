@@ -886,7 +886,7 @@ function readBook() {
                     });
                 }
             })
-
+            
             getFileByIsbn(bookId)
         } else {
             console.log("Belum Login")
@@ -897,6 +897,8 @@ function readBook() {
 function getFileByIsbn(isbn) {
     dbRef.child("books").orderByChild("isbn").equalTo(isbn).on("value", function (snapshot) {
         snapshot.forEach(function (child) {
+            $("#textJudulBuku").text(child.val().judul);
+            $("#textPenulis").text(child.val().penulis);
             PDFObject.embed(child.val().file, "#viewBook");
         });
     }, function (errorObject) {
