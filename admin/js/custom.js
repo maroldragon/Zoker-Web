@@ -1,4 +1,4 @@
-saveDataUserToCsv()
+saveDataBookToCsv()
 function getNewPredictionRating(){
     $.ajax({
         url: 'algo/ratingPrediksi.csv',

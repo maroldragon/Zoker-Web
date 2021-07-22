@@ -2,6 +2,7 @@ const dbRef = firebase.database().ref();
 var user_id_all = ""
 // saveDataUserToCsv()
 // saveDataRatingToCsv()
+getNewPredictionRating()
 function getNewPredictionRating() {
     $.ajax({
         url: './admin/algo/ratingPrediksi.csv',
@@ -284,7 +285,7 @@ function addRecommendBook() {
             $("#textRecommendation").text("Rekomedasi")
             var user = firebase.auth().currentUser;
             var userId = user.uid;
-            dbRef.child("ratingPrediksi").orderByChild("idUser").equalTo(userId).limitToFirst(20).on("value", function (snapshot) {
+            dbRef.child("ratingPrediksi").orderByChild("idUser").equalTo(userId).on("value", function (snapshot) {
                 snapshot.forEach(function (child) {
                     var rate = "" + child.val().rating
                     dataBook.push(child)
@@ -295,7 +296,12 @@ function addRecommendBook() {
                     return a.val().rating - b.val().rating;
                 });
 
-                for (var key = dataBook.length - 1; key >= 0; key--) {
+                var mini = 0;
+                if(dataBook.length > 20) {
+                    mini = dataBook.length-20;
+                }
+                
+                for (var key = dataBook.length - 1; key >= mini; key--) {
                     console.log(dataBook[key].val())
                     generateRecommendBook(dataBook[key].val().idBuku, listBookRec);
                 }
@@ -589,7 +595,7 @@ function generateBookDetail() {
                     var a = moment(child.val().tanggal, 'MM/DD/YYYY HH:mm:ss').format('MM/DD/YYYY HH:mm:ss');
                     var b = moment()
                     var diffTime = moment.duration(b.diff(moment(a, 'MM/DD/YYYY HH:mm:ss')));
-                    if(diffTime.days() >= 5){
+                    if(diffTime.days() >= 7){
                         setBukuTerpinjamFinish(child.val().idPeminjaman);
                     }
                     if(child.val().status == "finished" && diffTime.days() >= 5){
@@ -603,7 +609,7 @@ function generateBookDetail() {
                             b = moment()
                             diffTime = moment.duration(b.diff(moment(a, 'MM/DD/YYYY HH:mm:ss')));
                             waktu = diffTime.days() + "Hari " + diffTime.hours() + " Jam " + diffTime.minutes() + " Menit " + diffTime.seconds() + " Detik";
-                            if(diffTime.days() >= 5){
+                            if(diffTime.days() >= 7){
                                 setBukuTerpinjamFinish(child.val().idPeminjaman);
                             }
                             $("#waktuPinjam").text(waktu);
@@ -742,7 +748,7 @@ function generateBukuTerpinjam() {
                     var b = moment()
                     var diffTime = moment.duration(b.diff(moment(a, 'MM/DD/YYYY HH:mm:ss')));
                     //waktu = diffTime.days() + "Hari " + diffTime.hours() + " Jam " + diffTime.minutes() + " Menit " + diffTime.seconds() + " Detik";
-                    if(diffTime.days() >= 5){
+                    if(diffTime.days() >= 7){
                         setBukuTerpinjamFinish(child.val().idPeminjaman);
                     }
                     if(child.val().status == "unfinished" && diffTime.days() < 5){

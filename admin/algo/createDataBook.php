@@ -11,6 +11,7 @@ if(isset($_POST["listBook"])){
 		fwrite($fp, $data[$i]."\n");
 	}
 	fclose($fp);
+	echo("sukses tambah Buku");
 }
 
 if(isset($_POST["listUser"])){
