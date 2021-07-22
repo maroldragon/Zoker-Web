@@ -150,6 +150,8 @@ function registerUser() {
         swal("Error", "Format Email Salah", "error");
     } else if(password == ""){
         swal("Error", "Password Tidak Boleh Kosong", "error");
+    } else if(password.length < 6){
+        swal("Error", "Password Minimal 6 Karakter", "error");
     } else if(passwordConfirm == ""){
         swal("Error", "Konfirmasi Password Tidak Boleh Kosong", "error");
     } else if (password != passwordConfirm) {

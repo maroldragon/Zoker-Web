@@ -520,7 +520,7 @@ function addPengujian(jenisPengujian, idPeng) {
             hasil: ""+hasil
         }).then(() => {
             console.log("Pengujian Ditambahkan")
-            swal("", "Pegunjian Ditambahkan", "success").then(()=> {
+            swal("", "Pengujian Ditambahkan", "success").then(()=> {
                 location.href = "./Pengujian.php?pengujian"
             })
         });
