@@ -58,6 +58,23 @@
       console.log(kategori);
       addKategoriBook(kategori)
     })
+
+    $("#inputKategori").html("")
+		var dataKategori = []
+		//const dbRef = firebase.database().ref();
+		dbRef.child("books").once('value', function (allRecord) {
+			allRecord.forEach(function (currentRecord) {
+				dataKategori[currentRecord.val().kategori] = 1;
+			})
+		}).then(() => {
+			console.log(dataKategori);
+			dataKategori.sort()
+      $("#inputKategori").append(`<option value="">Semua Kategori</option>`)
+			for( var key in dataKategori ) {
+				$("#inputKategori").append(`<option value=${key}>${key}</option>`)
+			}
+		});
+
   </script>
 </body>
 </html>
