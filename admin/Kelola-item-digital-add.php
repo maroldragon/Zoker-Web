@@ -141,23 +141,30 @@
 	<div id="overlay-dark"></div>
 
 	<?php
-	@include_once("sourceJS.html");
+		@include_once("sourceJS.html");
 	?>
 	<script src="js/app.js"></script>
 	<script src="js/custom.js"></script>
 	<script>
 		var status_new_kategori = false;
 
-		// $("#kategori").html()
-		// const dbRef = firebase.database().ref();
-		// dbRef.child("kategori").once('value', function (allRecord) {
-		// 	allRecord.forEach(function (currentRecord) {
-		// 		$("#kategori").appendChild("<option value=" + currentRecordactresses">Actresses</option>")
-		// 	})
-		// }).then(() => {
-		// 	export_rating(dataRating)
-		// });
+		$("#kategori").html("")
+		var dataKategori = []
+		const dbRef = firebase.database().ref();
+		dbRef.child("books").once('value', function (allRecord) {
+			allRecord.forEach(function (currentRecord) {
+				dataKategori[currentRecord.val().kategori] = 1;
+			})
+		}).then(() => {
+			console.log(dataKategori);
+			dataKategori.sort()
+			for( var key in dataKategori ) {
+				$("#kategori").append(`<option value=${key}>${key}</option>`)
+			}
+			$("#kategori").append(`<option value="other">other</option>`)
+		});
 
+		
 		$("#kategori").on("change", function() {
 			if($(this).val() == "other"){
 				$("#wrapNewKategori").removeClass("d-none")

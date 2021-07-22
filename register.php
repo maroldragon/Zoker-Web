@@ -41,7 +41,7 @@
       </div>
       <div class="col">
         <label class="inp-text-label" for="inputTanggalLahir">Tanggal Lahir</label>
-        <input type="date" class="form-control inp-text" id="inputTanggalLahir">
+        <input type="date" value="2000/01/01" class="form-control inp-text" id="inputTanggalLahir">
       </div>
     </div>
     <div class="row mb-2">

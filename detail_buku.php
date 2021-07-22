@@ -17,7 +17,9 @@
       <div class="col-md-4 pos-center pb-3">
         <img src="img/no_image.png" class="img-profil" alt="" id="imageBuku">
         <button type="button" class="btn btn-primary mt-4" id="buttonPinjamBuku">Pinjam Buku</button>
+        <p class="d-none" id="waktuPinjam">Waktu</p>
         <p>Rating (<span id="ratingBukuDetail"></span>)</p>
+        
       </div>
       <div class="col-md-8">
         <h1 id="textJudul"></h1>

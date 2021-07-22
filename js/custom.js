@@ -164,9 +164,15 @@ function registerUser() {
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                // ..
+                swal("Error", "Email Sudah Terdaftar", "error")
             });
     }
+
+    // function checkEmail(email){
+    //     firebase.auth().fetchSignInMethodsForEmail(email).once("value", function(snapshot) {
+    //         console.log(snapshot);
+    //     })
+    // }
 }
 
 function writeUserData(userId) {
@@ -180,33 +186,50 @@ function writeUserData(userId) {
     var kota = $("#inputKota").val();
     var alamat = $("#inputAlamat").val();
     var email = $("#inputEmail").val();
-    var formatEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-    let database = firebase.database();
+    var password = $("#inputPassword").val();
 
-    database.ref('user/' + userId).set({
-        userId: userId,
-        namaLengkap: namaLengkap,
-        userName: userName,
-        jenisKelamin: jenisKelamin,
-        tempatLahir: tempatLahir,
-        tanggalLahir: tanggalLahir,
-        negara: negara,
-        provinsi: provinsi,
-        kota: kota,
-        alamat: alamat,
-        email: email,
-        status: "unverified"
-    }).then(() => {
-        saveDataUserToCsv()
-        swal("Success", "Registrasi Berhasil, Akun Anda Akan Diverifikasi Terlebih Dahulu", "success").then(() => {
-            firebase.auth().signOut().then(function () {
-                location.href = "./index.php"
-            }).catch(function (error) {
-                // An error happened.
-            });
-        })
-    });
+    $.ajax({
+        url: "./createHashPassword.php",
+        type: "POST",
+        data: {
+            password: password,
+        }, success: function (response) {
+            console.log(response);
+            if (response) {
+                regNow(response)
+            }
+        }
+    })
+
+    function regNow(pass) {
+        let database = firebase.database();
+        database.ref('user/' + userId).set({
+            userId: userId,
+            namaLengkap: namaLengkap,
+            userName: userName,
+            jenisKelamin: jenisKelamin,
+            tempatLahir: tempatLahir,
+            tanggalLahir: tanggalLahir,
+            negara: negara,
+            provinsi: provinsi,
+            kota: kota,
+            alamat: alamat,
+            email: email,
+            status: "unverified",
+            password : pass
+        }).then(() => {
+            saveDataUserToCsv()
+            swal("Success", "Registrasi Berhasil, Akun Anda Akan Diverifikasi Terlebih Dahulu", "success").then(() => {
+                firebase.auth().signOut().then(function () {
+                    location.href = "./index.php"
+                }).catch(function (error) {
+                    // An error happened.
+                });
+            })
+        });
+    }
 }
+    
 
 function addCarousel() {
     var carousel = document.getElementById("carousel-book");
@@ -563,8 +586,33 @@ function generateBookDetail() {
 
             dbRef.child("peminjaman").orderByChild('idPeminjaman').equalTo(userId + "-" + isbnGet).on("value", function (snapshot) {
                 snapshot.forEach(function (child) {
-                    $("#buttonPinjamBuku").text("Buku Sudah Dipinjam");
-                    $("#buttonPinjamBuku").prop("disabled", true);
+                    var a = moment(child.val().tanggal, 'MM/DD/YYYY HH:mm:ss').format('MM/DD/YYYY HH:mm:ss');
+                    var b = moment()
+                    var diffTime = moment.duration(b.diff(moment(a, 'MM/DD/YYYY HH:mm:ss')));
+                    if(diffTime.days() >= 5){
+                        setBukuTerpinjamFinish(child.val().idPeminjaman);
+                    }
+                    if(child.val().status == "finished" && diffTime.days() >= 5){
+                        $("#buttonPinjamBuku").text("Pinjam Buku");
+                        $("#waktuPinjam").addClass("d-none");
+                        $("#buttonPinjamBuku").prop("disabled", false);
+                    }else{
+                        $("#buttonPinjamBuku").text("Buku Sudah Dipinjam");
+                        setInterval(function(){
+                            //var deadline = moment("12/22/2021 14:54:50", 'MM/DD/YYYY HH:mm:ss').format('MM/DD/YYYY HH:mm:ss'); 
+                            b = moment()
+                            diffTime = moment.duration(b.diff(moment(a, 'MM/DD/YYYY HH:mm:ss')));
+                            waktu = diffTime.days() + "Hari " + diffTime.hours() + " Jam " + diffTime.minutes() + " Menit " + diffTime.seconds() + " Detik";
+                            if(diffTime.days() >= 5){
+                                setBukuTerpinjamFinish(child.val().idPeminjaman);
+                            }
+                            $("#waktuPinjam").text(waktu);
+                        }, 1000)
+
+                        //$("#waktuPinjam").text(child.val().tanggal)
+                        $("#waktuPinjam").removeClass("d-none");
+                        $("#buttonPinjamBuku").prop("disabled", true);
+                    }
                 });
             }, function (errorObject) {
                 console.log(errorObject)
@@ -600,6 +648,12 @@ function generateBookDetail() {
         }
     })
 }
+
+function setBukuTerpinjamFinish(idPeminjaman) {
+    let database = firebase.database();
+    database.ref('peminjaman/' + idPeminjaman + "/status").set("finished");
+}
+
 function savePinjamBuku() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -609,7 +663,7 @@ function savePinjamBuku() {
             var bookId = isbnGet;
             var peminjamanId = userId + "-" + bookId;
             var date = new Date();
-            var tanggal = new Date().toLocaleString()
+            var tanggal = moment().format('MM/DD/YYYY HH:mm:ss');
             var status = "unfinished"
             var bukuTerpinjam = 0
             dbRef.child("user").child(userId).get().then((snapshot) => {
@@ -684,7 +738,17 @@ function generateBukuTerpinjam() {
 
             dbRef.child("peminjaman").orderByChild("idUser").equalTo(userId).on("value", function (snapshot) {
                 snapshot.forEach(function (child) {
-                    generateDataTersimpan(child.val().idBuku, listBookTerpinjam)
+                    var a = moment(child.val().tanggal, 'MM/DD/YYYY HH:mm:ss').format('MM/DD/YYYY HH:mm:ss');
+                    var b = moment()
+                    var diffTime = moment.duration(b.diff(moment(a, 'MM/DD/YYYY HH:mm:ss')));
+                    //waktu = diffTime.days() + "Hari " + diffTime.hours() + " Jam " + diffTime.minutes() + " Menit " + diffTime.seconds() + " Detik";
+                    if(diffTime.days() >= 5){
+                        setBukuTerpinjamFinish(child.val().idPeminjaman);
+                    }
+                    if(child.val().status == "unfinished" && diffTime.days() < 5){
+                        generateDataTersimpan(child.val().idBuku, listBookTerpinjam)
+                    }
+                    
                 })
             });
 
@@ -708,6 +772,46 @@ function generateDataTersimpan(bookId, listBookTerpinjam) {
                 "<div class='card-text' id='newCardPenulis'>" + child.val().penulis + "</div>" +
                 "<a href='baca_buku.php?read=" + child.val().isbn + "' class='btn btn-primary form-control' id='buttonBacaBuku'>Baca Buku</a>" +
                 "</div> </div> </div>"
+        });
+    }, function (errorObject) {
+        console.log(errorObject)
+    });
+}
+
+function generateRiwayatPinjaman() {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            //var isbnGet = (location.search.replace('?', '').split('='))[1];
+            var user = firebase.auth().currentUser;
+            var userId = user.uid;
+            $("#emptyRiwayat").css("display", "block")
+            var listBookRiwayat = document.getElementById("listBookRiwayat");
+            listBookRiwayat.innerHTML = ""
+
+            dbRef.child("peminjaman").orderByChild("idUser").equalTo(userId).on("value", function (snapshot) {
+                snapshot.forEach(function (child) {
+                    generateDataRiwayat(child.val().idBuku, listBookRiwayat)
+                })
+            });
+
+        } else {
+            console.log("You Not Login")
+        }
+    });
+}
+
+function generateDataRiwayat(bookId, listBookRiwayat) {
+    $("#emptyRiwayat").css("display", "none")
+    dbRef.child("books").orderByChild("isbn").equalTo(bookId).on("value", function (snapshot) {
+        snapshot.forEach(function (child) {
+            listBookRiwayat.innerHTML += "<div class='col-lg-2 col-md-4 col-sm-4 col-6'> <div class='card'>" +
+                "<div class='card-rating'>" +
+                "<i class='fas fa-star'></i><span id='newCardRating'>" + child.val().rating + "</span>" +
+                "</div>" +
+                "<img src='" + child.val().cover + "' class='card-img-top' alt='...' id='newCardImage'>" +
+                "<div class='card-body'>" +
+                "<a class='card-title' href='detail_buku.php?isbn=" + child.val().isbn + "' id='newCardJudul'>" + child.val().judul + "</a>" +
+                "<div class='card-text' id='newCardPenulis'>" + child.val().penulis+ "</div> </div>"
         });
     }, function (errorObject) {
         console.log(errorObject)

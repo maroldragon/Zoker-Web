@@ -157,6 +157,12 @@
 			}
 		});
 
+    $("#buttonSearch").click(function (e) {
+        e.preventDefault()
+        var search = $("#inputSearch").val();
+        location.href = "./search.php?search=" + search;
+    })
+
   </script>
 
 </body>
