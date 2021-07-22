@@ -32,12 +32,12 @@
         </div>
         <div class="mb-2">
           <label class="inp-text-label" for="inputPassword">Password</label>
-         <div class="input-group">
-         <input type="password" class="form-control inp-text pwd" id="inputPassword" placeholder="Password">
-          <button class="btn btn-select" type="button" id="showPassword">
-            <i class="fas fa-eye" id="iconShowPassword"></i>
-					</button>
-         </div>
+          <div class="input-group">
+            <input type="password" class="form-control inp-text pwd" id="inputPassword" placeholder="Password">
+            <button class="btn btn-select" type="button" id="showPassword">
+              <i class="fas fa-eye" id="iconShowPassword"></i>
+            </button>
+          </div>
         </div>
         <div class="row">
           <div class="col pos-right">

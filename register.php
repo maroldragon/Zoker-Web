@@ -41,7 +41,7 @@
       </div>
       <div class="col">
         <label class="inp-text-label" for="inputTanggalLahir">Tanggal Lahir</label>
-        <input type="date" value="2000/01/01" class="form-control inp-text" id="inputTanggalLahir">
+        <input type="date" value="2018-07-22" class="form-control inp-text" id="inputTanggalLahir">
       </div>
     </div>
     <div class="row mb-2">
@@ -73,11 +73,21 @@
     <div class="row mb-2">
       <div class="col">
         <label class="inp-text-label"  for="inputPassword">Password</label>
-        <input type="password" class="form-control inp-text" id="inputPassword">
+        <div class="input-group">
+          <input type="password" class="form-control inp-text" id="inputPassword">
+          <button class="btn btn-select" type="button" id="showPassword">
+              <i class="fas fa-eye" id="iconShowPassword"></i>
+          </button>
+        </div>
       </div>
       <div class="col">
         <label class="inp-text-label"  for="inputKonfirmasiPassword">Konfirmasi Password</label>
-        <input type="password" class="form-control inp-text" id="inputKonfirmasiPassword">
+        <div class="input-group">
+          <input type="password" class="form-control inp-text" id="inputKonfirmasiPassword">
+          <button class="btn btn-select" type="button" id="showKonfirmasiPassword">
+              <i class="fas fa-eye" id="iconShowKonfirmasiPassword"></i>
+          </button>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -94,10 +104,38 @@
   <script src="js/custom.js"></script>
 
   <script> 
-  $("#buttonDaftar").click(function(){
-    console.log("Daftar");
-    registerUser()
-  });
+    $("#buttonDaftar").click(function(){
+      console.log("Daftar");
+      registerUser()
+    });
+
+    $('#inputTanggalLahir').val(moment("2000/01/01").format('YYYY-MM-DD'));
+
+    $("#showPassword").on('click',function() {
+			var $pwd = $("#inputPassword");
+			if ($pwd.attr('type') === 'password') {
+				$pwd.attr('type', 'text');
+        $("#iconShowPassword").removeClass("fa-eye");
+        $("#iconShowPassword").addClass("fa-eye-slash");
+			} else {
+				$pwd.attr('type', 'password');
+        $("#iconShowPassword").removeClass("fa-eye-slash");
+        $("#iconShowPassword").addClass("fa-eye");
+			}
+		});
+
+    $("#showKonfirmasiPassword").on('click',function() {
+			var $pwd = $("#inputKonfirmasiPassword");
+			if ($pwd.attr('type') === 'password') {
+				$pwd.attr('type', 'text');
+        $("#iconShowKonfirmasiPassword").removeClass("fa-eye");
+        $("#iconShowKonfirmasiPassword").addClass("fa-eye-slash");
+			} else {
+				$pwd.attr('type', 'password');
+        $("#iconShowKonfirmasiPassword").removeClass("fa-eye-slash");
+        $("#iconShowKonfirmasiPassword").addClass("fa-eye");
+			}
+		});
   </script>
 
 </body>
