@@ -23,7 +23,7 @@
         <div class="carousel-item active">
           <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-5">
-              <img src="img/coverbook.jpg" class="carousel-img" alt="..." id="carouselImage">
+              <img src="img/no_image.png" class="carousel-img" alt="..." id="carouselImage">
             </div>
             <div class="col-lg-9 col-md-9 col-sm-7 pos-middle">
               <div class="d-inline mt-4 mb-4">
@@ -48,7 +48,7 @@
             <div class="card-rating">
               <i class="fas fa-star"></i><span id="newCardRating">4,5</span>
             </div>
-            <img src="img/coverbook.jpg" class="card-img-top" alt="..." id="newCardImage">
+            <img src="./img/no_image.png" class="card-img-top" alt="..." id="newCardImage">
             <div class="card-body">
               <a class="card-title" href="detail_buku.php" id="newCardJudul">Judul Buku</a>
               <div class="card-text" id="newCardPenulis">Penulis Buku</div>
@@ -69,7 +69,7 @@
             <div class="card-rating">
               <i class="fas fa-star"></i><span id="rekCardRating">4,5</span>
             </div>
-            <img src="img/coverbook.jpg" class="card-img-top" alt="..." id="rekCardImage">
+            <img src="img/no_image.png" class="card-img-top" alt="..." id="rekCardImage">
             <div class="card-body">
               <a class="card-title" href="detail_buku.php" id="rekCardJudul">Judul Buku</a>
               <div class="card-text" id="rekCardPenulis">Penulis Buku</div>
