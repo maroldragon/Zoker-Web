@@ -22,6 +22,9 @@
   <?php
     @include_once('footer.php')
   ?>
+  <?php
+    @include_once('sourceJs.php')
+  ?>
 
   <script src="js/custom.js"></script>
   <script>

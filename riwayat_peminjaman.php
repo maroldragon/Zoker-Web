@@ -11,6 +11,9 @@
   <?php
     @include_once('header.php')
   ?>
+  <?php
+    @include_once('sourceJs.php')
+  ?>
 
   <div class="container-lg form-content">
     <h1>Riwayat Peminjaman</h1>
