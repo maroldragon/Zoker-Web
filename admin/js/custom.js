@@ -633,8 +633,8 @@ function addPengujian(jenisPengujian, idPeng) {
 function tampilkanProsesPengujian(idPengujian, jenisPengujian, tanggal) {
     $("#pengujianHasil").addClass("d-none")
     $("#pengujianProses").removeClass("d-none");
-    $("#tanggalPengujian").text(jenisPengujian)
-    $("#jenisPengujian").text(tanggal)
+    $("#tanggalPengujian").text(tanggal)
+    $("#jenisPengujian").text(jenisPengujian)
 
     firebase.database().ref("pengujian").orderByChild("idPengujian").equalTo(idPengujian).once('value', function(allRecord){
         allRecord.forEach( function(child) { 
