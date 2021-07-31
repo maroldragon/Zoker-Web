@@ -2,7 +2,7 @@ const dbRef = firebase.database().ref();
 var user_id_all = ""
 // saveDataUserToCsv()
 // saveDataRatingToCsv()
-getNewPredictionRating()
+// getNewPredictionRating()
 function getNewPredictionRating() {
     $.ajax({
         url: './admin/algo/ratingPrediksi.csv',
@@ -284,7 +284,7 @@ function addRecommendBook() {
     firebase.auth().onAuthStateChanged(function (user) {
         let dataBook = []
         if (user) {
-            $("#textRecommendation").text("Rekomedasi")
+            $("#textRecommendation").text("Rekomendasi")
             var user = firebase.auth().currentUser;
             var userId = user.uid;
             dbRef.child("ratingPrediksi").orderByChild("idUser").equalTo(userId).on("value", function (snapshot) {
@@ -299,12 +299,12 @@ function addRecommendBook() {
                 });
 
                 var mini = 0;
-                if(dataBook.length > 20) {
-                    mini = dataBook.length-20;
-                }
+                // if(dataBook.length > 20) {
+                //     mini = dataBook.length-20;
+                // }
                 
                 for (var key = dataBook.length - 1; key >= mini; key--) {
-                    console.log(dataBook[key].val())
+                    //console.log(dataBook[key].val())
                     generateRecommendBook(dataBook[key].val().idBuku, listBookRec);
                 }
 
@@ -312,10 +312,13 @@ function addRecommendBook() {
                 console.log(errorObject)
             });
         } else {
-            $("#textRecommendation").text("Rekomedasi Populer")
+            $("#textRecommendation").text("Rekomendasi Populer")
             dbRef.child("books").orderByChild("rating").on("value", function (snapshot) {
                 snapshot.forEach(function (child) {
-                    dataBook.push(child)
+                    if(parseInt(child.val().rating) > 5){
+                        dataBook.push(child)
+                    }
+                    
                 });
 
                 dataBook.sort(function (a, b) {
@@ -609,7 +612,7 @@ function generateBookDetail() {
                         setInterval(function(){
                             b = moment()
                             diffTime = moment.duration(b.diff(moment(a, 'MM/DD/YYYY HH:mm:ss')));
-                            waktu = ("Sisa Waktu " + (6 - diffTime.days()) + " Hari " + (60 - diffTime.hours()) + ":" + (60 - diffTime.minutes()) + ":" + (60 - diffTime.seconds()));
+                            waktu = ("Sisa Waktu " + (6 - diffTime.days()) + " Hari " + (23 - diffTime.hours()) + ":" + (59 - diffTime.minutes()) + ":" + (59 - diffTime.seconds()));
                             if(diffTime.days() >= 7){
                                 setBukuTerpinjamFinish(child.val().idPeminjaman);
                             }
@@ -923,7 +926,7 @@ function tambahkanUlasan() {
             var ulasanValue = $("#inputUlasan").val();
             let database = firebase.database();
             var tanggal = new Date().toLocaleString()
-            if (ulasanValue.trim() != "") {
+            if (ulasanValue.trim() != "" || ulasanValue.trim() == "") {
                 dbRef.child("peminjaman").child(userId + "-" + isbnGet).get().then((snapshot) => {
                     if (snapshot.exists()) {
                         database.ref('ratings/' + ratingId).set({
@@ -940,7 +943,20 @@ function tambahkanUlasan() {
                             });
                         });
                     } else {
-                        swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
+                        database.ref('ratings/' + ratingId).set({
+                            idRating: ratingId,
+                            idBuku: bookId,
+                            idUser: userId,
+                            ulasan: ulasanValue,
+                            rating: rate,
+                            tanggal: tanggal
+                        }).then(() => {
+                            saveDataRatingToCsv()
+                            swal("Terima Kasih", "Rating Berhasil Dikirim", "success").then(function () {
+                                location.href = "./kategori.php"
+                            });
+                        });
+                        //swal("Error", "Lakukan Peminjaman terlebih Dahulu", "error")
                     }
                 })
             } else {

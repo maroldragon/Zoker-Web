@@ -1,14 +1,17 @@
+saveDataUserToCsv()
 saveDataBookToCsv()
+saveDataRatingToCsv()
+getNewPredictionRating()
 function getNewPredictionRating(){
     $.ajax({
-        url: 'algo/ratingPrediksi.csv',
+        url: './algo/ratingPrediksi.csv',
         dataType: 'text',
       }).done(successFunction);
     
     function successFunction(csv) {
         let data = []
         let allTextLines = csv.split(/\r\n|\n/);
-        for(let i=0;i<allTextLines.length;i++){
+        for(let i=1;i<allTextLines.length;i++){
             let row = allTextLines[i].split(';');
             let col = []
             for(let j=0;j<row.length;j++){
@@ -610,7 +613,6 @@ function addPengujian(jenisPengujian, idPeng) {
                             totalAbosuluteError += Math.pow(normalizationZero,2)
                             absoluteString += "("+normalizationZero.toFixed(2)+")" + "|" + "2".sup();
                         }
-                        
                     }
                     index += 1;
                     nilaiAbsolute = totalAbosuluteError
@@ -743,7 +745,7 @@ function export_user(arrayData) {
             listUser:arrayData,
         },success:function(response){
             getNewPredictionRating()
-            console.log(response);
+            //console.log(response);
             if(response) {
                 //location.reload();
             }

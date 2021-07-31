@@ -13,13 +13,13 @@ import random
 import sys
 
 parser = argparse.ArgumentParser(description='Chainer example: MNIST')
-parser.add_argument('--alpha', type=float, default="0.0001",
+parser.add_argument('--alpha', type=float, default="0.02",
                     help='The value of alpha')
-parser.add_argument('--beta', type=float, default='0.0001',
+parser.add_argument('--beta', type=float, default='0.02',
                     help='The beta of beta')
-parser.add_argument('--lambda_val', type=float, default='0.00001',
+parser.add_argument('--lambda_val', type=float, default='0.02',
                     help='The value of lambda')
-parser.add_argument('--corrupt_ratio', type=float, default='0.001',
+parser.add_argument('--corrupt_ratio', type=float, default='0.002',
                     help='The ratio for mSDA')
 parser.add_argument('--Epoch', type=int, default='100',
                     help='The value of Epoch')
@@ -128,7 +128,7 @@ training_ratio = 0.5
 num_item = df_train.shape[0]
 [m, p] = user_detail_train.shape
 [n, q] = item_detail_train.shape
-d = 5
+d = 10
 R = rating_detail_train
 X = np.transpose(user_detail_train)
 Y = np.transpose(item_detail_train)
@@ -153,9 +153,6 @@ R_mean = np.mean(np.asarray(R)[np.where(A == 1)])
 R_std = np.std(np.asarray(R)[np.where(A == 1)])
 R = (R - R_mean) / R_std
 R = np.asarray(R, dtype=np.float32)
-
-print("R")
-print(R)
 
 alpha = args.alpha
 beta = args.beta
@@ -305,12 +302,7 @@ for i in range(len(result)):
 
 f.close()
 
-MAE = np.absolute(np.array(R) - np.array(result))
-MAE = np.sum(MAE)/(len(result)*len(result[0]))
 print(result)
-print("=======================")
-print("MAE")
-print(MAE)
 
 ##print("final")
 ##print(final)
