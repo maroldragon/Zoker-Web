@@ -947,7 +947,7 @@ function tambahkanUlasan() {
                             idRating: ratingId,
                             idBuku: bookId,
                             idUser: userId,
-                            ulasan: ulasanValue,
+                            ulasan: ulasanValue+"-",
                             rating: rate,
                             tanggal: tanggal
                         }).then(() => {
