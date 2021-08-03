@@ -17,9 +17,9 @@ parser.add_argument('--alpha', type=float, default="0.0001",
                     help='The value of alpha')
 parser.add_argument('--beta', type=float, default='0.0001',
                     help='The beta of beta')
-parser.add_argument('--lambda_val', type=float, default='0.00001',
+parser.add_argument('--lambda_val', type=float, default='0.000017',
                     help='The value of lambda')
-parser.add_argument('--corrupt_ratio', type=float, default='0.001',
+parser.add_argument('--corrupt_ratio', type=float, default='0.002',
                     help='The ratio for mSDA')
 parser.add_argument('--Epoch', type=int, default='100',
                     help='The value of Epoch')
@@ -34,8 +34,6 @@ df_item = pd.read_csv('BX_Books.csv', sep=';', header=0, index_col=False)
 ############################
 # preprocessing
 ############################
-
-
 def preprocessing(df, df_user, df_item):
     kategori_list = sorted(list(set(df_item["kategori"])))
     kategori_dict = {}
@@ -135,17 +133,28 @@ Y = np.transpose(item_detail_train)
 X = np.asarray(X, dtype=np.float32)
 Y = np.asarray(Y, dtype=np.float32)
 
+##print("R")
+##print(R)
+tempR = np.asarray(R)
+##for i in range(len(tempR[0])-80):
+##    print("Col", i+1)
+##    for j in range(len(tempR)):
+####        if(j <=20 or j == len(tempR[0])-1):
+##        print(tempR[j][i], end = " ");
+##        print()
+##    print()
+
 tmp = list(range(num_item))
 random.shuffle(tmp)
 train_mask = tmp[0:int(training_ratio * len(tmp))]
 test_mask = tmp[int(training_ratio * len(tmp))::]
 non_zero_element = np.where(mask_detail_train == 1)
-print(train_mask) 
+##print(train_mask) 
 A = np.zeros([m, n])
 A[non_zero_element[0][train_mask], non_zero_element[1][train_mask]] = 1
 
-A_test = np.zeros([m, n])  # mask matrix for evaluation
-A_test[non_zero_element[0][test_mask], non_zero_element[1][test_mask]] = 1
+##A_test = np.zeros([m, n])  # mask matrix for evaluation
+##A_test[non_zero_element[0][test_mask], non_zero_element[1][test_mask]] = 1
 
 
 # normalization
@@ -154,8 +163,8 @@ R_std = np.std(np.asarray(R)[np.where(A == 1)])
 R = (R - R_mean) / R_std
 R = np.asarray(R, dtype=np.float32)
 
-print("R")
-print(R)
+##print("R")
+##print(R)
 
 alpha = args.alpha
 beta = args.beta
@@ -284,12 +293,9 @@ while(loss.data < loss_temp):
 output = [A,R,X,Y,W1,W2,P1,P2]
 numU = np.array(U.data)
 numV = np.array(V.data)
-##print("R")
 result = np.matmul(numU,np.transpose(numV))
 amin = np.amin(result)
 amax= np.amax(result)
-##print(amin)
-##print(amax)
 
 final = np.zeros([len(result),len(result[0])])
 f = open("ratingPrediksi.csv", "a")
@@ -305,17 +311,35 @@ for i in range(len(result)):
 
 f.close()
 
-MAE = np.absolute(np.array(R) - np.array(result))
-MAE = np.sum(MAE)/(len(result)*len(result[0]))
-print(result)
-print("=======================")
-print("MAE")
-print(MAE)
 
-##print("final")
-##print(final)
-##print(result)
+##print("FINAL")
+##for i in range(len(final[0])-1, 98,-1):
+##    print("Col", i+1)
+##    for j in range(len(final)):
+####        if(j <=20 or j == len(tempR[0])-1):
+##        flot = final[j][i]
+##        format_float = "{:.2f}".format(flot)
+##        print(format_float, end = " ");
+##        print()
+##    print()
 
 
-with open('output.dump', 'wb') as f:
-    pickle.dump(output, f)
+fm = open("ratingPrediksiMinNormal.csv", "a")
+fm.truncate(0)
+fm.write("user_id;item_id;rating\n")
+for i in range(len(result)):
+    for j in range(len(result[i])):
+        barisName = baris_rating_train[i]
+        kolomName = kolom_rating_train[j]
+        data = str(barisName)+";"+str(kolomName)+ ";" + str(result[i,j]) + "\n"
+        fm.write(data)
+fm.close()
+
+
+tempMAE = np.absolute(np.array(R) - np.array(result))
+tempRMSE = np.power(np.absolute(np.array(R) - np.array(result)),2)
+MAE = np.sum(tempMAE)/(len(result)*len(result[0]))
+RMSE = np.sqrt(np.sum(tempRMSE)/(len(result)*len(result[0])))
+
+print("MAE dan RMSE")
+print(MAE,";",RMSE)

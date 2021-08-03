@@ -115,3 +115,8 @@
   #dropdownPengujian {
     transform: translate3d(75%, 5px, 0px) !important;
   }
+
+  .data-data-rating {
+    font-size: 50px;
+    overflow: scroll;
+}

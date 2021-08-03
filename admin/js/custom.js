@@ -1,7 +1,7 @@
-saveDataUserToCsv()
-saveDataBookToCsv()
-saveDataRatingToCsv()
-getNewPredictionRating()
+//saveDataUserToCsv()
+//saveDataBookToCsv()
+//saveDataRatingToCsv()
+//getNewPredictionRating()
 function getNewPredictionRating(){
     $.ajax({
         url: './algo/ratingPrediksi.csv',
@@ -307,7 +307,7 @@ $("#btnSaveBook").click(function(e){
             rating: "5",
             tanggal: tanggal
         }).then(() => {
-            saveDataBookToCsv()
+            //saveDataBookToCsv()
             uploadImageCover();
         });
     }else {
@@ -388,10 +388,7 @@ function uploadBook() {
                 $("#myBar").css("display", "none");
                 let database = firebase.database();
                 database.ref('books/' + isbn.val() + "/file").set(downlaodURL).then(()=> {
-                    //saveDataBookToCsv()
-                    swal("Selamat", "Buku Berhasil Di Upload", "success").then(function(){ 
-                       location.href = "Kelola-item-digital.php?kelola_item";
-                    });
+                    saveDataBookToCsv()
                 })
                 // saveDataBookToCsv()
             });
@@ -497,20 +494,36 @@ function addPengujian(jenisPengujian, idPeng) {
     var tanggal = new Date().toLocaleString()
     var jumlahUser = 0
     var jumlahItem = 0
+    var jumlahRatingKosong = 0
     var nilaiAbsolute =  0
     var stringAbsoluteError = ""
     var std = 0
     var normalizationZero = 0
+    var hasil = 0;
     getMemberTotal()
+
+    function getHasil(jenisPengujian) {
+        $.ajax({
+            url: "./algo/createDataBook.php",
+            type:"POST",
+            data: {},
+            success:function(response){
+                var hasilSplit = response.split(";");
+                if(jenisPengujian == "MAE"){
+                    hasil = hasilSplit[0].trim()
+                    nilaiAbsolute = parseFloat(hasil)*(jumlahItem*jumlahUser)
+                }else {
+                    hasil = hasilSplit[1].trim()
+                }
+                console.log(hasil);
+                getRatarata()
+                //console.log("MAE : " + response);
+            }
+        })
+    }
 
     function add() {
         let database = firebase.database();
-        hasil = 0;
-        if(jenisPengujian == "MAE"){
-            hasil = nilaiAbsolute/(jumlahItem*jumlahUser)
-        }else {
-            hasil = Math.sqrt(nilaiAbsolute/(jumlahItem*jumlahUser))
-        }
         
         database.ref('pengujian/'+idPengujian).set({
             idPengujian : idPengujian,
@@ -518,6 +531,7 @@ function addPengujian(jenisPengujian, idPeng) {
             tanggal: tanggal,
             jumlahItem : ""+jumlahItem,
             jumlahUser : ""+jumlahUser,
+            jumlahRatingKosong : ""+(jumlahItem*jumlahUser)-jumlahRatingKosong,
             nilaiAbsoluteError : ""+nilaiAbsolute,
             stringAbsoluteError : stringAbsoluteError,
             hasil: ""+hasil
@@ -545,7 +559,7 @@ function addPengujian(jenisPengujian, idPeng) {
                 jumlahItem += 1;
             })
         }).then(() => {
-            getRatarata()
+            getHasil(jenisPengujian)
         });
     }
 
@@ -553,6 +567,7 @@ function addPengujian(jenisPengujian, idPeng) {
         var jumlah = 0;
         firebase.database().ref("ratings").once('value', function(allRecord){
             allRecord.forEach( function(child) { 
+                jumlahRatingKosong += 1
                 jumlah += parseFloat(child.val().rating)
             })
         }).then(()=> {
@@ -596,26 +611,27 @@ function addPengujian(jenisPengujian, idPeng) {
                     if (snapshot.exists()) {
                         var rat = ((snapshot.val().rating-ratarata)/std).toFixed(2)
                         if(rat < 0) {
-                            rat = "-" + rat;
+                            rat = "("+rat+")"
+                            //rat = "-" + rat;
                         }
                         if(jenisPengujian == "MAE"){
-                            totalAbosuluteError += Math.abs(child.val().rating - ((snapshot.val().rating-ratarata)/std))
+                            //totalAbosuluteError += Math.abs(child.val().rating - ((snapshot.val().rating-ratarata)/std))
                             absoluteString += rat + "|"
                         }else if(jenisPengujian == "RMSE"){
-                            totalAbosuluteError += Math.pow((child.val().rating - ((snapshot.val().rating-ratarata)/std)),2)
+                            //totalAbosuluteError += Math.pow((child.val().rating - ((snapshot.val().rating-ratarata)/std)),2)
                             absoluteString += rat + "|" + "2".sup()
                         } 
                     }else{
                         if(jenisPengujian == "MAE"){
-                            totalAbosuluteError += normalizationZero
+                            //totalAbosuluteError += normalizationZero
                             absoluteString += "("+normalizationZero.toFixed(2)+")" + "|";
                         }else if(jenisPengujian == "RMSE"){
-                            totalAbosuluteError += Math.pow(normalizationZero,2)
+                            //totalAbosuluteError += Math.pow(normalizationZero,2)
                             absoluteString += "("+normalizationZero.toFixed(2)+")" + "|" + "2".sup();
                         }
                     }
                     index += 1;
-                    nilaiAbsolute = totalAbosuluteError
+                    //nilaiAbsolute = totalAbosuluteError
                     stringAbsoluteError = absoluteString
                 })
             })
@@ -628,8 +644,8 @@ function addPengujian(jenisPengujian, idPeng) {
             
         });
     }
-    
 }
+
 //tampilkanProsesPengujian("RMSE", "10/23/23")
 
 function tampilkanProsesPengujian(idPengujian, jenisPengujian, tanggal) {
@@ -642,6 +658,7 @@ function tampilkanProsesPengujian(idPengujian, jenisPengujian, tanggal) {
         allRecord.forEach( function(child) { 
             $("#jumlahUser").html(child.val().jumlahUser);
             $("#jumlahItem").html(child.val().jumlahItem);
+            $("#jumlahRatingKosong").html(child.val().jumlahRatingKosong);
             $("#jumlahData").html(child.val().jumlahUser * child.val().jumlahItem)
             $("#totalAbsoluteError").html(child.val().stringAbsoluteError + " = " + child.val().nilaiAbsoluteError);
             if(jenisPengujian == "MAE"){
@@ -656,10 +673,7 @@ function tampilkanProsesPengujian(idPengujian, jenisPengujian, tanggal) {
 }
 function verifiedUser(idUser) {
     firebase.database().ref('user/' + idUser + "/status").set("verified")
-    swal("Suskses", "user dengan id " + idUser + "Sudah di verifikasi", "success").then(() => {
-        saveDataUserToCsv()
-        location.href = "kelola-member-verifikasi.php"
-    })
+    saveDataUserToCsv()
 }
 
 function deleteVerifikasi(idUser) {
@@ -694,10 +708,10 @@ function export_book(arrayData) {
             listBook:arrayData,
         },success:function(response){
             getNewPredictionRating()
-            console.log(response);
-            if(response) {
-                //location.reload();
-            }
+            //console.log(response);
+            swal("Selamat", "Buku Berhasil Di Upload", "success").then(function(){ 
+                location.href = "Kelola-item-digital.php?kelola_item";
+             });
         }
     })
 }
@@ -744,8 +758,11 @@ function export_user(arrayData) {
         data: {
             listUser:arrayData,
         },success:function(response){
-            getNewPredictionRating()
-            //console.log(response);
+            swal("Suskses", "User Sudah di Verifikasi", "success").then(() => {
+                getNewPredictionRating()
+            })
+            //location.href = "kelola-member-verifikasi.php"
+            console.log(response);
             if(response) {
                 //location.reload();
             }
