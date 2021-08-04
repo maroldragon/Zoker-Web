@@ -76,7 +76,7 @@
 							<div class="col-md-12 text-center">
 								<div class="btn-group btn-group ">
 									<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-										<div id="btn-pagination-list-user" class="btn-group mr-2" role="group" aria-label="First group">
+										<div id="btn-pagination-list-feeds" class="btn-group mr-2" role="group" aria-label="First group">
 											<!-- <button type="button" class="btn btn-secondary ">Previous</button>
 											<button type="button" class="btn btn-secondary active">1</button>
 											<button type="button" class="btn btn-secondary">2</button>
@@ -126,13 +126,89 @@
 			printData();
 		})
 		//=============================================================//
-		SelectAllData()
-		function SelectAllData(){
+
+
+
+		// SelectAllData()
+		// function SelectAllData(){
 			
-			//create table row
-			document.getElementById("data-table-feeds").style.textAlign = "left";
-			document.getElementById("data-table-feed").style.textAlign = "left";
+		// 	//create table row
+		// 	document.getElementById("data-table-feeds").style.textAlign = "left";
+		// 	document.getElementById("data-table-feed").style.textAlign = "left";
+		// 	var thead = document.getElementById("data-table-feed");
+		// 	var trow = document.createElement("tr");
+		// 	var td1 = document.createElement("th");
+		// 	var td2 = document.createElement("th");
+		// 	var td3 = document.createElement("th");
+		// 	var td4 = document.createElement("th");
+		// 	var td5 = document.createElement("th");
+		// 	td1.innerHTML = "No";
+		// 	td2.innerHTML = "ID FeedBack";
+		// 	td3.innerHTML = "Nama";
+		// 	td4.innerHTML = "Email";
+		// 	td5.innerHTML = "Pesan";
+			
+		// 	trow.appendChild(td1);
+		// 	trow.appendChild(td2);
+		// 	trow.appendChild(td3);
+		// 	trow.appendChild(td4);
+		// 	trow.appendChild(td5);
+
+		// 	thead.appendChild(trow)
+		// 	//end table row
+
+		// 	firebase.database().ref("feedback").once("value", function(allRecord){
+		// 		allRecord.forEach( function(currentRecord) {
+		// 			var idFeedback = currentRecord.val().feebackId
+		// 			var nama = currentRecord.val().nama
+		// 			var email = currentRecord.val().email
+		// 			var pesan = currentRecord.val().pesan
+		// 			addItemToTable(idFeedback,nama, email, pesan);
+		// 		})
+		// 	});
+		// }
+		// var fedNo = 0;
+		// //AddItemToTable()
+		// function addItemToTable(idFed, nama, email, pesan){
+			
+		// 	var tbody = document.getElementById("data-table-feeds");
+		// 	var trow = document.createElement("tr");
+		// 	var td1 = document.createElement("td");
+		// 	var td2 = document.createElement("td");
+		// 	var td3 = document.createElement("td");
+		// 	var td4 = document.createElement("td");
+		// 	var td5 = document.createElement("td");
+
+		// 	td1.innerHTML = ++fedNo;
+		// 	td2.innerHTML = idFed;
+		// 	td3.innerHTML = nama;
+		// 	td4.innerHTML = email;
+		// 	td5.innerHTML = pesan;
+
+		// 	trow.appendChild(td1);
+		// 	trow.appendChild(td2);
+		// 	trow.appendChild(td3);
+		// 	trow.appendChild(td4);
+		// 	trow.appendChild(td5);
+
+		// 	tbody.appendChild(trow)
+		// }
+
+
+
+
+
+		var no = 0;
+		var dataFeeds = [];
+		var dataFeedsSearch = [];
+		var tampil = 5;
+		var currentPage = 1;
+		var allPage = 1;
+		addData("");
+
+		function addData(keyword) {
 			var thead = document.getElementById("data-table-feed");
+			thead.innerHTML = ""
 			var trow = document.createElement("tr");
 			var td1 = document.createElement("th");
 			var td2 = document.createElement("th");
@@ -152,22 +228,63 @@
 			trow.appendChild(td5);
 
 			thead.appendChild(trow)
-			//end table row
 
+			dataFeeds = []
 			firebase.database().ref("feedback").once("value", function(allRecord){
 				allRecord.forEach( function(currentRecord) {
-					var idFeedback = currentRecord.val().feebackId
-					var nama = currentRecord.val().nama
-					var email = currentRecord.val().email
-					var pesan = currentRecord.val().pesan
-					addItemToTable(idFeedback,nama, email, pesan);
+					dataFeeds.push(currentRecord);
 				})
+			}).then(() => {
+				var sum = generateData(keyword);
+				addPagination(sum);
+				tampilkan();
 			});
 		}
-		var fedNo = 0;
-		//AddItemToTable()
-		function addItemToTable(idFed, nama, email, pesan){
-			
+
+		function generateData(keyword) {
+			dataFeedsSearch = [];
+			for (ids = 0; ids < dataFeeds.length; ids++) {
+				if ((dataFeeds[ids].val().email).toLowerCase().includes(keyword.toLowerCase())) {
+					dataFeedsSearch.push(dataFeeds[ids]);
+				}
+			}
+			return dataFeedsSearch.length;
+		}
+
+		function tampilkan(startAt = 1) {
+			currentPage = startAt;
+			if (startAt == 1) {
+				$("#btn-previous-list-book").addClass("disabled");
+			} else {
+				$("#btn-previous-list-book").removeClass("disabled");
+			}
+
+			if (startAt == allPage) {
+				$("#btn-next-list-book").addClass("disabled");
+			} else {
+				$("#btn-next-list-book").removeClass("disabled");
+			}
+
+			var dataTable = document.getElementById("data-table-feeds");
+			dataTable.innerHTML = "";
+			no = (startAt - 1) * tampil;
+			startAt = (startAt - 1) * tampil
+			var endAt = (startAt + tampil);
+			if (endAt > dataFeedsSearch.length) {
+				endAt = dataFeedsSearch.length
+			}
+
+			for (var i = startAt; i < endAt; i++) {
+				addDataToTable(dataFeedsSearch[i])
+			}
+		}
+
+		function addDataToTable(currentRecord) {
+			var idFed= currentRecord.val().feebackId;
+			var nama = currentRecord.val().nama;
+			var email = currentRecord.val().email;
+			var pesan = currentRecord.val().pesan;
+
 			var tbody = document.getElementById("data-table-feeds");
 			var trow = document.createElement("tr");
 			var td1 = document.createElement("td");
@@ -176,7 +293,7 @@
 			var td4 = document.createElement("td");
 			var td5 = document.createElement("td");
 
-			td1.innerHTML = ++fedNo;
+			td1.innerHTML = ++no;
 			td2.innerHTML = idFed;
 			td3.innerHTML = nama;
 			td4.innerHTML = email;
@@ -190,6 +307,89 @@
 
 			tbody.appendChild(trow)
 		}
+
+		function addPagination(sumData) {
+			var sumPage = Math.ceil(sumData / tampil);
+			allPage = sumPage;
+			var pagination = document.getElementById("btn-pagination-list-feeds");
+			pagination.innerHTML = "";
+			pagination.innerHTML = "<button id='btn-previous-list-book' type='button' class='btn btn-secondary disabled'>Previous</button>"
+
+			for (var page = 1; page <= sumPage; page++) {
+				if (page == sumPage) {
+					pagination.innerHTML += "<button id='btnPageTitik' type='button' class='btn btn-secondary btnPage disabled'>" + "..." + "</button>"
+					pagination.innerHTML += "<button id='btnPage" + page + "' onclick='changePage(" + page + ")' " + "type='button' class='btn btn-secondary btnPage'>" + page + "</button>"
+				} else {
+					pagination.innerHTML += "<button id='btnPage" + page + "' onclick='changePage(" + page + ")' " + "type='button' class='btn btn-secondary btnPage'>" + page + "</button>"
+				}
+			}
+
+			pagination.innerHTML += "<button id='btn-next-list-book' type='button' class='btn btn-secondary'>Next</button>"
+			$("#btnPage1").addClass("active");
+			$("#btn-previous-list-book").click(function() {
+				if ($("#btnPage" + (currentPage - 1)).hasClass("d-none")) {
+					$("#btnPage" + (currentPage - 1)).removeClass("d-none");
+					$("#btnPage" + (currentPage + 2)).addClass("d-none");
+					if (currentPage - 1 == 1) {
+						$("#btnPageTitik").removeClass("d-none");
+					}
+				}
+				changePage(currentPage - 1)
+			})
+			$("#btn-next-list-book").click(function() {
+				if ($("#btnPage" + (currentPage + 1)).hasClass("d-none")) {
+					$("#btnPage" + (currentPage + 1)).removeClass("d-none");
+					$("#btnPage" + (currentPage - 2)).addClass("d-none");
+					if (currentPage + 2 == sumPage) {
+						$("#btnPageTitik").addClass("d-none");
+					}
+				}
+				changePage(currentPage + 1)
+			})
+
+			if (sumPage < 5) {
+				$("#btnPageTitik").addClass("d-none");
+			} else {
+				for (var j = sumPage - 1; j > 3; j--) {
+					$("#btnPage" + j).addClass("d-none");
+				}
+			}
+		}
+
+		function changePage(num) {
+			offBtnPage();
+			$("#btnPage" + num).addClass("active");
+			tampilkan(num);
+		}
+
+		function offBtnPage() {
+			var btnPages = document.querySelectorAll(".btnPage");
+			btnPages.forEach(function(btn) {
+				btn.classList.remove("active");
+			})
+		}
+
+		$("#btnSearchBooklist").click(function(e) {
+			e.preventDefault();
+			var keyword = $("#searchBooklist").val()
+			addData(keyword);
+		})
+
+		$("#searchBooklist").keydown(function(e) {
+			if (event.keyCode == 13) {
+				var keyword = $("#searchBooklist").val()
+				addData(keyword);
+			}
+		})
+
+		$(window).keydown(function(event) {
+			if (event.keyCode == 13) {
+				event.preventDefault();
+				return false;
+			}
+		});
+
+
 	</script>
 
 </body>
