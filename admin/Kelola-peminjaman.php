@@ -49,18 +49,17 @@
 										</div>
 									</div>								 -->
 									<div class="form-group row">
-										<label class="col-form-label col-sm-2 text-sm-right">Urutkan</label>
+										<label class="col-form-label col-sm-2 text-sm-right">Urutkan Berdasarkan</label>
 										<div class="col-md-3">									
-											<select class="form-control  mb-3">
-												<option>Urutkan Berdasarkan</option>
-												<option>Nama Peminjaman A-Z</option>
-												<option>Peminjaman Terbaru</option>
-												</select>
+											<select id="value_urut" class="form-control  mb-3">
+												<option value="idBuku">ISBN Buku</option>
+												<option value="tanggal">Tanggal Peminjaman</option>
+											</select>
 										</div>
 									</div>								
 								</form>
 								<nav class="navbar ">
-									<button class="btn btn-primary">
+									<button id="btn_tampilkan_list" class="btn btn-primary">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
 											<path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
 											<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -114,8 +113,6 @@
 		</div>
 	</div>
 
-	<script src="js/app.js"></script>
-	<script src="js/vendor.js"></script>
 <?php
 	@include_once("sourceJS.html");
 ?>
@@ -124,12 +121,14 @@
 <script>
 
 SelectAllData()
-		function SelectAllData(){
-			
+		function SelectAllData(urut = "idBuku"){
+			var tbody = document.getElementById("data-table-pinjam");
+			tbody.innerHTML = ""
 			//create table row
 			document.getElementById("data-table-pinjam").style.textAlign = "left";
 			document.getElementById("data-table-head").style.textAlign = "left";
 			var thead = document.getElementById("data-table-head");
+			thead.innerHTML = ""
 			var trow = document.createElement("tr");
 			var td1 = document.createElement("th");
 			var td2 = document.createElement("th");
@@ -154,8 +153,8 @@ SelectAllData()
 
 			thead.appendChild(trow)
 			//end table row
-
-			firebase.database().ref("peminjaman").once("value", function(allRecord){
+			
+			firebase.database().ref("peminjaman").orderByChild(urut).once("value", function(allRecord){
 				allRecord.forEach( function(currentRecord) {
 					
 					var judul = currentRecord.val().idBuku
@@ -178,7 +177,6 @@ SelectAllData()
 			var td3 = document.createElement("td");
 			var td4 = document.createElement("td");
 			var td5 = document.createElement("td");
-			
 
 			td1.innerHTML = ++usrNo;
 			td2.innerHTML = usrname;
@@ -191,9 +189,13 @@ SelectAllData()
 			trow.appendChild(td3);
 			trow.appendChild(td4);
 			trow.appendChild(td5);
-
 			tbody.appendChild(trow)
 		}
+
+		$("#btn_tampilkan_list").click(function(e) {
+			e.preventDefault()
+			SelectAllData($("#value_urut").val())
+		})
 
 </script>
 

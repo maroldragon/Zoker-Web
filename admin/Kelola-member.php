@@ -112,10 +112,6 @@
 		</div>
 	</div>
 
-	
-
-	<script src="js/vendor.js"></script>
-
 	<?php
 	@include_once("sourceJS.html");
 	?>
