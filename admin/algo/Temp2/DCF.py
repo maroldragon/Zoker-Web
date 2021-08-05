@@ -21,6 +21,8 @@ parser.add_argument('--lambda_val', type=float, default='0.000017',
                     help='The value of lambda')
 parser.add_argument('--corrupt_ratio', type=float, default='0.002',
                     help='The ratio for mSDA')
+parser.add_argument('--Epoch', type=int, default='100',
+                    help='The value of Epoch')
 args = parser.parse_args()
 
 ############################
@@ -46,6 +48,12 @@ def preprocessing(df, df_user, df_item):
         item_detail.iloc[i, kategori_dict[df_item["kategori"].iloc[i]]] = 1
     item_detail.index = df_item["isbn"]
 
+##    print("item_detail")
+##    print(item_detail)
+
+##    item_detail = df_item[target_name]  # information about item
+##    item_detail.index = df_item["item_id"]
+
     negara_list = sorted(list(set(df_user["negara"])))
     negara_dict = {}
     for i in range(len(negara_list)):
@@ -61,7 +69,8 @@ def preprocessing(df, df_user, df_item):
     num_provinsi = len(provinsi_list)
 
     kolom_user = negara_list + provinsi_list
-
+##    print("kolom_user")
+##    print(kolom_user)
     user_detail = pd.DataFrame(np.zeros([num_user, num_negara+num_provinsi]), columns=kolom_user)# information abount user
     for i in range(num_user):
         user_detail.iloc[i, negara_dict[df_user["negara"].iloc[i]]] = 1
@@ -69,6 +78,9 @@ def preprocessing(df, df_user, df_item):
 
     user_detail.index = df_user["user_id"]
     user_detail["usia1-30"] = np.where(df_user["usia"] <= 30,1, 0)
+
+##    print("user_detail")
+##    print(user_detail)
 
     baris_rating = df_user["user_id"]
     user_id_dict = {}
@@ -86,11 +98,19 @@ def preprocessing(df, df_user, df_item):
     mask_detail = pd.DataFrame(np.zeros([num_user, num_kolom_rating]), columns=kolom_rating)# mask matrix
 
     rating_detail.index = baris_rating;
+##    rating_detail.columns = df_item["item_id"]
     
     mask_detail.index = baris_rating
+##    mask_detail.columns = df_item["item_id"]
+##    print("rating_detail")
+##    print(rating_detail)
     for i in range(df.shape[0]):
+##        print(df["rating"].iloc[i])
         rating_detail.loc[df["user_id"].iloc[i], df["item_id"].iloc[i]] = df["rating"].iloc[i]
         mask_detail.loc[df["user_id"].iloc[i], df["item_id"].iloc[i]] = 1
+
+##    print("rating_detail")
+##    print(rating_detail)
     
     return [item_detail, user_detail, rating_detail, mask_detail, baris_rating, kolom_rating]
 
@@ -113,13 +133,29 @@ Y = np.transpose(item_detail_train)
 X = np.asarray(X, dtype=np.float32)
 Y = np.asarray(Y, dtype=np.float32)
 
+##print("R")
+##print(R)
+tempR = np.asarray(R)
+##for i in range(len(tempR[0])-80):
+##    print("Col", i+1)
+##    for j in range(len(tempR)):
+####        if(j <=20 or j == len(tempR[0])-1):
+##        print(tempR[j][i], end = " ");
+##        print()
+##    print()
+
 tmp = list(range(num_item))
 random.shuffle(tmp)
 train_mask = tmp[0:int(training_ratio * len(tmp))]
 test_mask = tmp[int(training_ratio * len(tmp))::]
 non_zero_element = np.where(mask_detail_train == 1)
+##print(train_mask) 
 A = np.zeros([m, n])
 A[non_zero_element[0][train_mask], non_zero_element[1][train_mask]] = 1
+
+##A_test = np.zeros([m, n])  # mask matrix for evaluation
+##A_test[non_zero_element[0][test_mask], non_zero_element[1][test_mask]] = 1
+
 
 # normalization
 R_mean = np.mean(np.asarray(R)[np.where(A == 1)])
@@ -127,10 +163,14 @@ R_std = np.std(np.asarray(R)[np.where(A == 1)])
 R = (R - R_mean) / R_std
 R = np.asarray(R, dtype=np.float32)
 
+##print("R")
+##print(R)
+
 alpha = args.alpha
 beta = args.beta
 lambda_val = args.lambda_val
 corrupt_ratio = args.corrupt_ratio  # the ratio for mSDA
+Epoch = args.Epoch
 
 np.random.seed(100)
 W1 = np.random.rand(p, p).astype(np.float32)
@@ -180,6 +220,7 @@ def update_W2(Y, lambda_val, corrupt_ratio, P2, V, q):
 
 
 class Model(chainer.Chain):
+
     def __init__(self, m, n, d):
         super(Model, self).__init__()
         with self.init_scope():
@@ -209,24 +250,45 @@ V = model.v.W
 loss_temp = sys.maxsize
 loss = model.obtain_loss(lambda_val, P1, W1, X, P2, W2, Y, A, R, alpha, beta)
 model.zerograds()
+##print("epoch ", loss)
 loss.backward()
 optimizer.update()
 U = model.u.W.data
 V = model.v.W.data
+index = 1
 
 while(loss.data < loss_temp):
     loss_temp = loss.data
-    W1 = update_W1(X, lambda_val, corrupt_ratio, P1, U, p)
-    W2 = update_W2(Y, lambda_val, corrupt_ratio, P2, V, q)
-    P1 = update_P1(W1, X, U)
-    P2 = update_P2(W2, Y, V)
+    W1 = update_W1(X, lambda_val, corrupt_ratio, P1, U, p) #np.asarray(w1).astype(np.float32)
+    W2 = update_W2(Y, lambda_val, corrupt_ratio, P2, V, q) #np.asarray(w2).astype(np.float32)
+    P1 = update_P1(W1, X, U) #np.asarray(p1).astype(np.float32)
+    P2 = update_P2(W2, Y, V) #np.asarray(p2).astype(np.float32)
     model.zerograds()
     loss = model.obtain_loss(lambda_val, P1, W1, X, P2, W2, Y, A, R, alpha, beta)
 
+##    print("epoch ", loss)
     loss.backward()
     optimizer.update()
     U = model.u.W.data
     V = model.v.W.data
+    if(index == Epoch):
+        break
+    index = index + 1
+
+##for epoch in range(Epoch):
+##    W1 = update_W1(X, lambda_val, corrupt_ratio, P1, U, p)
+##    W2 = update_W2(Y, lambda_val, corrupt_ratio, P2, V, q)
+##    P1 = update_P1(W1, X, U)
+##    P2 = update_P2(W2, Y, V)
+##    loss = model.obtain_loss(lambda_val, P1, W1, X, P2, W2, Y, A, R, alpha, beta)
+##
+##    model.zerograds()
+##    loss = model.obtain_loss(lambda_val, P1, W1, X, P2, W2, Y, A, R, alpha, beta)
+##    print("epoch", loss.data)
+##    loss.backward()
+##    optimizer.update()
+##    U = model.u.W
+##    V = model.v.W
 
 output = [A,R,X,Y,W1,W2,P1,P2]
 numU = np.array(U.data)
@@ -250,24 +312,7 @@ for i in range(len(result)):
 f.close()
 
 
-tempMAE = np.absolute(np.array(R) - np.array(result))
-tempRMSE = np.power(np.absolute(np.array(R) - np.array(result)),2)
-MAE = np.sum(tempMAE)/(len(result)*len(result[0]))
-RMSE = np.sqrt(np.sum(tempRMSE)/(len(result)*len(result[0])))
-
-print("MAE dan RMSE")
-print(MAE,";",RMSE)
-
-
-##tempR = np.asarray(R)
-##for i in range(len(tempR[0])-80):
-##    print("Col", i+1)
-##    for j in range(len(tempR)):
-####        if(j <=20 or j == len(tempR[0])-1):
-##        print(tempR[j][i], end = " ");
-##        print()
-##    print()
-
+##print("FINAL")
 ##for i in range(len(final[0])-1, 98,-1):
 ##    print("Col", i+1)
 ##    for j in range(len(final)):
@@ -278,13 +323,23 @@ print(MAE,";",RMSE)
 ##        print()
 ##    print()
 
-##fm = open("ratingPrediksiMinNormal.csv", "a")
-##fm.truncate(0)
-##fm.write("user_id;item_id;rating\n")
-##for i in range(len(result)):
-##    for j in range(len(result[i])):
-##        barisName = baris_rating_train[i]
-##        kolomName = kolom_rating_train[j]
-##        data = str(barisName)+";"+str(kolomName)+ ";" + str(result[i,j]) + "\n"
-##        fm.write(data)
-##fm.close()
+
+fm = open("ratingPrediksiMinNormal.csv", "a")
+fm.truncate(0)
+fm.write("user_id;item_id;rating\n")
+for i in range(len(result)):
+    for j in range(len(result[i])):
+        barisName = baris_rating_train[i]
+        kolomName = kolom_rating_train[j]
+        data = str(barisName)+";"+str(kolomName)+ ";" + str(result[i,j]) + "\n"
+        fm.write(data)
+fm.close()
+
+
+tempMAE = np.absolute(np.array(R) - np.array(result))
+tempRMSE = np.power(np.absolute(np.array(R) - np.array(result)),2)
+MAE = np.sum(tempMAE)/(len(result)*len(result[0]))
+RMSE = np.sqrt(np.sum(tempRMSE)/(len(result)*len(result[0])))
+
+print("MAE dan RMSE")
+print(MAE,";",RMSE)
